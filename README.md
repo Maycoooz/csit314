@@ -3,8 +3,8 @@ Windows
 1. Download/Clone the repo onto your computer
 2. cd into backend folder
 3. in the CLI input: python -m venv venv 
-4. in the CLI input: .\venv\Scripts\Activate 
-5  in the CLI input: python -m pip install -r requirements.txt 
+4. in the CLI input: .\venv\Scripts\Activate
+5. in the CLI input: python -m pip install -r requirements.txt 
 6. cd back out into the main directory: cd ..
 7. in the CLI input: uvicorn backend.main:app --reload
 
