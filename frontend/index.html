@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Login</title>
+</head>
+<body>
+    <form id="loginForm">
+        <p>Enter username: <input type="text" id="username" required></p>
+        <p>Enter password: <input type="password" id="password" required></p>
+        <p><input type="submit" value="Login"></p>
+    </form>
+
+    <p id="responseMessage"></p>
+
+    <script>
+        const form = document.getElementById("loginForm");
+        const msg = document.getElementById("responseMessage");
+
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            const response = await fetch("http://localhost:8000/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    username: document.getElementById("username").value,
+                    password: document.getElementById("password").value
+                })
+            });
+
+            const result = await response.json();
+            msg.innerText = result.message;
+        });
+    </script>
+</body>
+</html>
