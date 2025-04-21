@@ -18,5 +18,6 @@ macOS
 6. cd back out into the main directory: cd ..
 7. in the CLI input: uvicorn backend.main:app --reload
 
-It is now listening on port 8000
-Can go to localhost:8000/docs to view in FastAPI Swagger UI to see the routes
+
+- It is now listening on port 8000
+- Can go to localhost:8000/docs to view in FastAPI Swagger UI to see the routes
