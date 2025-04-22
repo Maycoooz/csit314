@@ -1,0 +1,15 @@
+login-app/
+├── public/
+├── src/
+│   ├── components/
+│   │   └── LoginForm.jsx       ← The reusable login form logic + UI
+│
+│   ├── pages/
+│   │   └── LoginPage.jsx       ← Route-level wrapper that uses LoginForm
+│
+│   ├── services/
+│   │   └── authService.js      ← POST request logic to FastAPI
+│
+│   ├── App.js                  ← App router + page linking
+│   ├── index.js                ← ReactDOM.render
+│   └── App.css                 ← Global styles (optional)
