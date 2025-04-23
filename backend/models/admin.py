@@ -18,7 +18,7 @@ class Admin(User):
             
             return cursor.rowcount == 1
         except mysql.connector.Error as err:
-            print("Error creating account: {err}") # for debugging remove once done 
+            print("Error creating account:", err) # for debugging remove once done 
             return False
         finally:
             cursor.close()

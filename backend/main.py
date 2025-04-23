@@ -37,11 +37,11 @@ def login(data: LoginRequest):
     else:
         return {"message": "Invalid username or password"}
     
-# Admin create account, need log which admin created the account?
+# Admin create account, do we need log which admin created the account?
 @app.post("/createAccount")
-def create_account(data: CreateAccountRequest): # need make schema for CreateAccountRequest (admin_username, new_username, new_password)
+def create_account(data: CreateAccountRequest):
     controller = CreateAccountController()
-    success = controller.create_account(data.admin_username, data.new_username, data.new_password)
+    success = controller.create_account(data.new_username, data.new_password)
     
     if success:
         return {"message": "Account successfully created"}
