@@ -31,9 +31,3 @@ class User(BaseModel):
             return True
         else:
             return False
-        
-    def logout(self):
-        pass
-    
-    def register(self, username, password):
-        pass

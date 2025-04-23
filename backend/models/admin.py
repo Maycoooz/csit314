@@ -6,7 +6,23 @@ class Admin(User):
 
     # CRUDS for user accounts
     def create_account(self, new_username, new_password):
-        pass
+        conn = self.connect_database()
+        cursor = conn.cursor()
+        
+        try:
+            prepared_statement = "INSERT INTO users (username, password) VALUES (%s, %s)"
+            values = (new_username, new_password)
+            
+            cursor.execute(prepared_statement, values)
+            conn.commit()
+            
+            return cursor.rowcount == 1
+        except mysql.connector.Error as err:
+            print("Error creating account: {err}") # for debugging remove once done 
+            return False
+        finally:
+            cursor.close()
+            conn.close()
     
     def view_all_accounts(self):
         pass
