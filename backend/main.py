@@ -4,9 +4,9 @@ from fastapi.middleware.cors import CORSMiddleware
 from typing import List
 
 from backend.schemas.login_schema import LoginRequest
-from backend.schemas.create_account_schema import CreateAccountRequest
+from backend.schemas.admin_schemas import CreateAccountRequest, UserOut
 from backend.controllers.login_controller import LoginController
-from backend.controllers.create_account_controller import CreateAccountController
+from backend.controllers.admin_controller import CreateAccountController, ViewAllAccountsController
 
 app = FastAPI()
 
@@ -47,3 +47,12 @@ def create_account(data: CreateAccountRequest):
         return {"message": "Account successfully created"}
     else:
         return {"message": "Account creation failed"}
+    
+# Admin view all accounts 
+# response_model ensures that what we return is actually what is specified
+@app.post("/viewAllAccounts", response_model=List[UserOut])
+def view_all_accounts():
+    controller = ViewAllAccountsController()
+    users = controller.view_all_accounts()
+    
+    return users

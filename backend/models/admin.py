@@ -25,8 +25,24 @@ class Admin(User):
             conn.close()
     
     def view_all_accounts(self):
-        pass
+        conn = self.connect_database()
+        cursor = conn.cursor(dictionary=True)
+        
+        prepared_statement = "SELECT * FROM users"
+        cursor.execute(prepared_statement)
+        users = cursor.fetchall()
+        
+        cursor.close()
+        conn.close()
+        return users
     
+        # structure of users (list of dictionaries)
+        # [
+        #     { "username": "admin1", "password": "123", "status": "active", "role": "none" },
+        #     { "username": "admin2", "password": "123", "status": "active", "role": "none" }
+        # ]
+
+
     def search_account(self, target_username):
         pass
     
