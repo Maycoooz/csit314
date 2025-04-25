@@ -1,12 +1,15 @@
 DROP TABLE IF EXISTS Users;
 
 CREATE TABLE USERS (
-    Username VARCHAR(255) NOT NULL PRIMARY KEY, 
-    Password VARCHAR(255) NOT NULL,
-    Status ENUM ("active", "suspended") NOT NULL DEFAULT 'active',
-    Role ENUM ("admin", "cleaner", "home owner", "platform management", "none") NOT NULL DEFAULT 'none'
+    username VARCHAR(255) NOT NULL PRIMARY KEY, 
+    password VARCHAR(255) NOT NULL,
+    status ENUM ("active", "suspended") NOT NULL DEFAULT 'active',
+    role ENUM ("admin", "cleaner", "home owner", "platform management", "none") NOT NULL DEFAULT 'none'
 );
 
--- Insert admin user with default Status and Role
-INSERT INTO USERS (Username, Password) VALUES ("admin", "123");
+-- Insert test users with default Status and Role
+INSERT INTO USERS (username, password) VALUES ("admin1", "123");
+INSERT INTO USERS (username, password) VALUES ("admin2", "123");
+INSERT INTO USERS (username, password) VALUES ("cleaner1", "123");
+INSERT INTO USERS (username, password) VALUES ("home owner", "123");
 
