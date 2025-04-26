@@ -4,9 +4,9 @@ from fastapi.middleware.cors import CORSMiddleware
 from typing import List
 
 from backend.schemas.login_schema import LoginRequest
-from backend.schemas.admin_schemas import CreateAccountRequest, UserOut
+from backend.schemas.admin_schemas import CreateAccountRequest, UserOut, SearchAccountRequest
 from backend.controllers.login_controller import LoginController
-from backend.controllers.admin_controller import CreateAccountController, ViewAllAccountsController
+from backend.controllers.admin_controller import CreateAccountController, ViewAllAccountsController, SearchAccountController
 
 app = FastAPI()
 
@@ -54,5 +54,14 @@ def create_account(data: CreateAccountRequest):
 def view_all_accounts():
     controller = ViewAllAccountsController()
     users = controller.view_all_accounts()
+    
+    return users
+
+# Admin search accounts by a keyword
+# response_model ensures that what we return matches the specified schema
+@app.post("/searchAccount", response_model=List[UserOut])
+def search_account(data: SearchAccountRequest):
+    controller = SearchAccountController()
+    users = controller.search_account(data)
     
     return users

@@ -1,6 +1,7 @@
 from pydantic import BaseModel
 import mysql.connector
 from backend.models.user import User
+from typing import Dict
 
 class Admin(User):
 
@@ -43,8 +44,31 @@ class Admin(User):
         # ]
 
 
-    def search_account(self, target_username):
-        pass
+    # Search accounts based on dynamic filters
+    def search_account(self, filters: Dict[str, str]):
+        conn = self.connect_database()
+        cursor = conn.cursor(dictionary=True)
+
+        # Build the query with dynamic filters
+        prepared_statement = "SELECT * FROM users WHERE 1=1"
+        values = []
+        
+        for field, value in filters.items():
+            if value:  # Only add to filter if the field has a value
+                prepared_statement += f" AND {field} = %s"
+                values.append(value)
+        
+        try:
+            cursor.execute(prepared_statement, tuple(values))
+            results = cursor.fetchall()
+        except mysql.connector.Error as err:
+            print(f"Error searching account: {err}")
+            results = []
+        finally:
+            cursor.close()
+            conn.close()
+
+        return results
     
     def suspend_account(self, target_username):
         pass
