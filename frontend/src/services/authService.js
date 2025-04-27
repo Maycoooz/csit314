@@ -15,3 +15,24 @@ export async function loginUser(credentials) {
 
     return result;
 }
+
+//-------------------------------------------------------------------------------
+
+export async function createUserAccount(data) {
+    const response = await fetch("http://localhost:8000/createAccount", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+    });
+
+    const result = await response.json();
+
+    if (!response.ok) {
+        throw new Error(result.message || "Account creation failed");
+    }
+
+    return result;
+}
+
