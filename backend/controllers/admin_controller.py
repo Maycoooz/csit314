@@ -41,7 +41,14 @@ class SuspendAccountController:
     def __init__(self):
         pass
     
-    def suspend_account(seld, target_username: str) -> bool:
+    def suspend_account(self, target_username: str) -> bool:
         admin = Admin(username="", password="")
         return admin.suspend_account(target_username)
     
+class UpdateAccountController:
+    def __init__(self):
+        pass
+    
+    def update_account(self, target_username: str, updated_username: str, updated_password: str) -> bool:
+        admin = Admin(username="", password="")
+        return admin.update_account(target_username, updated_username, updated_password)

@@ -89,11 +89,26 @@ class Admin(User):
             print(f"No account found with username '{target_username}'.")
             return False
             
-        
-
     
-    def update_account(self, updated_username, updated_password, updated_role):
-        pass
+    # Admin update account, update account only columns (username, password) in db with specified fields
+    def update_account(self, target_username, updated_username, updated_password):
+        conn = self.connect_database()
+        cursor = conn.cursor(dictionary=True)
+        
+        prepared_statement = "UPDATE users SET username = %s, password = %s WHERE username = %s"
+        values = (updated_username, updated_password, target_username)
+        
+        cursor.execute(prepared_statement, values)
+        conn.commit()
+        
+        cursor.close()
+        conn.close()
+        
+        if cursor.rowcount > 0:
+            return True
+        else:
+            print(f"Error updating account of '{target_username}'")
+            return False
     
     # CRUDS for user profile
     def create_profile(self, target_username, new_profile):

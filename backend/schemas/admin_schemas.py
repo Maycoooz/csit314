@@ -4,7 +4,7 @@ class CreateAccountRequest(BaseModel):
     new_username: str
     new_password: str
 
-# For admin view all accounts
+# For admin view all accounts (response_model)
 class UserOut(BaseModel):
     username: str 
     password: str 
@@ -19,3 +19,8 @@ class SearchAccountRequest(BaseModel):
     
 class SuspendAccountRequest(BaseModel):
     username: str
+    
+class UpdateAccountRequest(BaseModel):
+    target_username: str
+    updated_username: str
+    updated_password: str

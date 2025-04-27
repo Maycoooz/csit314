@@ -4,9 +4,9 @@ from fastapi.middleware.cors import CORSMiddleware
 from typing import List
 
 from backend.schemas.login_schema import LoginRequest
-from backend.schemas.admin_schemas import CreateAccountRequest, UserOut, SearchAccountRequest, SuspendAccountRequest
+from backend.schemas.admin_schemas import CreateAccountRequest, UserOut, SearchAccountRequest, SuspendAccountRequest, UpdateAccountRequest
 from backend.controllers.login_controller import LoginController
-from backend.controllers.admin_controller import CreateAccountController, ViewAllAccountsController, SearchAccountController, SuspendAccountController
+from backend.controllers.admin_controller import CreateAccountController, ViewAllAccountsController, SearchAccountController, SuspendAccountController, UpdateAccountController
 
 app = FastAPI()
 
@@ -69,5 +69,12 @@ def search_account(data: SearchAccountRequest):
 def suspend_account(data: SuspendAccountRequest) -> bool:
     controller = SuspendAccountController()
     success = controller.suspend_account(data.username)
+    
+    return success
+
+@app.post("/updateAccount")
+def update_account(data: UpdateAccountRequest) -> bool:
+    controller = UpdateAccountController()
+    success = controller.update_account(data.target_username, data.updated_username, data.updated_password)
     
     return success
