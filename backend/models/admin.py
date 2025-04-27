@@ -71,9 +71,28 @@ class Admin(User):
         return results
     
     def suspend_account(self, target_username):
-        pass
+        conn = self.connect_database()
+        cursor = conn.cursor(dictionary=True)
+        
+        prepared_statement = "UPDATE users SET status = %s WHERE username = %s"
+        values = ('suspended', target_username)
+        
+        cursor.execute(prepared_statement, values)
+        conn.commit()
+        
+        cursor.close()
+        conn.close()
+        
+        if cursor.rowcount > 0:
+            return True
+        else:
+            print(f"No account found with username '{target_username}'.")
+            return False
+            
+        
+
     
-    def update_account(self, updated_username, updated_password):
+    def update_account(self, updated_username, updated_password, updated_role):
         pass
     
     # CRUDS for user profile

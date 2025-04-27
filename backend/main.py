@@ -4,9 +4,9 @@ from fastapi.middleware.cors import CORSMiddleware
 from typing import List
 
 from backend.schemas.login_schema import LoginRequest
-from backend.schemas.admin_schemas import CreateAccountRequest, UserOut, SearchAccountRequest
+from backend.schemas.admin_schemas import CreateAccountRequest, UserOut, SearchAccountRequest, SuspendAccountRequest
 from backend.controllers.login_controller import LoginController
-from backend.controllers.admin_controller import CreateAccountController, ViewAllAccountsController, SearchAccountController
+from backend.controllers.admin_controller import CreateAccountController, ViewAllAccountsController, SearchAccountController, SuspendAccountController
 
 app = FastAPI()
 
@@ -65,3 +65,13 @@ def search_account(data: SearchAccountRequest):
     users = controller.search_account(data)
     
     return users
+
+@app.post("/suspendAccount")
+def suspend_account(data: SuspendAccountRequest):
+    controller = SuspendAccountController()
+    success = controller.suspend_account(data.username)
+    
+    if success:
+        return {"message": "Account suspended"}
+    else:
+        return {"message": "Error suspending account"}

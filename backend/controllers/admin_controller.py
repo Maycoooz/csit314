@@ -36,3 +36,12 @@ class SearchAccountController:
         
         # Pass the filters to the Admin model's search method
         return admin.search_account(search_filters)
+    
+class SuspendAccountController:
+    def __init__(self):
+        pass
+    
+    def suspend_account(seld, target_username: str) -> bool:
+        admin = Admin(username="", password="")
+        return admin.suspend_account(target_username)
+    

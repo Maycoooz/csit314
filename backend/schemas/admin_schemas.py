@@ -13,6 +13,9 @@ class UserOut(BaseModel):
 
 # For searching accounts by multiple fields (name, email, role)
 class SearchAccountRequest(BaseModel):
-    name: str = Field(None, description="Name of the user to search")
-    email: str = Field(None, description="Email of the user to search")
+    name: str = Field(None, description="Name of the user to search") # column in db is called username not name
+    email: str = Field(None, description="Email of the user to search") # there is no column in db for email 
     role: str = Field(None, description="Role of the user to search")
+    
+class SuspendAccountRequest(BaseModel):
+    username: str
