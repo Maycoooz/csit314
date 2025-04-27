@@ -27,15 +27,13 @@ app.add_middleware(
 def home_page():
     return {"message": "hello api working"}
 
+# returns a boolean
 @app.post("/login")
-def login(data: LoginRequest):
+def login(data: LoginRequest) -> bool:
     controller = LoginController()
     success = controller.login_user(data.username, data.password)
     
-    if success:
-        return {"message": "Login successful"}
-    else:
-        return {"message": "Invalid username or password"}
+    return success
     
 # Admin create account, do we need log which admin created the account?
 @app.post("/createAccount")
@@ -66,12 +64,10 @@ def search_account(data: SearchAccountRequest):
     
     return users
 
+# Admin suspend account (change status from active to suspended in db)
 @app.post("/suspendAccount")
-def suspend_account(data: SuspendAccountRequest):
+def suspend_account(data: SuspendAccountRequest) -> bool:
     controller = SuspendAccountController()
     success = controller.suspend_account(data.username)
     
-    if success:
-        return {"message": "Account suspended"}
-    else:
-        return {"message": "Error suspending account"}
+    return success
