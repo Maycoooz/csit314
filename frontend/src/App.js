@@ -1,7 +1,8 @@
-import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
-import HomePage from "./pages/HomePage"; 
+import AdminDashboardPage from "./pages/AdminDashboardPage";
+import CreateAccountPage from "./pages/CreateAccountPage";
 
 function App() {
     return (
@@ -9,6 +10,8 @@ function App() {
             <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/login" element={<LoginPage />} />
+                <Route path="/admin-dashboard" element={<AdminDashboardPage />} />
+                <Route path="/create-account" element={<CreateAccountPage />} />
             </Routes>
         </Router>
     );

@@ -27,19 +27,29 @@
     border-radius: 5px;
 }
 
-.login-form input[type="submit"] {
+.login-form button[type="submit"] {
     background-color: #4CAF50;
     color: white;
-    padding: 10px;
+    padding: 12px;
+    margin-top: 10px;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.login-form input[type="submit"]:hover {
+.login-form button[type="submit"]:hover {
     background-color: #45a049;
+    transform: translateY(-2px); /* Slight lift effect on hover */
 }
+
+.login-form button[type="submit"]:active {
+    background-color: #3e8e41;
+    transform: translateY(0); /* Press down effect */
+}
+
 
 .response {
     margin-top: 10px;

@@ -1,0 +1,49 @@
+.create-account-form {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.create-account-form h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.create-account-form input[type="text"],
+.create-account-form input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.create-account-form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.create-account-form button:hover {
+    background-color: #45a049;
+}
+
+.create-account-form p {
+    margin-top: 15px;
+    color: #d8000c;
+    text-align: center;
+}
