@@ -50,9 +50,19 @@
     transform: translateY(0); /* Press down effect */
 }
 
-
 .response {
     margin-top: 10px;
-    color: red;
     text-align: center;
+    font-weight: bold;
 }
+
+/* Green for success */
+.success {
+    color: green;
+}
+
+/* Red for error */
+.error {
+    color: red;
+}
+

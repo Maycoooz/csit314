@@ -7,25 +7,42 @@ const LoginForm = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [message, setMessage] = useState("");
+    const [messageType, setMessageType] = useState(""); // "success" or "error"
     const navigate = useNavigate(); // Hook for redirect
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+    
         try {
-            const result = await loginUser({
+            const isSuccess = await loginUser({
                 username: username,
                 password: password
             });
+    
+            if (isSuccess) {
+                setMessageType("success");
+                setMessage("Login successful!");
+                
+                // Wait 2 seconds before redirecting
+                setTimeout(() => {
+                    navigate("/admin-dashboard");
+                }, 2000); // 2000ms = 2 seconds
 
-            setMessage(result.message || "Login successful!");
-
-            // Redirect to dashboard if login successful
-            navigate("/admin-dashboard");
-        } catch (err) {
-            setMessage(err.message || "Login failed.");
+            } else {
+            setMessageType("error");
+            setMessage("Login failed. Please check your credentials.");
+            setTimeout(() => {
+                setMessage("");
+            }, 3000); // Clear after 3 seconds
         }
-    };
+    } catch (err) {
+        setMessageType("error");
+        setMessage("An error occurred. Please try again later.");
+        setTimeout(() => {
+            setMessage("");
+        }, 3000);
+    }
+};
 
     return (
         <form onSubmit={handleSubmit} className="login-form">
@@ -49,7 +66,7 @@ const LoginForm = () => {
                 Login
             </button>
 
-            <p>{message}</p>
+            <p className={`response ${messageType}`}>{message}</p>
         </form>
     );
 };
