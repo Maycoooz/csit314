@@ -50,6 +50,7 @@ class Admin(User):
         cursor = conn.cursor(dictionary=True)
 
         # Build the query with dynamic filters
+        # SELECT * FROM users WHERE username LIKE %s
         prepared_statement = "SELECT * FROM users WHERE 1=1"
         values = []
         

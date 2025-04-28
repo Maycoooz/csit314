@@ -27,10 +27,10 @@ class SearchAccountController:
         
         # Build dynamic search filters based on the request data
         search_filters = {}
-        if search_request.name:
-            search_filters['name'] = search_request.name
-        if search_request.email:
-            search_filters['email'] = search_request.email
+        if search_request.username:
+            search_filters['username'] = search_request.username
+        # if search_request.email:
+            # search_filters['email'] = search_request.email
         if search_request.role:
             search_filters['role'] = search_request.role
         
