@@ -1,15 +1,27 @@
 DROP TABLE IF EXISTS Users;
+DROP TABLE IF EXISTS UserProfiles;
 
-CREATE TABLE USERS (
-    username VARCHAR(255) NOT NULL PRIMARY KEY, 
-    password VARCHAR(255) NOT NULL,
-    status ENUM ("active", "suspended") NOT NULL DEFAULT 'active',
-    role ENUM ("admin", "cleaner", "home owner", "platform management", "none") NOT NULL DEFAULT 'none'
+CREATE TABLE UserProfiles (
+    role VARCHAR(255) NOT NULL PRIMARY KEY,
+    description VARCHAR(255) NOT NULL,
+    status ENUM('active', 'suspended') NOT NULL DEFAULT 'active'
 );
 
--- Insert test users with default Status and Role
-INSERT INTO USERS (username, password) VALUES ("admin1", "123");
-INSERT INTO USERS (username, password) VALUES ("admin2", "123");
-INSERT INTO USERS (username, password) VALUES ("cleaner1", "123");
-INSERT INTO USERS (username, password) VALUES ("home owner", "123");
+CREATE TABLE Users (
+    username VARCHAR(255) NOT NULL PRIMARY KEY,
+    password VARCHAR(255) NOT NULL,
+    status ENUM('active', 'suspended') NOT NULL DEFAULT 'active',
+    role VARCHAR(255),  -- Can be null until it is set by admin or if role is deleted
+    
+    CONSTRAINT role_FK FOREIGN KEY (role) REFERENCES UserProfiles(role) ON UPDATE CASCADE ON DELETE SET NULL
+);
 
+
+-- Insert test users
+INSERT INTO UserProfiles (role, description) VALUES ('admin', 'Manages Users accounts');
+INSERT INTO UserProfiles (role, description) VALUES ('cleaner', 'Provides cleaning services on the app');
+INSERT INTO users (username, password, role) VALUES ('admin1', 123, 'admin');
+INSERT INTO users (username, password, role) VALUES ('admin2', 123, 'admin');
+INSERT INTO users (username, password) VALUES ('admin3', 123);
+INSERT INTO users (username, password, role) VALUES ('cleaner1', 123, 'cleaner');
+INSERT INTO users (username, password) VALUES ('cleaner2', 123);

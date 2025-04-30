@@ -2,53 +2,56 @@ from backend.models.admin import Admin
 from backend.schemas.admin_schemas import SearchAccountRequest
 from typing import List
 
-class CreateAccountController:
+class AdminController:
     def __init__(self):
         pass
     
     def create_account(self, new_username: str, new_password: str) -> bool:
         admin = Admin(username="", password="")
         return admin.create_account(new_username, new_password)
-
-class ViewAllAccountsController:
-    def __init__(self):
-        pass
     
     def view_all_accounts(self):
         admin = Admin(username="", password="")
-        return admin.view_all_accounts()    
+        return admin.view_all_accounts() 
     
-class SearchAccountController:
-    def __init__(self):
-        pass
-    
-    def search_account(self, search_request: SearchAccountRequest) -> List[dict]:
+    def search_account(self, target_username: str) -> List[dict]:
         admin = Admin(username="", password="")
-        
-        # Build dynamic search filters based on the request data
-        search_filters = {}
-        if search_request.username:
-            search_filters['username'] = search_request.username
-        # if search_request.email:
-            # search_filters['email'] = search_request.email
-        if search_request.role:
-            search_filters['role'] = search_request.role
-        
-        # Pass the filters to the Admin model's search method
-        return admin.search_account(search_filters)
-    
-class SuspendAccountController:
-    def __init__(self):
-        pass
+        return admin.search_account(target_username)
     
     def suspend_account(self, target_username: str) -> bool:
         admin = Admin(username="", password="")
         return admin.suspend_account(target_username)
-    
-class UpdateAccountController:
-    def __init__(self):
-        pass
-    
+
     def update_account(self, target_username: str, updated_username: str, updated_password: str) -> bool:
         admin = Admin(username="", password="")
         return admin.update_account(target_username, updated_username, updated_password)
+    
+    def create_userprofile(self, new_role, new_description):
+        admin = Admin(username="", password="")
+        return admin.create_userprofile(new_role, new_description)
+    
+    def view_all_userprofiles(self):
+        admin = Admin(username="", password="")
+        return admin.view_all_userprofiles()
+    
+    def search_userprofile(self, target_role):
+        admin = Admin(username="", password="")
+        return admin.search_userprofile(target_role)
+    
+    def suspend_userprofile(self, target_role):
+        admin = Admin(username="", password="")
+        return admin.suspend_userprofile(target_role)
+    
+    def update_userprofile(self, target_role, updated_role, updated_description):
+        admin = Admin(username="", password="")
+        return admin.update_userprofile(target_role, updated_role, updated_description)
+    
+    def update_user_role(self, target_username, updated_role):
+        admin = Admin(username="", password="")
+        return admin.update_user_role(target_username, updated_role)
+    
+    def view_all_users_with_specified_role(self, target_role):
+        admin = Admin(username="", password="")
+        return admin.view_all_user_with_specified_role(target_role)
+        
+

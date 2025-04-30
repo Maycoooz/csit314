@@ -1,21 +1,19 @@
 from pydantic import BaseModel, Field
+from typing import Optional
 
 class CreateAccountRequest(BaseModel):
     new_username: str
     new_password: str
 
-# For admin view all accounts (response_model)
+# response model to return users
 class UserOut(BaseModel):
     username: str 
     password: str 
     status: str 
-    role: str 
+    role: Optional[str] # so that can be null or string value
 
-# For searching accounts by multiple fields (name, email, role)
 class SearchAccountRequest(BaseModel):
-    username: str # = Field(None, description="Name of the user to search") # column in db is called username not name
-    # email: str = Field(None, description="Email of the user to search") # there is no column in db for email 
-    role: str # = Field(None, description="Role of the user to search")
+    username: str 
     
 class SuspendAccountRequest(BaseModel):
     username: str
@@ -24,3 +22,30 @@ class UpdateAccountRequest(BaseModel):
     target_username: str
     updated_username: str
     updated_password: str
+    
+class CreateUserProfileRequest(BaseModel):
+    new_role: str
+    new_description: str
+    
+class UserProfileOut(BaseModel):
+    role: str
+    description: str
+    status: str
+    
+class SearchUserProfileRequest(BaseModel):
+    role: str
+    
+class SuspendUserProfileRequest(BaseModel):
+    role: str
+    
+class UpdateUserProfileRequest(BaseModel):
+    target_role: str
+    updated_role: str
+    updated_description: str
+    
+class UpdateUserRoleRequest(BaseModel):
+    target_username: str
+    updated_role: str
+    
+class ViewAllUserWithSpecifiedRoleRequest(BaseModel):
+    role: str

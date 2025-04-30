@@ -1,0 +1,51 @@
+/login 			                  returns boolean               params(username, password)
+/createAccount 		            returns boolean (changed)     params(new_username, new_password)
+/viewAllAccounts 	            returns List[UserOut]         params()
+/searchAccount		            returns List[UserOut]         params(username)
+/suspendAccount 	            returns boolean               params(username)
+/updateAccount		            returns boolean               params(target_username, updated_username, updated_password)
+/createUserProfile            returns boolean               params(new_role, new_description)
+/viewAllUserProfiles          returns List[UserProfileOut]  params()
+/searchUserProfile            returns List[UserProfileOut]  params(role)
+/suspendUserProfile           returns boolean               params(role)
+/updateUserProfile            returns boolean               params(target_role, updated_role, updated_description)
+/updateUserRole               returns boolean               params(target_username, updated_role)
+/viewAllUserWithSpecifiedRole returns List[userOut]         params(role)
+
+Sample output from backend of List[UserOut]:
+!!! Note: null is not a string, it is the null value
+[
+  {
+    "username": "admin1",
+    "password": "123",
+    "status": "active",
+    "role": "admin"
+  },
+  {
+    "username": "admin2",
+    "password": "123",
+    "status": "active",
+    "role": null
+  },
+  {
+    "username": "cleaner1",
+    "password": "123",
+    "status": "active",
+    "role": null
+  }
+]
+
+Sample output from backend of List[UserProfileOut]:
+
+[
+  {
+    "role": "admin",
+    "description": "Manages user accounts",
+    "status": "active"
+  },
+  {
+    "role": "cleaner",
+    "description": "Provides cleaning services on the app",
+    "status": "active"
+  }
+]

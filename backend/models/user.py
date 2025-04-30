@@ -9,7 +9,7 @@ class User(BaseModel):
         conn = mysql.connector.connect(
             host = "localhost",
             user = "root",
-            password = "csit115", #for antonio mysql : csit115 #grace
+            password = "", #for antonio mysql : csit115 #grace
             database = "csit314"
         )
         
@@ -19,7 +19,7 @@ class User(BaseModel):
         conn = self.connect_database()
         cursor = conn.cursor(dictionary=True)
         
-        prepared_statement = "SELECT * FROM users WHERE Username = %s AND password = %s AND status = 'active'"
+        prepared_statement = "SELECT * FROM users WHERE Username = %s AND password = %s AND status = 'active' AND role IS NOT NULL"
         values = (self.username, self.password)
         
         cursor.execute(prepared_statement, values)
