@@ -7,7 +7,8 @@ from backend.schemas.login_schema import LoginRequest
 from backend.schemas.admin_schemas import CreateAccountRequest, UserOut, SearchAccountRequest, SuspendAccountRequest, UpdateAccountRequest
 from backend.schemas.admin_schemas import CreateUserProfileRequest, UserProfileOut, SearchUserProfileRequest, SuspendUserProfileRequest, UpdateUserProfileRequest, UpdateUserRoleRequest, ViewAllUserWithSpecifiedRoleRequest
 from backend.controllers.login_controller import LoginController
-from backend.controllers.admin_controller import AdminController
+from backend.controllers.admin_controllers import CreateAccountController, ViewAllAccountsController, SearchAccountController, SuspendAccountController, UpdateAccountController, UpdateUserRoleController
+from backend.controllers.admin_controllers import CreateUserProfileController, ViewAllUserProfilesController, SearchUserProfileController, SuspendUserProfileController, UpdateUserProfileController, ViewAllUsersWithSpecifiedRoleController
 
 app = FastAPI()
 
@@ -40,7 +41,7 @@ def login(data: LoginRequest) -> bool:
 # returns a boolean
 @app.post("/createAccount")
 def create_account(data: CreateAccountRequest):
-    controller = AdminController()
+    controller = CreateAccountController()
     success = controller.create_account(data.new_username, data.new_password)
     
     return success
@@ -49,7 +50,7 @@ def create_account(data: CreateAccountRequest):
 # response_model ensures that what we return is actually what is specified
 @app.post("/viewAllAccounts", response_model=List[UserOut])
 def view_all_accounts():
-    controller = AdminController()
+    controller = ViewAllAccountsController()
     users = controller.view_all_accounts()
     
     return users
@@ -58,7 +59,7 @@ def view_all_accounts():
 # response_model ensures that what we return matches the specified schema
 @app.post("/searchAccount", response_model=List[UserOut])
 def search_account(data: SearchAccountRequest):
-    controller = AdminController()
+    controller = SearchAccountController()
     users = controller.search_account(data.username)
     
     return users
@@ -66,63 +67,63 @@ def search_account(data: SearchAccountRequest):
 # Admin suspend account (change status from active to suspended in db)
 @app.post("/suspendAccount")
 def suspend_account(data: SuspendAccountRequest) -> bool:
-    controller = AdminController()
+    controller = SuspendAccountController()
     success = controller.suspend_account(data.username)
     
     return success
 
 @app.post("/updateAccount")
 def update_account(data: UpdateAccountRequest) -> bool:
-    controller = AdminController()
+    controller = UpdateAccountController()
     success = controller.update_account(data.target_username, data.updated_username, data.updated_password)
     
     return success
 
 @app.post("/createUserProfile")
 def create_userprofile(data: CreateUserProfileRequest) -> bool:
-    controller = AdminController()
+    controller = CreateUserProfileController()
     success = controller.create_userprofile(data.new_role, data.new_description)
     
     return success
 
 @app.post("/viewAllUserProfiles", response_model=List[UserProfileOut])
 def view_all_userprofiles():
-    controller = AdminController()
+    controller = ViewAllUserProfilesController()
     userprofiles = controller.view_all_userprofiles()
     
     return userprofiles
 
 @app.post("/searchUserProfile", response_model=List[UserProfileOut])
 def search_userprofile(data: SearchUserProfileRequest):
-    controller = AdminController()
+    controller = SearchUserProfileController()
     userprofiles = controller.search_userprofile(data.role)
     
     return userprofiles
 
 @app.post("/suspendUserProfile")
 def suspend_userprofile(data: SuspendUserProfileRequest):
-    controller = AdminController()
+    controller = SuspendUserProfileController()
     success = controller.suspend_userprofile(data.role)
     
     return success
 
 @app.post("/updateUserProfile")
 def update_userprofile(data: UpdateUserProfileRequest):
-    controller = AdminController()
+    controller = UpdateUserProfileController()
     success = controller.update_userprofile(data.target_role, data.updated_role, data.updated_description)
     
     return success
 
 @app.post("/updateUserRole")
 def update_user_role(data: UpdateUserRoleRequest):
-    controller = AdminController()
+    controller = UpdateUserRoleController()
     success = controller.update_user_role(data.target_username, data.updated_role)
     
     return success
 
 @app.post("/viewAllUserWithSpecifiedRole", response_model=List[UserOut])
 def view_all_user_with_specified_role(data: ViewAllUserWithSpecifiedRoleRequest):
-    controller = AdminController()
+    controller = ViewAllUsersWithSpecifiedRoleController()
     users = controller.view_all_users_with_specified_role(data.role)
     
     return users
