@@ -5,3 +5,6 @@ class LoginRequest(BaseModel):
     username: str
     password: str
 
+class LoginProfiles(BaseModel):
+    role: str
+

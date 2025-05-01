@@ -3,10 +3,10 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from typing import List
 
-from backend.schemas.login_schema import LoginRequest
+from backend.schemas.login_schema import LoginRequest, LoginProfiles
 from backend.schemas.admin_schemas import CreateAccountRequest, UserOut, SearchAccountRequest, SuspendAccountRequest, UpdateAccountRequest
 from backend.schemas.admin_schemas import CreateUserProfileRequest, UserProfileOut, SearchUserProfileRequest, SuspendUserProfileRequest, UpdateUserProfileRequest, UpdateUserRoleRequest, ViewAllUserWithSpecifiedRoleRequest
-from backend.controllers.login_controller import LoginController
+from backend.controllers.login_controller import LoginController, LoginProfileController
 from backend.controllers.admin_controllers import CreateAccountController, ViewAllAccountsController, SearchAccountController, SuspendAccountController, UpdateAccountController, UpdateUserRoleController
 from backend.controllers.admin_controllers import CreateUserProfileController, ViewAllUserProfilesController, SearchUserProfileController, SuspendUserProfileController, UpdateUserProfileController, ViewAllUsersWithSpecifiedRoleController
 
@@ -36,6 +36,14 @@ def login(data: LoginRequest) -> bool:
     success = controller.login_user(data.username, data.password)
     
     return success
+
+# gives login page all current roles in database for user to choose before logging in
+@app.get("/login", response_model=List[LoginProfiles])
+def get_profiles():
+    controller = LoginProfileController()
+    roles = controller.get_all_roles()
+
+    return roles
     
 # Admin create account, do we need log which admin created the account?
 # returns a boolean
