@@ -47,7 +47,7 @@ def get_profiles():
     
 # Admin create account, do we need log which admin created the account?
 # returns a boolean
-@app.post("/createAccount")
+@app.post("/admin/createAccount")
 def create_account(data: CreateAccountRequest):
     controller = CreateAccountController()
     success = controller.create_account(data.new_username, data.new_password)
@@ -56,7 +56,7 @@ def create_account(data: CreateAccountRequest):
     
 # Admin view all accounts 
 # response_model ensures that what we return is actually what is specified
-@app.post("/viewAllAccounts", response_model=List[UserOut])
+@app.post("/admin/viewAllAccounts", response_model=List[UserOut])
 def view_all_accounts():
     controller = ViewAllAccountsController()
     users = controller.view_all_accounts()
@@ -65,7 +65,7 @@ def view_all_accounts():
 
 # Admin search accounts by a keyword
 # response_model ensures that what we return matches the specified schema
-@app.post("/searchAccount", response_model=List[UserOut])
+@app.post("/admin/searchAccount", response_model=List[UserOut])
 def search_account(data: SearchAccountRequest):
     controller = SearchAccountController()
     users = controller.search_account(data.username)
@@ -73,63 +73,63 @@ def search_account(data: SearchAccountRequest):
     return users
 
 # Admin suspend account (change status from active to suspended in db)
-@app.post("/suspendAccount")
+@app.post("/admin/suspendAccount")
 def suspend_account(data: SuspendAccountRequest) -> bool:
     controller = SuspendAccountController()
     success = controller.suspend_account(data.username)
     
     return success
 
-@app.post("/updateAccount")
+@app.post("/admin/updateAccount")
 def update_account(data: UpdateAccountRequest) -> bool:
     controller = UpdateAccountController()
     success = controller.update_account(data.target_username, data.updated_username, data.updated_password)
     
     return success
 
-@app.post("/createUserProfile")
+@app.post("/admin/createUserProfile")
 def create_userprofile(data: CreateUserProfileRequest) -> bool:
     controller = CreateUserProfileController()
     success = controller.create_userprofile(data.new_role, data.new_description)
     
     return success
 
-@app.post("/viewAllUserProfiles", response_model=List[UserProfileOut])
+@app.post("/admin/viewAllUserProfiles", response_model=List[UserProfileOut])
 def view_all_userprofiles():
     controller = ViewAllUserProfilesController()
     userprofiles = controller.view_all_userprofiles()
     
     return userprofiles
 
-@app.post("/searchUserProfile", response_model=List[UserProfileOut])
+@app.post("/admin/searchUserProfile", response_model=List[UserProfileOut])
 def search_userprofile(data: SearchUserProfileRequest):
     controller = SearchUserProfileController()
     userprofiles = controller.search_userprofile(data.role)
     
     return userprofiles
 
-@app.post("/suspendUserProfile")
+@app.post("/admin/suspendUserProfile")
 def suspend_userprofile(data: SuspendUserProfileRequest):
     controller = SuspendUserProfileController()
     success = controller.suspend_userprofile(data.role)
     
     return success
 
-@app.post("/updateUserProfile")
+@app.post("/admin/updateUserProfile")
 def update_userprofile(data: UpdateUserProfileRequest):
     controller = UpdateUserProfileController()
     success = controller.update_userprofile(data.target_role, data.updated_role, data.updated_description)
     
     return success
 
-@app.post("/updateUserRole")
+@app.post("/admin/updateUserRole")
 def update_user_role(data: UpdateUserRoleRequest):
     controller = UpdateUserRoleController()
     success = controller.update_user_role(data.target_username, data.updated_role)
     
     return success
 
-@app.post("/viewAllUserWithSpecifiedRole", response_model=List[UserOut])
+@app.post("/admin/viewAllUserWithSpecifiedRole", response_model=List[UserOut])
 def view_all_user_with_specified_role(data: ViewAllUserWithSpecifiedRoleRequest):
     controller = ViewAllUsersWithSpecifiedRoleController()
     users = controller.view_all_users_with_specified_role(data.role)
