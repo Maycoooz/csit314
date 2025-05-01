@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 import mysql.connector
 
-class Role:
+class Role(BaseModel):
 
     def connect_database(self):
         conn = mysql.connector.connect(
