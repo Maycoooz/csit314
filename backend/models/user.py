@@ -4,6 +4,7 @@ import mysql.connector
 class User(BaseModel):
     username: str
     password: str
+    role: str
     
     def connect_database(self):
         conn = mysql.connector.connect(
@@ -19,8 +20,8 @@ class User(BaseModel):
         conn = self.connect_database()
         cursor = conn.cursor(dictionary=True)
         
-        prepared_statement = "SELECT * FROM users WHERE Username = %s AND password = %s AND status = 'active' AND role IS NOT NULL"
-        values = (self.username, self.password)
+        prepared_statement = "SELECT * FROM users WHERE Username = %s AND password = %s AND status = 'active' AND role = %s"
+        values = (self.username, self.password, self.role)
         
         cursor.execute(prepared_statement, values)
         result = cursor.fetchone()

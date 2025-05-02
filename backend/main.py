@@ -33,7 +33,7 @@ def home_page():
 @app.post("/login")
 def login(data: LoginRequest) -> bool:
     controller = LoginController()
-    success = controller.login_user(data.username, data.password)
+    success = controller.login_user(data.username, data.password, data.role)
     
     return success
 
