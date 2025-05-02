@@ -16,6 +16,22 @@ export async function loginUser(credentials) {
     return result;
 }
 
+export async function getRoles() {
+    const response = await fetch("http://localhost:8000/login", {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    });
+
+    if (!response.ok) {
+        throw new Error("Failed to fetch roles");
+    }
+
+    return await response.json(); // should be a list of roles
+}
+
+
 //-------------------------------------------------------------------------------
 
 export async function createUserAccount(data) {
