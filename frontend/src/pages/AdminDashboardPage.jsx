@@ -5,8 +5,15 @@ import Navbar from "../components/NavBar";
 const AdminDashboardPage = () => {
     const navigate = useNavigate();
 
-    const handleCreateAccount = () => {
-        navigate("/create-account");
+    const buttonStyle = {
+        margin: "10px",
+        padding: "15px 30px",
+        fontSize: "18px",
+        cursor: "pointer",
+        borderRadius: "8px",
+        backgroundColor: "#28a745",
+        color: "white",
+        border: "none"
     };
 
     return (
@@ -14,21 +21,18 @@ const AdminDashboardPage = () => {
             <Navbar />
             <div style={{ paddingTop: "70px", textAlign: "center" }}>
                 <h1>Welcome to Admin Dashboard</h1>
-                <button
-                    onClick={handleCreateAccount}
-                    style={{
-                        marginTop: "20px",
-                        padding: "10px 20px",
-                        fontSize: "16px",
-                        cursor: "pointer",
-                        borderRadius: "5px",
-                        backgroundColor: "#4CAF50",
-                        color: "white",
-                        border: "none"
-                    }}
-                >
-                    Create Account
-                </button>
+                <p>Select a section to manage:</p>
+                <div>
+                    <button onClick={() => navigate("/account-management")} style={buttonStyle}>
+                        Account Management
+                    </button>
+                    <button onClick={() => navigate("/userprofile-management")} style={buttonStyle}>
+                        User Profile Management
+                    </button>
+                    <button onClick={() => navigate("/role-management")} style={buttonStyle}>
+                        Role Management
+                    </button>
+                </div>
             </div>
         </div>
     );
