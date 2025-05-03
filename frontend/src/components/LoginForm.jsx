@@ -56,15 +56,15 @@ const LoginForm = () => {
                 openSuccessAlert();
             
                 setTimeout(() => {
+
                     closeSuccessAlert();
-            
                     // Redirect based on selected role
                     if (selectedRole.toLowerCase() === "admin") {
                         navigate("/admin-dashboard");
                     } else if (selectedRole.toLowerCase() === "cleaner") {
                         navigate("/cleaner-dashboard");
                     } 
-                }, 2000);
+                }, 1500);
 
             } else {
             

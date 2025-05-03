@@ -23,13 +23,13 @@ const AdminDashboardPage = () => {
                 <h1>Welcome to Admin Dashboard</h1>
                 <p>Select a section to manage:</p>
                 <div>
-                    <button onClick={() => navigate("/account-management")} style={buttonStyle}>
+                    <button onClick={() => navigate("/admin-account-management")} style={buttonStyle}>
                         Account Management
                     </button>
-                    <button onClick={() => navigate("/userprofile-management")} style={buttonStyle}>
+                    <button onClick={() => navigate("/admin-userprofile-management")} style={buttonStyle}>
                         User Profile Management
                     </button>
-                    <button onClick={() => navigate("/role-management")} style={buttonStyle}>
+                    <button onClick={() => navigate("/admin-role-management")} style={buttonStyle}>
                         Role Management
                     </button>
                 </div>
