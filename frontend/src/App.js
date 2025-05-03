@@ -4,13 +4,14 @@ import LoginPage from "./pages/LoginPage";
 import AdminDashboardPage from "./pages/AdminDashboardPage";
 import CleanerDashboardPage from "./pages/CleanerDashboardPage";
 import AdminAccountManagementPage from "./pages/AdminAccountManagementPage";
-import AdminAM_ViewAccountPage from "./pages/AdminAM_ViewAccountPage";
-import AdminAM_SearchAccountPage from "./pages/AdminAM_SearchAccountPage";
-import AdminAM_SuspendAccountPage from "./pages/AdminAM_SuspendAccountPage";
-import AdminAM_UpdateAccountPage from "./pages/AdminAM_UpdateAccountPage";
+import AdminAMCreateAccountPage from "./pages/AdminAMCreateAccountPage";
+import AdminAMViewAccountPage from "./pages/AdminAMViewAccountPage";
+import AdminAMSearchAccountPage from "./pages/AdminAMSearchAccountPage";
+import AdminAMSuspendAccountPage from "./pages/AdminAMSuspendAccountPage";
+import AdminAMUpdateAccountPage from "./pages/AdminAMUpdateAccountPage";
 import AdminUserProfileManagementPage from "./pages/AdminUserProfileManagementPage";
 import AdminRoleManagementPage from "./pages/AdminRoleManagementPage";
-import AdminAM_CreateAccountPage from "./pages/AdminAM_CreateAccountPage";
+
 
 function App() {
     return (
@@ -21,13 +22,14 @@ function App() {
                 <Route path="/admin-dashboard" element={<AdminDashboardPage />} />
                 <Route path="/cleaner-dashboard" element={<CleanerDashboardPage />} />
                 <Route path="/admin-account-management" element={<AdminAccountManagementPage />} />
-                <Route path="/admin-am-view-account" element={<AdminAM_ViewAccountPage />} />
-                <Route path="/admin-am-search-account" element={<AdminAM_SearchAccountPage />} />
-                <Route path="/admin-am-suspend-account" element={<AdminAM_SuspendAccountPage />} />
-                <Route path="/admin-am-update-account" element={<AdminAM_UpdateAccountPage />} />
+                <Route path="/admin-am-create-account" element={<AdminAMCreateAccountPage />} />
+                <Route path="/admin-am-view-account" element={<AdminAMViewAccountPage />} />
+                <Route path="/admin-am-search-account" element={<AdminAMSearchAccountPage />} />
+                <Route path="/admin-am-suspend-account" element={<AdminAMSuspendAccountPage />} />
+                <Route path="/admin-am-update-account" element={<AdminAMUpdateAccountPage />} />
                 <Route path="/admin-userprofile-management" element={<AdminUserProfileManagementPage />} />
                 <Route path="/admin-role-management" element={<AdminRoleManagementPage />} />
-                <Route path="/admin-am-create-account" element={<AdminAM_CreateAccountPage />} />
+                
             </Routes>
         </Router>
     );
