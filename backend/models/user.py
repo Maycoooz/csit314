@@ -1,16 +1,17 @@
 from pydantic import BaseModel
+from typing import Optional
 import mysql.connector
 
 class User(BaseModel):
     username: str
     password: str
-    role: str
+    role: Optional[str] = None
     
     def connect_database(self):
         conn = mysql.connector.connect(
             host = "localhost",
             user = "root",
-            password = "csit115", #for antonio mysql : csit115 
+            password = "password", #for antonio mysql : csit115 
             database = "csit314"
         )
         

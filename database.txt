@@ -20,6 +20,8 @@ CREATE TABLE Users (
 -- Insert test users
 INSERT INTO UserProfiles (role, description) VALUES ('admin', 'Manages Users accounts');
 INSERT INTO UserProfiles (role, description) VALUES ('cleaner', 'Provides cleaning services on the app');
+INSERT INTO UserProfiles (role, description) VALUES ('home owner', 'Purchases services offered by cleaners');
+INSERT INTO UserProfiles (role, description) VALUES ('platform management', 'Generates reports for the company');
 INSERT INTO users (username, password, role) VALUES ('admin1', 123, 'admin');
 INSERT INTO users (username, password, role) VALUES ('admin2', 123, 'admin');
 INSERT INTO users (username, password) VALUES ('admin3', 123);
