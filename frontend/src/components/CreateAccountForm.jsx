@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"; 
-import { createUserAccount } from "../services/authService"; 
+import { createUserAccount } from "../services/accountService";
 import "./CreateAccountForm.css";
 
 const CreateAccountForm = () => {

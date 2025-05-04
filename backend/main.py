@@ -87,6 +87,8 @@ def update_account(data: UpdateAccountRequest) -> bool:
     
     return success
 
+#----------------------------------------------------------------------------------------------------------------------------
+
 @app.post("/admin/createUserProfile")
 def create_userprofile(data: CreateUserProfileRequest) -> bool:
     controller = CreateUserProfileController()
@@ -121,6 +123,8 @@ def update_userprofile(data: UpdateUserProfileRequest):
     success = controller.update_userprofile(data.target_role, data.updated_role, data.updated_description)
     
     return success
+
+#----------------------------------------------------------------------------------------------------------------------------
 
 @app.post("/admin/updateUserRole")
 def update_user_role(data: UpdateUserRoleRequest):
