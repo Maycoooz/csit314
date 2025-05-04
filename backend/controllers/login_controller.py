@@ -6,8 +6,8 @@ class LoginController:
         pass
     
     def login_user(self, username: str, password: str, role: str) -> bool:
-        user = User(username=username, password=password, role=role)
-        return user.login()
+        user = User(username=username, password=password)
+        return user.login(role)
 
 class LoginProfileController:
 
