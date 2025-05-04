@@ -1,32 +1,12 @@
-import React, { useState } from "react";
-import { suspendAccount } from "../services/authService";
+import React from "react";
+import SuspendAccount from "../components/SuspendAccount";
 
-const SuspendAccount = () => {
-    const [username, setUsername] = useState("");
-    const [message, setMessage] = useState("");
-
-    const handleSuspend = async () => {
-        try {
-            const success = await suspendAccount(username);
-            setMessage(success ? "Account suspended successfully." : "Suspension failed.");
-        } catch (err) {
-            setMessage(err.message);
-        }
-    };
-
+const SuspendAccountPage = () => {
     return (
-        <div className="admin-page">
-            <h2>Suspend Account</h2>
-            <input
-                type="text"
-                placeholder="Enter username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-            />
-            <button onClick={handleSuspend}>Suspend</button>
-            <p>{message}</p>
+        <div>
+            <SuspendAccount />
         </div>
     );
 };
 
-export default SuspendAccount;
+export default SuspendAccountPage;

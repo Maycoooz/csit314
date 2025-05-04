@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { searchAccount } from "../services/authService";
+import { searchAccount } from "../services/accountService";
 
 const SearchAccount = () => {
     const [username, setUsername] = useState("");

@@ -26,7 +26,7 @@ const AdminDashboardPage = () => {
                     <button onClick={() => navigate("/admin-account-management")} style={buttonStyle}>
                         Account Management
                     </button>
-                    <button onClick={() => navigate("/admin-userprofile-management")} style={buttonStyle}>
+                    <button onClick={() => navigate("/admin-user-profile-management")} style={buttonStyle}>
                         User Profile Management
                     </button>
                     <button onClick={() => navigate("/admin-role-management")} style={buttonStyle}>
