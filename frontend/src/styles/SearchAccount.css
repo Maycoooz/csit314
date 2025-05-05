@@ -1,0 +1,82 @@
+
+.admin-page {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 80px auto;
+    text-align: center;
+}
+
+.admin-page h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.admin-page input[type="text"] {
+    width: 100%;
+    max-width: 400px;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.admin-page button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-left: 10px;
+}
+
+.admin-page button:hover {
+    background-color: #45a049;
+}
+
+.admin-page table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.admin-page th, .admin-page td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+.admin-page th {
+    background-color: #f2f2f2;
+    color: #333;
+}
+
+.back-button {
+    margin: 10px auto 20px auto;
+    padding: 12px 25px;
+    font-size: 16px;
+    border-radius: 5px;
+    background-color: rgb(65, 129, 172);
+    color: white;
+    border: none;
+    cursor: pointer;
+    display: block;
+    width: fit-content;
+    transition: background-color 0.3s;
+}
+
+.back-button:hover {
+    background-color: rgb(55, 109, 150);
+}
+
+.back-button {
+    margin-top: 20px;
+}
+
+

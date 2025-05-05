@@ -1,14 +1,30 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"; 
 import { createUserAccount } from "../services/accountService";
-import "./CreateAccountForm.css";
+import "../styles/CreateAccountForm.css";
 
 const CreateAccountForm = () => {
     const [newUsername, setNewUsername] = useState("");
     const [newPassword, setNewPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [message, setMessage] = useState("");
-    const navigate = useNavigate(); // <-- create navigation hook
+    const navigate = useNavigate();
+
+    const buttonStyle = {
+        margin: "10px",
+        padding: "12px 25px",
+        fontSize: "16px",
+        borderRadius: "5px",
+        backgroundColor: "#28a745",
+        color: "white",
+        border: "none",
+        cursor: "pointer"
+    };
+
+    const backButtonStyle = {
+        ...buttonStyle,
+        backgroundColor: "rgb(65, 129, 172)"
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -26,7 +42,6 @@ const CreateAccountForm = () => {
 
             setMessage(result.message || "Account created successfully.");
 
-            // Redirect to dashboard after 1 second
             setTimeout(() => {
                 navigate("/admin-dashboard");
             }, 1000);
@@ -37,36 +52,40 @@ const CreateAccountForm = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit} className="create-account-form">
-            <h2>Create New Account</h2>
-            <input
-                type="text"
-                placeholder="New Username"
-                value={newUsername}
-                onChange={(e) => setNewUsername(e.target.value)}
-                required
-            />
-            <br /><br />
-            <input
-                type="password"
-                placeholder="New Password"
-                value={newPassword}
-                onChange={(e) => setNewPassword(e.target.value)}
-                required
-            />
-            <br /><br />
-            <input
-                type="password"
-                placeholder="Confirm Password"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                required
-            />
-            <br /><br />
-            <button type="submit">Create Account</button>
-            <p>{message}</p>
-        </form>
+        <div style={{ paddingTop: "70px", display: "flex", flexDirection: "column", alignItems: "center" }}>
+            <form onSubmit={handleSubmit} className="create-account-form">
+                <h2>Create New Account</h2>
+                <input
+                    type="text"
+                    placeholder="New Username"
+                    value={newUsername}
+                    onChange={(e) => setNewUsername(e.target.value)}
+                    required
+                />
+                <input
+                    type="password"
+                    placeholder="New Password"
+                    value={newPassword}
+                    onChange={(e) => setNewPassword(e.target.value)}
+                    required
+                />
+                <input
+                    type="password"
+                    placeholder="Confirm Password"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    required
+                />
+                <button type="submit" style={buttonStyle}>Create Account</button>
+                <p>{message}</p>
+            </form>
+
+            <button onClick={() => navigate(-1)} style={backButtonStyle}>
+                ← Back
+            </button>
+        </div>
     );
+    
 };
 
 export default CreateAccountForm;

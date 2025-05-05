@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import { searchAccount } from "../services/accountService";
+import { useNavigate } from "react-router-dom"; 
+import "../styles/SearchAccount.css";
 
 const SearchAccount = () => {
     const [username, setUsername] = useState("");
     const [results, setResults] = useState([]);
+    const navigate = useNavigate();
 
     const handleSearch = async () => {
         try {
@@ -39,6 +42,9 @@ const SearchAccount = () => {
                     </tbody>
                 </table>
             )}
+
+            
+            <button className="back-button" onClick={() => navigate(-1)}>← Back</button>
         </div>
     );
 };

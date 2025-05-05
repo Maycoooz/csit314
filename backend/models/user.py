@@ -10,7 +10,7 @@ class User(BaseModel):
         conn = mysql.connector.connect(
             host = "localhost",
             user = "root",
-            password = "", #for antonio mysql : csit115 
+            password = "csit115", #for antonio mysql : csit115 
             database = "csit314"
         )
         
