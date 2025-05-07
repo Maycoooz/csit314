@@ -4,3 +4,6 @@ venv/
 backend/models/__pycache__/user.cpython-313.pyc
 backend/__pycache__/main.cpython-313.pyc
 backend/schemas/__pycache__/platform_mangement_schemas.cpython-313.pyc
+backend/models/__pycache__/user.cpython-313.pyc
+backend/__pycache__/main.cpython-313.pyc
+backend/schemas/__pycache__/platform_mangement_schemas.cpython-313.pyc

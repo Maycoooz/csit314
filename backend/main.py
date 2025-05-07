@@ -6,11 +6,13 @@ from typing import List
 from backend.schemas.login_schema import LoginRequest, LoginProfiles
 from backend.schemas.admin_schemas import CreateAccountRequest, UserOut, SearchAccountRequest, SuspendAccountRequest, UpdateAccountRequest
 from backend.schemas.admin_schemas import CreateUserProfileRequest, UserProfileOut, SearchUserProfileRequest, SuspendUserProfileRequest, UpdateUserProfileRequest, UpdateUserRoleRequest, ViewAllUserWithSpecifiedRoleRequest
-from backend.schemas.platform_mangement_schemas import CreateServiceCategory, ServiceCategoryOut, UpdateServiceCategory, SuspendServiceCategory, SearchServiceCategory
+from backend.schemas.platform_mangement_schemas import CreateServiceCategoryRequest, ServiceCategoryOut, UpdateServiceCategoryRequest, SuspendServiceCategoryRequest, SearchServiceCategoryRequest
+from backend.schemas.cleaner_schemas import CreateServiceRequest, ViewAllServicesRequest, ServicesOut, SearchServiceRequest, UpdateServiceRequest, SuspendServiceRequest
 from backend.controllers.login_controller import LoginController, LoginProfileController
 from backend.controllers.admin_controllers import CreateAccountController, ViewAllAccountsController, SearchAccountController, SuspendAccountController, UpdateAccountController, UpdateUserRoleController
 from backend.controllers.admin_controllers import CreateUserProfileController, ViewAllUserProfilesController, SearchUserProfileController, SuspendUserProfileController, UpdateUserProfileController, ViewAllUsersWithSpecifiedRoleController
 from backend.controllers.platform_management_controllers import CreateServiceCategoryController, ViewAllServiceCategoryController, UpdateServiceCategoryController, SuspendServiceCategoryController, SearchServiceCategoryController
+from backend.controllers.cleaner_controllers import CreateServiceController, ViewAllServicesController, SearchServiceController, UpdateServiceController, SuspendServiceController
 
 app = FastAPI()
 
@@ -145,7 +147,7 @@ def view_all_user_with_specified_role(data: ViewAllUserWithSpecifiedRoleRequest)
 #----------------------------------------------------------------------------------------------------------------------------
 
 @app.post("/pm/createServiceCategory")
-def create_service_category(data: CreateServiceCategory):
+def create_service_category(data: CreateServiceCategoryRequest):
     controller = CreateServiceCategoryController()
     success = controller.create_service_category(data.new_category, data.new_description)
     
@@ -159,22 +161,62 @@ def view_all_service_categories():
     return service_categories
 
 @app.post("/pm/updateServiceCategory")
-def update_service_category(data: UpdateServiceCategory):
+def update_service_category(data: UpdateServiceCategoryRequest):
     controller = UpdateServiceCategoryController()
     success = controller.update_service_category(data.target_category, data.updated_category, data.updated_description)
     
     return success
 
 @app.post("/pm/suspendServiceCategory")
-def suspend_service_category(data: SuspendServiceCategory):
+def suspend_service_category(data: SuspendServiceCategoryRequest):
     controller = SuspendServiceCategoryController()
     success = controller.suspend_service_category(data.target_category)
     
     return success
 
 @app.post("/pm/searchServiceCategory", response_model=List[ServiceCategoryOut])
-def search_service_category(data: SearchServiceCategory):
+def search_service_category(data: SearchServiceCategoryRequest):
     controller = SearchServiceCategoryController()
     service_categories = controller.search_service_category(data.target_category)
     
     return service_categories
+
+
+
+#----------------------------------------------------------------------------------------------------------------------------
+
+@app.post("/cleaner/createService")
+def create_service(data: CreateServiceRequest):
+    controller = CreateServiceController()
+    success = controller.create_service(data.cleaner_username, data.selected_category, data.new_service, data.new_price)
+    
+    return success
+
+@app.post("/cleaner/viewAllServices", response_model=List[ServicesOut])
+def view_all_service(data: ViewAllServicesRequest):
+    controller = ViewAllServicesController()
+    services = controller.view_all_services(data.cleaner_username)
+    
+    return services
+
+# search by service
+@app.post("/cleaner/searchService", response_model=List[ServicesOut])
+def search_service(data: SearchServiceRequest):
+    controller = SearchServiceController()
+    services = controller.search_service(data.target_service)
+    
+    return services
+
+@app.post("/cleaner/updateService")
+def update_service(data: UpdateServiceRequest):
+    controller = UpdateServiceController()
+    success = controller.update_service(data.service_id, data.updated_category, data.updated_service, data.updated_price)
+    
+    return success
+
+@app.post("/cleaner/suspendService")
+def suspend_servie(data: SuspendServiceRequest):
+    controller = SuspendServiceController()
+    success = controller.suspend_service(data.service_id)
+    
+    return success

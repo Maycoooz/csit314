@@ -8,61 +8,65 @@ DROP TABLE IF EXISTS UserProfiles;
 
 DROP PROCEDURE IF EXISTS ViewCleanerProfile;
 
-
+-- UserProfiles table
 CREATE TABLE UserProfiles (
     role VARCHAR(50) NOT NULL PRIMARY KEY,
     description VARCHAR(100) NOT NULL,
     status ENUM('active', 'suspended') NOT NULL DEFAULT 'active'
 );
 
+-- Users table
 CREATE TABLE Users (
     username VARCHAR(100) NOT NULL PRIMARY KEY,
     password VARCHAR(100) NOT NULL,
     status ENUM('active', 'suspended') NOT NULL DEFAULT 'active',
-    role VARCHAR(50),  -- Can be null until it is set by admin or if role is deleted
-    
+    role VARCHAR(50),
+
     CONSTRAINT role_FK FOREIGN KEY (role) REFERENCES UserProfiles(role) ON UPDATE CASCADE ON DELETE SET NULL
 );
 
+-- ServiceCategories table
 CREATE TABLE ServiceCategories (
-	category VARCHAR(50) NOT NULL PRIMARY KEY,
-    description VARCHAR(100) NOT NULL, 
+    category VARCHAR(50) NOT NULL PRIMARY KEY,
+    description VARCHAR(150) NOT NULL,
     status ENUM('active', 'suspended') NOT NULL DEFAULT 'active'
 );
 
+-- Services table with service_id
 CREATE TABLE Services (
+    service_id INT AUTO_INCREMENT PRIMARY KEY,
     cleaner_username VARCHAR(100) NOT NULL,
     category VARCHAR(50) NOT NULL,
     service VARCHAR(100) NOT NULL,
+    price DECIMAL(10,2) NOT NULL,
     status ENUM('active', 'suspended') NOT NULL DEFAULT 'active',
-    
-    PRIMARY KEY (cleaner_username, category, service),
 
     FOREIGN KEY (category) REFERENCES ServiceCategories(category) ON UPDATE CASCADE ON DELETE CASCADE,
-    FOREIGN KEY (cleaner_username) REFERENCES Users(username) ON UPDATE CASCADE ON DELETE CASCADE
+    FOREIGN KEY (cleaner_username) REFERENCES Users(username) ON UPDATE CASCADE ON DELETE CASCADE,
+
+    UNIQUE (cleaner_username, category, service)  -- ⚡ Enforce unique services per cleaner+category
 );
 
+-- CleanerViews table
 CREATE TABLE CleanerViews (
     username VARCHAR(100) NOT NULL PRIMARY KEY, 
     views INT NOT NULL DEFAULT 0,
 
     FOREIGN KEY (username) REFERENCES Users(username) ON UPDATE CASCADE ON DELETE CASCADE
-
 );
 
+-- Shortlist table
 CREATE TABLE Shortlist (
     homeowner_username VARCHAR(100) NOT NULL,
-    cleaner_username VARCHAR(100) NOT NULL,
-    category VARCHAR(50) NOT NULL,
-    service VARCHAR(100) NOT NULL,
+    service_id INT NOT NULL,
     
-    PRIMARY KEY (homeowner_username, cleaner_username, category, service),
+    PRIMARY KEY (homeowner_username, service_id),
 
     FOREIGN KEY (homeowner_username) REFERENCES Users(username) ON UPDATE CASCADE ON DELETE CASCADE,
-    FOREIGN KEY (cleaner_username, category, service) REFERENCES Services(cleaner_username, category, service) ON UPDATE CASCADE ON DELETE CASCADE
+    FOREIGN KEY (service_id) REFERENCES Services(service_id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
-
+-- CleanerViewTracker table
 CREATE TABLE CleanerViewTracker (
     homeowner_username VARCHAR(100) NOT NULL,
     cleaner_username VARCHAR(100) NOT NULL,
@@ -73,12 +77,9 @@ CREATE TABLE CleanerViewTracker (
     FOREIGN KEY (cleaner_username) REFERENCES Users(username) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
-
-
-
+-- TRIGGERS and PROCEDURES
 DELIMITER $$
 
--- If a service category is suspended all services under that category is suspended 
 CREATE TRIGGER suspend_services_after_category_update
 AFTER UPDATE ON ServiceCategories
 FOR EACH ROW
@@ -90,7 +91,6 @@ BEGIN
     END IF;
 END$$
 
--- Auto create a view cleaner row when a cleaner is created 
 CREATE TRIGGER insert_into_cleanerviews_after_user_insert
 AFTER INSERT ON Users
 FOR EACH ROW
@@ -126,19 +126,28 @@ END$$
 
 DELIMITER ;
 
+INSERT INTO UserProfiles (role, description) VALUES 
+('admin', 'Manages Users accounts'),
+('cleaner', 'Provides cleaning services on the app'),
+('home owner', 'Purchases services offered by cleaners'),
+('platform management', 'Generates reports for the company');
 
--- Insert test users
-INSERT INTO UserProfiles (role, description) VALUES ('admin', 'Manages Users accounts');
-INSERT INTO UserProfiles (role, description) VALUES ('cleaner', 'Provides cleaning services on the app');
-INSERT INTO UserProfiles (role, description) VALUES ('home owner', 'Purchases services offered by cleaners');
-INSERT INTO UserProfiles (role, description) VALUES ('platform management', 'Generates reports for the company');
-INSERT INTO users (username, password, role) VALUES ('admin1', '123', 'admin');
-INSERT INTO users (username, password, role) VALUES ('admin2', '123', 'admin');
-INSERT INTO users (username, password) VALUES ('admin3', '123');
-INSERT INTO users (username, password, role) VALUES ('cleaner1', '123', 'cleaner');
-INSERT INTO users (username, password) VALUES ('cleaner2', '123');
-INSERT INTO users (username, password, role) VALUES ('ho1', '123', 'home owner');
-INSERT INTO users (username, password, role) VALUES ('pm1', '123', 'platform management');
+INSERT INTO Users (username, password, role) VALUES 
+('admin1', '123', 'admin'),
+('admin2', '123', 'admin'),
+('admin3', '123', NULL),
+('cleaner1', '123', 'cleaner'),
+('cleaner2', '123', NULL),
+('ho1', '123', 'home owner'),
+('pm1', '123', 'platform management');
 
+INSERT INTO ServiceCategories (category, description) VALUES 
+('Home Cleaning', 'General daily house cleaning services'),
+('Outdoor Cleaning', 'Outdoor cleaning covers patios, gardens, roofs, etc.'),
+('Deep Cleaning', 'Deep Cleaning covers full-house cleaning, hard to reach areas, typically cleaned quarterly to yearly');
 
-
+INSERT INTO Services (cleaner_username, category, service, price) VALUES 
+('cleaner1', 'Home Cleaning', 'Mopping floor of house', 25.5),
+('cleaner1', 'Home Cleaning', 'Sweeping floor of house', 25.5),
+('cleaner1', 'Outdoor Cleaning', 'Powerwashing driveway', 40.0),
+('cleaner1', 'Deep Cleaning', 'Fungal Removal', 150);
