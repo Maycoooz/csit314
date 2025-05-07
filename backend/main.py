@@ -4,11 +4,14 @@ from fastapi.middleware.cors import CORSMiddleware
 from typing import List
 
 from backend.schemas.login_schema import LoginRequest, LoginProfiles
+from backend.schemas.utility_schemas import AvailableCategories
 from backend.schemas.admin_schemas import CreateAccountRequest, UserOut, SearchAccountRequest, SuspendAccountRequest, UpdateAccountRequest
 from backend.schemas.admin_schemas import CreateUserProfileRequest, UserProfileOut, SearchUserProfileRequest, SuspendUserProfileRequest, UpdateUserProfileRequest, UpdateUserRoleRequest, ViewAllUserWithSpecifiedRoleRequest
 from backend.schemas.platform_mangement_schemas import CreateServiceCategoryRequest, ServiceCategoryOut, UpdateServiceCategoryRequest, SuspendServiceCategoryRequest, SearchServiceCategoryRequest
 from backend.schemas.cleaner_schemas import CreateServiceRequest, ViewAllServicesRequest, ServicesOut, SearchServiceRequest, UpdateServiceRequest, SuspendServiceRequest
+
 from backend.controllers.login_controller import LoginController, LoginProfileController
+from backend.controllers.utility_controllers import ServiceCategoriesController
 from backend.controllers.admin_controllers import CreateAccountController, ViewAllAccountsController, SearchAccountController, SuspendAccountController, UpdateAccountController, UpdateUserRoleController
 from backend.controllers.admin_controllers import CreateUserProfileController, ViewAllUserProfilesController, SearchUserProfileController, SuspendUserProfileController, UpdateUserProfileController, ViewAllUsersWithSpecifiedRoleController
 from backend.controllers.platform_management_controllers import CreateServiceCategoryController, ViewAllServiceCategoryController, UpdateServiceCategoryController, SuspendServiceCategoryController, SearchServiceCategoryController
@@ -48,6 +51,8 @@ def get_profiles():
     roles = controller.get_all_roles()
 
     return roles
+
+#----------------------------------------------------------------------------------------------------------------------------
     
 # Admin create account, do we need log which admin created the account?
 # returns a boolean
@@ -182,6 +187,22 @@ def search_service_category(data: SearchServiceCategoryRequest):
     return service_categories
 
 
+
+#----------------------------------------------------------------------------------------------------------------------------
+
+# gives all available categories to cleaners to see when creating services
+@app.get("/cleaner/createService", response_model=List[AvailableCategories])
+def show_available_categories_for_create():
+    controller = ServiceCategoriesController()
+    available_categories = controller.get_all_available_service_categories()
+    return available_categories
+
+# gives all available categories to cleaners to see when updating services
+@app.get("/cleaner/updateService", response_model=List[AvailableCategories])
+def show_available_categories_for_update():
+    controller = ServiceCategoriesController()
+    available_categories = controller.get_all_available_service_categories()
+    return available_categories
 
 #----------------------------------------------------------------------------------------------------------------------------
 
