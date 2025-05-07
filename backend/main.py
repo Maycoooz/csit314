@@ -6,9 +6,11 @@ from typing import List
 from backend.schemas.login_schema import LoginRequest, LoginProfiles
 from backend.schemas.admin_schemas import CreateAccountRequest, UserOut, SearchAccountRequest, SuspendAccountRequest, UpdateAccountRequest
 from backend.schemas.admin_schemas import CreateUserProfileRequest, UserProfileOut, SearchUserProfileRequest, SuspendUserProfileRequest, UpdateUserProfileRequest, UpdateUserRoleRequest, ViewAllUserWithSpecifiedRoleRequest
+from backend.schemas.platform_mangement_schemas import CreateServiceCategory, ServiceCategoryOut, UpdateServiceCategory, SuspendServiceCategory, SearchServiceCategory
 from backend.controllers.login_controller import LoginController, LoginProfileController
 from backend.controllers.admin_controllers import CreateAccountController, ViewAllAccountsController, SearchAccountController, SuspendAccountController, UpdateAccountController, UpdateUserRoleController
 from backend.controllers.admin_controllers import CreateUserProfileController, ViewAllUserProfilesController, SearchUserProfileController, SuspendUserProfileController, UpdateUserProfileController, ViewAllUsersWithSpecifiedRoleController
+from backend.controllers.platform_management_controllers import CreateServiceCategoryController, ViewAllServiceCategoryController, UpdateServiceCategoryController, SuspendServiceCategoryController, SearchServiceCategoryController
 
 app = FastAPI()
 
@@ -139,3 +141,40 @@ def view_all_user_with_specified_role(data: ViewAllUserWithSpecifiedRoleRequest)
     users = controller.view_all_users_with_specified_role(data.role)
     
     return users
+
+#----------------------------------------------------------------------------------------------------------------------------
+
+@app.post("/pm/createServiceCategory")
+def create_service_category(data: CreateServiceCategory):
+    controller = CreateServiceCategoryController()
+    success = controller.create_service_category(data.new_category, data.new_description)
+    
+    return success
+
+@app.post("/pm/viewAllServiceCategories", response_model=List[ServiceCategoryOut])
+def view_all_service_categories():
+    controller = ViewAllServiceCategoryController()
+    service_categories = controller.view_all_service_categories()
+    
+    return service_categories
+
+@app.post("/pm/updateServiceCategory")
+def update_service_category(data: UpdateServiceCategory):
+    controller = UpdateServiceCategoryController()
+    success = controller.update_service_category(data.target_category, data.updated_category, data.updated_description)
+    
+    return success
+
+@app.post("/pm/suspendServiceCategory")
+def suspend_service_category(data: SuspendServiceCategory):
+    controller = SuspendServiceCategoryController()
+    success = controller.suspend_service_category(data.target_category)
+    
+    return success
+
+@app.post("/pm/searchServiceCategory", response_model=List[ServiceCategoryOut])
+def search_service_category(data: SearchServiceCategory):
+    controller = SearchServiceCategoryController()
+    service_categories = controller.search_service_category(data.target_category)
+    
+    return service_categories
