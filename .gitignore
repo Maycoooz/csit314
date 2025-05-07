@@ -13,3 +13,14 @@ backend/models/__pycache__/cleaner.cpython-313.pyc
 backend/models/__pycache__/user.cpython-313.pyc
 backend/schemas/__pycache__/cleaner_schemas.cpython-313.pyc
 backend/schemas/__pycache__/platform_mangement_schemas.cpython-313.pyc
+backend/__pycache__/main.cpython-313.pyc
+backend/controllers/__pycache__/admin_controllers.cpython-313.pyc
+backend/controllers/__pycache__/login_controller.cpython-313.pyc
+backend/controllers/__pycache__/platform_management_controllers.cpython-313.pyc
+backend/models/__pycache__/admin.cpython-313.pyc
+backend/models/__pycache__/platformmanagement.cpython-313.pyc
+backend/models/__pycache__/role.cpython-313.pyc
+backend/models/__pycache__/user.cpython-313.pyc
+backend/schemas/__pycache__/admin_schemas.cpython-313.pyc
+backend/schemas/__pycache__/login_schema.cpython-313.pyc
+backend/schemas/__pycache__/platform_mangement_schemas.cpython-313.pyc
