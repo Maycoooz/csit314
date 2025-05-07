@@ -83,7 +83,7 @@ const LoginForm = () => {
 };
 
 return (
-    <>
+    <div className="login-container">
         <form onSubmit={handleSubmit} className="login-form">
             <h2>Login</h2>
             <input
@@ -101,7 +101,7 @@ return (
                 required
             />
             <button type="submit">
-                <i className="fas fa-sign-in-alt" style={{ marginRight: "8px" }}></i>
+                <i className="fas fa-sign-in-alt" style={{textAlign: "center" }}></i>
                 Login
             </button>
 
@@ -134,7 +134,7 @@ return (
                 </div>
             </div>
         )}
-    </>
+    </div>
 );
 };
 

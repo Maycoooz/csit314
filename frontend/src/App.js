@@ -19,10 +19,9 @@ import AdminUPMUpdateUserProfilePage from "./pages/AdminUPMUpdateUserProfilePage
 //-----------------------------------------------------------------------------------
 import AdminRoleManagementPage from "./pages/AdminRoleManagementPage";
 import AdminRMUpdateUserRolePage from "./pages/AdminRMUpdateUserRolePage";
-//import AdminRMViewUsersByRolePage from "./pages/AdminRMViewUsersByRolePage";
+import AdminRMViewUsersByRolePage from "./pages/AdminRMViewUsersByRolePage";
 //-----------------------------------------------------------------------------------
-import CleanerDashboardPage from "./pages/CleanerDashboardPage";
-//                        <Route path="/admin-rm-view-users-by-role" element={<AdminRMViewUsersByRolePage />} />
+import CleanerDashboardPage from "./pages/CleanerDashboardPage";                       
 
 
 function App() {
@@ -46,7 +45,7 @@ function App() {
                         <Route path="/admin-upm-update-userprofile" element={<AdminUPMUpdateUserProfilePage />} />
                     <Route path="/admin-role-management" element={<AdminRoleManagementPage />} />
                         <Route path="/admin-rm-update-user-role" element={<AdminRMUpdateUserRolePage />} />
-
+                        <Route path="/admin-rm-view-users-by-role" element={<AdminRMViewUsersByRolePage />} />
                 <Route path="/cleaner-dashboard" element={<CleanerDashboardPage />} />
                 
             </Routes>

@@ -1,23 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { searchUserProfile } from "../services/userProfileService";
+import "../styles/SearchUserProfile.css";
 
 const SearchUserProfile = () => {
     const [role, setRole] = useState("");
     const [results, setResults] = useState([]);
     const [message, setMessage] = useState("");
     const navigate = useNavigate();
-
-    const buttonStyle = {
-        margin: "10px",
-        padding: "12px 25px",
-        fontSize: "16px",
-        borderRadius: "5px",
-        backgroundColor: "#28a745",
-        color: "white",
-        border: "none",
-        cursor: "pointer"
-    };
 
     const handleSearch = async (e) => {
         e.preventDefault();
@@ -32,45 +22,40 @@ const SearchUserProfile = () => {
     };
 
     return (
-        <div style={{ paddingTop: "70px", textAlign: "center" }}>
-            <h2>Search User Profile</h2>
-            <form onSubmit={handleSearch} style={{ display: "inline-block", textAlign: "left" }}>
-                <div style={{ marginBottom: "10px" }}>
-                    <label>Role:</label><br />
+        <div className="search-profile-container">
+            <div className="search-profile-box">
+                <h2>Search User Profile</h2>
+                <form onSubmit={handleSearch} className="search-profile-form">
                     <input
                         type="text"
+                        placeholder="Enter role"
                         value={role}
                         onChange={(e) => setRole(e.target.value)}
                         required
-                        style={{ width: "300px", padding: "8px" }}
                     />
-                </div>
-                <div style={{ textAlign: "center" }}>
-                    <button type="submit" style={buttonStyle}>Search</button>
-                    <button type="button" onClick={() => navigate(-1)} style={{ ...buttonStyle, backgroundColor: "rgb(65, 129, 172)" }}>← Back</button>
-                </div>
-            </form>
-
-            {message && <p>{message}</p>}
-
-            {results.length > 0 && (
-                <table style={{ margin: "20px auto", borderCollapse: "collapse", width: "80%" }}>
-                    <thead>
-                        <tr>
-                            <th style={{ border: "1px solid #ccc", padding: "8px" }}>Role</th>
-                            <th style={{ border: "1px solid #ccc", padding: "8px" }}>Description</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {results.map((profile, index) => (
-                            <tr key={index}>
-                                <td style={{ border: "1px solid #ccc", padding: "8px" }}>{profile.role}</td>
-                                <td style={{ border: "1px solid #ccc", padding: "8px" }}>{profile.description}</td>
+                    <button type="submit">Search</button>
+                </form>
+                {message && <p>{message}</p>}
+                {results.length > 0 && (
+                    <table className="profile-table">
+                        <thead>
+                            <tr>
+                                <th>Role</th>
+                                <th>Description</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
-            )}
+                        </thead>
+                        <tbody>
+                            {results.map((profile, index) => (
+                                <tr key={index}>
+                                    <td>{profile.role}</td>
+                                    <td>{profile.description}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                )}
+            </div>
+            <button className="back-button" onClick={() => navigate(-1)}>← Back</button>
         </div>
     );
 };

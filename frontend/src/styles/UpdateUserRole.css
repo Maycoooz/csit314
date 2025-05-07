@@ -1,0 +1,80 @@
+.update-role-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.update-role-box {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+}
+
+.update-role-box h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.update-role-form {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.update-role-form label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #444;
+    text-align: left;
+}
+
+.update-role-form input,
+.update-role-form select {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.update-role-form button {
+    padding: 10px 20px;
+    background-color: #ffc107;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.update-role-form button:hover {
+    background-color: #e0a800;
+}
+
+.update-role-form p {
+    margin-top: 15px;
+    font-weight: bold;
+    color: #333;
+}
+
+.blue-button {
+    margin-top: 15px;
+    padding: 10px 20px;
+    background-color: rgb(65, 129, 172);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.blue-button:hover {
+    background-color: rgb(50, 110, 150);
+}

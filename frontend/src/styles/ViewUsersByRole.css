@@ -1,0 +1,89 @@
+.view-users-role-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.view-users-role-box {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.view-users-role-box h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.view-users-role-box select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+}
+
+.blue-button {
+    padding: 10px 20px;
+    background-color: rgb(65, 129, 172);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.blue-button:hover {
+    background-color: rgb(50, 110, 150);
+}
+
+.back-button {
+    margin-top: 15px;
+}
+
+.error-text {
+    color: red;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.user-results {
+    margin-top: 20px;
+    width: 100%;
+    text-align: left;
+}
+
+.user-results ul {
+    padding-left: 20px;
+}
+
+.user-results li {
+    margin-bottom: 8px;
+}
+
+.green-button {
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    transition: background-color 0.3s;
+}
+
+.green-button:hover {
+    background-color: #218838;
+}

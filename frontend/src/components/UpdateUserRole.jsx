@@ -1,26 +1,27 @@
 import React, { useState, useEffect } from "react";
 import { getRoles, updateUserRole } from "../services/roleService";
+import { useNavigate } from "react-router-dom";
+import "../styles/UpdateUserRole.css";
 
 const UpdateUserRole = () => {
     const [targetUsername, setTargetUsername] = useState("");
     const [updatedRole, setUpdatedRole] = useState("");
     const [roles, setRoles] = useState([]);
     const [message, setMessage] = useState("");
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchRoles = async () => {
             try {
                 const data = await getRoles();
-                console.log("Roles fetched from backend:", data);
                 setRoles(data);
                 if (data.length > 0) {
-                    setUpdatedRole(data[0].role); // default
+                    setUpdatedRole(data[0].role);
                 }
             } catch (error) {
                 console.error("Failed to fetch roles:", error);
             }
         };
-        
         fetchRoles();
     }, []);
 
@@ -31,45 +32,46 @@ const UpdateUserRole = () => {
                 target_username: targetUsername,
                 updated_role: updatedRole,
             });
-            setMessage(success ? "User role updated successfully." : "Failed to update user role.");
+            setMessage(success ? "✅ User role updated successfully." : "❌ Failed to update user role.");
         } catch (err) {
             setMessage("Error occurred while updating role.");
         }
     };
 
     return (
-        <form onSubmit={handleSubmit} style={{ display: "inline-block", marginTop: "20px" }}>
-            <div>
-                <input
-                    type="text"
-                    placeholder="Target Username"
-                    value={targetUsername}
-                    onChange={(e) => setTargetUsername(e.target.value)}
-                    required
-                    style={{ margin: "10px", padding: "10px", fontSize: "16px" }}
-                />
-            </div>
-            <div>
-            <select
-                value={updatedRole}
-                onChange={(e) => setUpdatedRole(e.target.value)}
-                required
-                style={{ margin: "10px", padding: "10px", fontSize: "16px" }}>
-                    
-                <option value="">Select Role</option>
-                    {roles.map((roleObj, idx) => (
-                    <option key={idx} value={roleObj.role}>
-                        {roleObj.role} - {roleObj.description}
-                    </option>
-                ))}
-            </select>
+        <div className="update-role-container">
+            <div className="update-role-box">
+                <h2>Update User Role</h2>
+                <form onSubmit={handleSubmit} className="update-role-form">
+                    <label>Target Username:</label>
+                    <input
+                        type="text"
+                        value={targetUsername}
+                        onChange={(e) => setTargetUsername(e.target.value)}
+                        required
+                    />
 
+                    <label>Select New Role:</label>
+                    <select
+                        value={updatedRole}
+                        onChange={(e) => setUpdatedRole(e.target.value)}
+                        required
+                    >
+                        <option value="">Select Role</option>
+                        {roles.map((roleObj, idx) => (
+                            <option key={idx} value={roleObj.role}>
+                                {roleObj.role} - {roleObj.description}
+                            </option>
+                        ))}
+                    </select>
+
+                    <button type="submit" className="yellow-button">Update Role</button>
+                    {message && <p>{message}</p>}
+                </form>
             </div>
-            <button type="submit" style={{ margin: "10px", padding: "10px 20px", fontSize: "16px" }}>
-                Update Role
-            </button>
-            {message && <p style={{ color: "green", marginTop: "10px" }}>{message}</p>}
-        </form>
+
+            <button className="blue-button back-button" onClick={() => navigate(-1)}>← Back</button>
+        </div>
     );
 };
 

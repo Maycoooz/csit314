@@ -23,7 +23,7 @@ const AdminRoleManagementPage = () => {
                 <h2>Role Management</h2>
                 <button onClick={() => navigate(-1)} style={{ ...buttonStyle, backgroundColor: "rgb(65, 129, 172)" }}> ← Back</button>
                 <button onClick={() => navigate("/admin-rm-update-user-role")} style={buttonStyle}>Update User Role</button>
-                <button onClick={() => navigate("/view-users-by-role")} style={buttonStyle}>View Users by Role</button>
+                <button onClick={() => navigate("/admin-rm-view-users-by-role")} style={buttonStyle}>View Users by Role</button>
             </div>
         </div>
     );

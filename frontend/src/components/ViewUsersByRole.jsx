@@ -1,12 +1,14 @@
-// src/components/ViewUsersByRole.jsx
 import React, { useState, useEffect } from "react";
 import { getUsersByRole, getRoles } from "../services/roleService";
+import { useNavigate } from "react-router-dom";
+import "../styles/ViewUsersByRole.css";
 
 const ViewUsersByRole = () => {
     const [selectedRole, setSelectedRole] = useState("");
     const [roles, setRoles] = useState([]);
     const [users, setUsers] = useState([]);
     const [error, setError] = useState("");
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchRoles = async () => {
@@ -28,42 +30,45 @@ const ViewUsersByRole = () => {
             setError("");
         } catch (err) {
             setUsers([]);
-            setError("Error fetching users with the specified role.");
+            setError("❌ Error fetching users with the specified role.");
         }
     };
 
     return (
-        <div>
-            <select
-                value={selectedRole}
-                onChange={(e) => setSelectedRole(e.target.value)}
-                style={{ margin: "10px", padding: "10px", fontSize: "16px" }}
-            >
-                <option value="">Select a role</option>
-                {roles.map((role, index) => (
-                    <option key={index} value={role}>
-                        {role}
+        <div className="view-users-role-container">
+            <div className="view-users-role-box">
+                <h2>View Users by Role</h2>
+                <select
+                    value={selectedRole}
+                    onChange={(e) => setSelectedRole(e.target.value)}
+                    required
+                >
+                    <option value="">Select a role</option>
+                    {roles.map((r, index) => (
+                        <option key={index} value={r.role}>
+                        {r.role}
                     </option>
-                ))}
-            </select>
-            <button onClick={handleSearch} style={{ padding: "10px 20px", fontSize: "16px" }}>
-                Search
-            </button>
+))}
+                </select>
+                <button onClick={handleSearch} className="green-button">Search</button>
 
-            {error && <p style={{ color: "red" }}>{error}</p>}
+                {error && <p className="error-text">{error}</p>}
 
-            {users.length > 0 && (
-                <div style={{ marginTop: "20px", textAlign: "left", display: "inline-block" }}>
-                    <h3>Users with role: {selectedRole}</h3>
-                    <ul>
-                        {users.map((user, idx) => (
-                            <li key={idx}>
-                                <strong>Username:</strong> {user.username} | <strong>Role:</strong> {user.role}
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-            )}
+                {users.length > 0 && (
+                    <div className="user-results">
+                        <h3>Users with role: {selectedRole}</h3>
+                        <ul>
+                            {users.map((user, idx) => (
+                                <li key={idx}>
+                                    <strong>Username:</strong> {user.username} | <strong>Role:</strong> {user.role}
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                )}
+            </div>
+
+            <button className="blue-button back-button" onClick={() => navigate(-1)}>← Back</button>
         </div>
     );
 };

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { updateUserProfile } from "../services/userProfileService";
+import "../styles/UpdateUserProfile.css";
 
 const UpdateUserProfile = () => {
     const [targetRole, setTargetRole] = useState("");
@@ -8,17 +9,6 @@ const UpdateUserProfile = () => {
     const [updatedDescription, setUpdatedDescription] = useState("");
     const [message, setMessage] = useState("");
     const navigate = useNavigate();
-
-    const buttonStyle = {
-        margin: "10px",
-        padding: "12px 25px",
-        fontSize: "16px",
-        borderRadius: "5px",
-        backgroundColor: "#ffc107", // yellow for update/edit
-        color: "black",
-        border: "none",
-        cursor: "pointer"
-    };
 
     const handleUpdate = async (e) => {
         e.preventDefault();
@@ -29,7 +19,7 @@ const UpdateUserProfile = () => {
                 updated_description: updatedDescription
             });
 
-            setMessage(success ? "Profile updated successfully!" : "Failed to update profile.");
+            setMessage(success ? "✅ Profile updated successfully!" : "❌ Failed to update profile.");
             setTargetRole("");
             setUpdatedRole("");
             setUpdatedDescription("");
@@ -39,45 +29,36 @@ const UpdateUserProfile = () => {
     };
 
     return (
-        <div style={{ paddingTop: "70px", textAlign: "center" }}>
-            <h2>Update User Profile</h2>
-            <form onSubmit={handleUpdate} style={{ display: "inline-block", textAlign: "left" }}>
-                <div style={{ marginBottom: "10px" }}>
-                    <label>Current Role:</label><br />
+        <div className="update-profile-container">
+            <div className="update-profile-box">
+                <h2>Update User Profile</h2>
+                <form onSubmit={handleUpdate} className="update-profile-form">
+                    <label>Current Role:</label>
                     <input
                         type="text"
                         value={targetRole}
                         onChange={(e) => setTargetRole(e.target.value)}
                         required
-                        style={{ width: "300px", padding: "8px" }}
                     />
-                </div>
-                <div style={{ marginBottom: "10px" }}>
-                    <label>New Role:</label><br />
+                    <label>New Role:</label>
                     <input
                         type="text"
                         value={updatedRole}
                         onChange={(e) => setUpdatedRole(e.target.value)}
                         required
-                        style={{ width: "300px", padding: "8px" }}
                     />
-                </div>
-                <div style={{ marginBottom: "10px" }}>
-                    <label>New Description:</label><br />
+                    <label>New Description:</label>
                     <textarea
                         value={updatedDescription}
                         onChange={(e) => setUpdatedDescription(e.target.value)}
                         rows="4"
                         required
-                        style={{ width: "300px", padding: "8px" }}
                     />
-                </div>
-                <div style={{ textAlign: "center" }}>
-                    <button type="submit" style={buttonStyle}>Update</button>
-                    <button type="button" onClick={() => navigate(-1)} style={{ ...buttonStyle, backgroundColor: "rgb(65, 129, 172)", color: "white" }}>← Back</button>
-                </div>
-            </form>
-            {message && <p>{message}</p>}
+                    <button type="submit" className="yellow-button">Update</button>
+                </form>
+                {message && <p>{message}</p>}
+            </div>
+            <button className="blue-button back-button" onClick={() => navigate(-1)}>← Back</button>
         </div>
     );
 };
