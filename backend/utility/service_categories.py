@@ -1,17 +1,6 @@
-from pydantic import BaseModel
-import mysql.connector
+from backend.utility.connect_to_db import ConnectDB
 
-class ServiceCategories(BaseModel):
-
-    def connect_database(self):
-        conn = mysql.connector.connect(
-        host = "localhost",
-        user = "root",
-        password = "", #for antonio mysql : csit115 #grace
-        database = "csit314"
-    )
-    
-        return conn
+class ServiceCategories(ConnectDB):
 
     def get_all_available_service_categories(self):
         conn = self.connect_database()

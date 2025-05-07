@@ -5,3 +5,7 @@ class AvailableCategories(BaseModel):
     category: str
     description: str
     status: str
+    
+class ActiveUsersOut(BaseModel):
+    username: str
+    role: str

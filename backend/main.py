@@ -4,14 +4,14 @@ from fastapi.middleware.cors import CORSMiddleware
 from typing import List
 
 from backend.schemas.login_schema import LoginRequest, LoginProfiles
-from backend.schemas.utility_schemas import AvailableCategories
+from backend.schemas.utility_schemas import AvailableCategories, ActiveUsersOut
 from backend.schemas.admin_schemas import CreateAccountRequest, UserOut, SearchAccountRequest, SuspendAccountRequest, UpdateAccountRequest
 from backend.schemas.admin_schemas import CreateUserProfileRequest, UserProfileOut, SearchUserProfileRequest, SuspendUserProfileRequest, UpdateUserProfileRequest, UpdateUserRoleRequest, ViewAllUserWithSpecifiedRoleRequest
 from backend.schemas.platform_mangement_schemas import CreateServiceCategoryRequest, ServiceCategoryOut, UpdateServiceCategoryRequest, SuspendServiceCategoryRequest, SearchServiceCategoryRequest
 from backend.schemas.cleaner_schemas import CreateServiceRequest, ViewAllServicesRequest, ServicesOut, SearchServiceRequest, UpdateServiceRequest, SuspendServiceRequest
 
 from backend.controllers.login_controller import LoginController, LoginProfileController
-from backend.controllers.utility_controllers import ServiceCategoriesController
+from backend.controllers.utility_controllers import ServiceCategoriesController, ActiveUsersController
 from backend.controllers.admin_controllers import CreateAccountController, ViewAllAccountsController, SearchAccountController, SuspendAccountController, UpdateAccountController, UpdateUserRoleController
 from backend.controllers.admin_controllers import CreateUserProfileController, ViewAllUserProfilesController, SearchUserProfileController, SuspendUserProfileController, UpdateUserProfileController, ViewAllUsersWithSpecifiedRoleController
 from backend.controllers.platform_management_controllers import CreateServiceCategoryController, ViewAllServiceCategoryController, UpdateServiceCategoryController, SuspendServiceCategoryController, SearchServiceCategoryController
@@ -51,6 +51,13 @@ def get_profiles():
     roles = controller.get_all_roles()
 
     return roles
+
+@app.get("/admin", response_model=List[ActiveUsersOut])
+def get_all_active_users():
+    controller = ActiveUsersController()
+    users = controller.get_all_active_users()
+    
+    return users
 
 #----------------------------------------------------------------------------------------------------------------------------
     
