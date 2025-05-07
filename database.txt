@@ -16,6 +16,111 @@ CREATE TABLE Users (
     CONSTRAINT role_FK FOREIGN KEY (role) REFERENCES UserProfiles(role) ON UPDATE CASCADE ON DELETE SET NULL
 );
 
+CREATE TABLE ServiceCategories (
+	category VARCHAR(255) NOT NULL PRIMARY KEY,
+    description VARCHAR(255) NOT NULL, 
+    status ENUM('active', 'suspended') NOT NULL DEFAULT 'active'
+);
+
+CREATE TABLE Services (
+    service VARCHAR(255) NOT NULL,
+    category VARCHAR(255) NOT NULL,
+    username VARCHAR(255) NOT NULL,
+    status ENUM('active', 'suspended') NOT NULL DEFAULT 'active',
+    
+    PRIMARY KEY (service, username),
+
+    FOREIGN KEY (category) REFERENCES ServiceCategories(category) ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (username) REFERENCES Users(username) ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+CREATE TABLE CleanerViews (
+    username VARCHAR(255) NOT NULL PRIMARY KEY, 
+    views INT NOT NULL DEFAULT 0,
+
+    FOREIGN KEY (username) REFERENCES Users(username) ON UPDATE CASCADE ON DELETE CASCADE
+
+);
+
+CREATE TABLE Shortlist (
+    homeowner_username VARCHAR(255) NOT NULL,
+    cleaner_username VARCHAR(255) NOT NULL,
+    service VARCHAR(255) NOT NULL,
+    
+    PRIMARY KEY (homeowner_username, cleaner_username, service),
+
+    FOREIGN KEY (homeowner_username) REFERENCES Users(username) ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (cleaner_username) REFERENCES Users(username) ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (service, cleaner_username) REFERENCES Services(service, username) ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+CREATE TABLE CleanerViewTracker (
+    homeowner_username VARCHAR(255) NOT NULL,
+    cleaner_username VARCHAR(255) NOT NULL,
+    
+    PRIMARY KEY (homeowner_username, cleaner_username),
+    
+    FOREIGN KEY (homeowner_username) REFERENCES Users(username) ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (cleaner_username) REFERENCES Users(username) ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+
+
+
+DELIMITER $$
+
+-- If a service category is suspended all services under that category is suspended 
+CREATE TRIGGER suspend_services_after_category_update
+AFTER UPDATE ON ServiceCategories
+FOR EACH ROW
+BEGIN
+    IF NEW.status = 'suspended' THEN
+        UPDATE Services
+        SET status = 'suspended'
+        WHERE category = NEW.category;
+    END IF;
+END$$
+
+-- Auto create a view cleaner row when a cleaner is created 
+CREATE TRIGGER insert_into_cleanerviews_after_user_insert
+AFTER INSERT ON Users
+FOR EACH ROW
+BEGIN
+    IF NEW.role = 'cleaner' THEN
+        INSERT INTO CleanerViews (username) VALUES (NEW.username);
+    END IF;
+END$$
+
+DELIMITER ;
+
+DELIMITER $$
+
+CREATE PROCEDURE ViewCleanerProfile(
+    IN p_homeowner_username VARCHAR(255),
+    IN p_cleaner_username VARCHAR(255)
+)
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1
+        FROM CleanerViewTracker
+        WHERE homeowner_username = p_homeowner_username
+          AND cleaner_username = p_cleaner_username
+    ) THEN
+        INSERT INTO CleanerViewTracker (homeowner_username, cleaner_username)
+        VALUES (p_homeowner_username, p_cleaner_username);
+
+        UPDATE CleanerViews
+        SET views = views + 1
+        WHERE username = p_cleaner_username;
+    END IF;
+END$$
+
+DELIMITER ;
+
+
+
+
+
 
 -- Insert test users
 INSERT INTO UserProfiles (role, description) VALUES ('admin', 'Manages Users accounts');
