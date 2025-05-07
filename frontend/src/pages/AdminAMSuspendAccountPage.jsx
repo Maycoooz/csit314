@@ -1,7 +1,7 @@
 import React from "react";
 import SuspendAccount from "../components/SuspendAccount";
 
-const SuspendAccountPage = () => {
+const AdminAMSuspendAccountPage = () => {
     return (
         <div>
             <SuspendAccount />
@@ -9,4 +9,4 @@ const SuspendAccountPage = () => {
     );
 };
 
-export default SuspendAccountPage;
+export default AdminAMSuspendAccountPage;

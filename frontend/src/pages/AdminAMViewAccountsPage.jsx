@@ -1,7 +1,7 @@
 import React from "react";
 import ViewAccounts from "../components/ViewAccounts";
 
-const ViewAccountsPage = () => {
+const AdminAMViewAccountsPage = () => {
     return (
         <div>
             <ViewAccounts />
@@ -9,4 +9,4 @@ const ViewAccountsPage = () => {
     );
 };
 
-export default ViewAccountsPage;
+export default AdminAMViewAccountsPage;

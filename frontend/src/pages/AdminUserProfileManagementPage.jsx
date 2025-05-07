@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/NavBar";
 
-const UserProfileManagementPage = () => {
+const AdminUserProfileManagementPage = () => {
     const navigate = useNavigate();
 
     const buttonStyle = {
@@ -32,4 +32,4 @@ const UserProfileManagementPage = () => {
     );
 };
 
-export default UserProfileManagementPage;
+export default AdminUserProfileManagementPage;
