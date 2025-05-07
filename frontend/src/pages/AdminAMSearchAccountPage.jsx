@@ -1,7 +1,7 @@
 import React from "react";
 import SearchAccount from "../components/SearchAccount";
 
-const SearchAccountPage = () => {
+const AdminAMSearchAccountPage = () => {
     return (
         <div>
             <SearchAccount />
@@ -9,4 +9,4 @@ const SearchAccountPage = () => {
     );
 };
 
-export default SearchAccountPage;
+export default AdminAMSearchAccountPage;

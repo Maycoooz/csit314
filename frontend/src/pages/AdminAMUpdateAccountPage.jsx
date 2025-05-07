@@ -1,7 +1,7 @@
 import React from "react";
 import UpdateAccount from "../components/UpdateAccount";
 
-const UpdateAccountPage = () => {
+const AdminAMUpdateAccountPage = () => {
     return (
         <div>
             <UpdateAccount />
@@ -9,4 +9,4 @@ const UpdateAccountPage = () => {
     );
 };
 
-export default UpdateAccountPage;
+export default AdminAMUpdateAccountPage;

@@ -1,7 +1,7 @@
 import React from "react";
 import CreateAccountForm from "../components/CreateAccountForm";
 
-const CreateAccountPage = () => {
+const AdminAMCreateAccountPage = () => {
     return (
         <div>
             <CreateAccountForm />
@@ -9,4 +9,4 @@ const CreateAccountPage = () => {
     );
 };
 
-export default CreateAccountPage;
+export default AdminAMCreateAccountPage;

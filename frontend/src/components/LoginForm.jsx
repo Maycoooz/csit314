@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
 import { getRoles, loginUser } from "../services/authService";
-import "./LoginForm.css"; // or your style
+import "../styles/LoginForm.css";
 import { useEffect } from "react"; // Add this if not already
 
 
