@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import { updateAccount } from "../services/accountService";
+import { useNavigate } from "react-router-dom";
+import "../styles/UpdateAccount.css";
 
 const UpdateAccount = () => {
     const [target, setTarget] = useState("");
     const [newUsername, setNewUsername] = useState("");
     const [newPassword, setNewPassword] = useState("");
     const [message, setMessage] = useState("");
+    const navigate = useNavigate();
 
     const handleUpdate = async () => {
         try {
@@ -14,35 +17,39 @@ const UpdateAccount = () => {
                 updated_username: newUsername,
                 updated_password: newPassword
             });
-            setMessage(success ? "Account updated successfully." : "Update failed.");
+            setMessage(success ? "✅ Account updated successfully." : "❌ Update failed.");
         } catch (err) {
             setMessage(err.message);
         }
     };
 
     return (
-        <div className="admin-page">
-            <h2>Update Account</h2>
-            <input
-                type="text"
-                placeholder="Target Username"
-                value={target}
-                onChange={(e) => setTarget(e.target.value)}
-            /><br />
-            <input
-                type="text"
-                placeholder="New Username"
-                value={newUsername}
-                onChange={(e) => setNewUsername(e.target.value)}
-            /><br />
-            <input
-                type="password"
-                placeholder="New Password"
-                value={newPassword}
-                onChange={(e) => setNewPassword(e.target.value)}
-            /><br />
-            <button onClick={handleUpdate}>Update</button>
-            <p>{message}</p>
+        <div className="update-account-container">
+            <div className="update-account-box">
+                <h2>Update Account</h2>
+                <input
+                    type="text"
+                    placeholder="Target Username"
+                    value={target}
+                    onChange={(e) => setTarget(e.target.value)}
+                />
+                <input
+                    type="text"
+                    placeholder="New Username"
+                    value={newUsername}
+                    onChange={(e) => setNewUsername(e.target.value)}
+                />
+                <input
+                    type="password"
+                    placeholder="New Password"
+                    value={newPassword}
+                    onChange={(e) => setNewPassword(e.target.value)}
+                />
+                <button onClick={handleUpdate}>Update</button>
+                {message && <p>{message}</p>}
+            </div>
+
+            <button className="back-button" onClick={() => navigate(-1)}>← Back</button>
         </div>
     );
 };

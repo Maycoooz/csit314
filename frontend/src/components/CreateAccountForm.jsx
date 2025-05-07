@@ -52,7 +52,7 @@ const CreateAccountForm = () => {
     };
 
     return (
-        <div style={{ paddingTop: "70px", display: "flex", flexDirection: "column", alignItems: "center" }}>
+        <div className="create-account-container">
             <form onSubmit={handleSubmit} className="create-account-form">
                 <h2>Create New Account</h2>
                 <input
@@ -76,14 +76,17 @@ const CreateAccountForm = () => {
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     required
                 />
-                <button type="submit" style={buttonStyle}>Create Account</button>
+                <button type="submit">Create Account</button>
                 <p>{message}</p>
             </form>
-
+            
             <button onClick={() => navigate(-1)} style={backButtonStyle}>
                 ← Back
             </button>
+
+
         </div>
+        
     );
     
 };
