@@ -5,8 +5,15 @@ import Navbar from "../components/NavBar";
 const CleanerDashboardPage = () => {
     const navigate = useNavigate();
 
-    const handleViewJobs = () => {
-        navigate("/assigned-jobs"); // You can change this route based on your app
+    const buttonStyle = {
+        margin: "10px",
+        padding: "12px 25px",
+        fontSize: "16px",
+        borderRadius: "5px",
+        backgroundColor: "#4CAF50",
+        color: "white",
+        border: "none",
+        cursor: "pointer"
     };
 
     return (
@@ -14,21 +21,26 @@ const CleanerDashboardPage = () => {
             <Navbar />
             <div style={{ paddingTop: "70px", textAlign: "center" }}>
                 <h1>Welcome to Cleaner Dashboard</h1>
-                <button
-                    onClick={handleViewJobs}
-                    style={{
-                        marginTop: "20px",
-                        padding: "10px 20px",
-                        fontSize: "16px",
-                        cursor: "pointer",
-                        borderRadius: "5px",
-                        backgroundColor: "#4CAF50",
-                        color: "white",
-                        border: "none"
-                    }}
-                >
-                    View Assigned Jobs
-                </button>
+                <div style={{ marginTop: "30px" }}>
+                    <button style={buttonStyle} onClick={() => navigate("/cleaner-create-service")}>
+                        Create Service
+                    </button>
+                    <button style={buttonStyle} onClick={() => navigate("/cleaner-view-services")}>
+                        View All Services
+                    </button>
+                    <button style={buttonStyle} onClick={() => navigate("/cleaner/search-service")}>
+                        Search Services
+                    </button>
+                    <button style={buttonStyle} onClick={() => navigate("/cleaner/update-service")}>
+                        Update Service
+                    </button>
+                    <button style={buttonStyle} onClick={() => navigate("/cleaner/suspend-service")}>
+                        Suspend Service
+                    </button>
+                    <button style={buttonStyle} onClick={() => navigate("/cleaner/view-stats")}>
+                        View Stats (Views)
+                    </button>
+                </div>
             </div>
         </div>
     );
