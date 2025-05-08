@@ -24,6 +24,8 @@ import AdminRMViewUsersByRolePage from "./pages/AdminRMViewUsersByRolePage";
 import CleanerDashboardPage from "./pages/CleanerDashboardPage";    
 import CleanerCreateServicePage from "./pages/CleanerCreateServicePage";        
 import CleanerViewServicesPage from "./pages/CleanerViewServicesPage";                    
+import CleanerSearchServicePage from "./pages/CleanerSearchServicePage";  
+import CleanerUpdateServicePage from "./pages/CleanerUpdateServicePage";  
 
 
 function App() {
@@ -51,6 +53,10 @@ function App() {
                 <Route path="/cleaner-dashboard" element={<CleanerDashboardPage />} />
                     <Route path="/cleaner-create-service" element={<CleanerCreateServicePage />} />
                     <Route path="/cleaner-view-services" element={<CleanerViewServicesPage />} />
+                    <Route path="/cleaner-search-service" element={<CleanerSearchServicePage />} />
+                    <Route path="/cleaner-update-service" element={<CleanerUpdateServicePage />} />
+
+
 
             </Routes>
         </Router>

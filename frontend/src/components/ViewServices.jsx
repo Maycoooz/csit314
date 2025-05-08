@@ -11,7 +11,7 @@ const ViewServices = () => {
     useEffect(() => {
         const fetchServices = async () => {
             try {
-                const data = await getCleanerServices({ cleaner_username: cleanerUsername });
+                const data = await getCleanerServices(cleanerUsername);
                 setServices(data);
             } catch (err) {
                 setError("Failed to load services.");

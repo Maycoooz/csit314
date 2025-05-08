@@ -28,16 +28,16 @@ const CleanerDashboardPage = () => {
                     <button style={buttonStyle} onClick={() => navigate("/cleaner-view-services")}>
                         View All Services
                     </button>
-                    <button style={buttonStyle} onClick={() => navigate("/cleaner/search-service")}>
+                    <button style={buttonStyle} onClick={() => navigate("/cleaner-search-service")}>
                         Search Services
                     </button>
-                    <button style={buttonStyle} onClick={() => navigate("/cleaner/update-service")}>
+                    <button style={buttonStyle} onClick={() => navigate("/cleaner-update-service")}>
                         Update Service
                     </button>
-                    <button style={buttonStyle} onClick={() => navigate("/cleaner/suspend-service")}>
+                    <button style={buttonStyle} onClick={() => navigate("/cleaner-suspend-service")}>
                         Suspend Service
                     </button>
-                    <button style={buttonStyle} onClick={() => navigate("/cleaner/view-stats")}>
+                    <button style={buttonStyle} onClick={() => navigate("/cleaner-view-stats")}>
                         View Stats (Views)
                     </button>
                 </div>
