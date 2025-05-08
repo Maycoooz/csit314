@@ -5,9 +5,6 @@ class CreateServiceRequest(BaseModel):
     selected_category: str
     new_service: str
     new_price: float
-
-class ViewAllServicesRequest(BaseModel):
-    cleaner_username: str
     
 class ServicesOut(BaseModel):
     service_id: int

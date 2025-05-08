@@ -45,12 +45,12 @@ class HomeOwner(User):
             cursor.close()
             conn.close()
 
-    def view_cleaner_profile(self, homeowner_username, cleaner_username):
+    def view_cleaner_profile(self, homeowner_username: str, cleaner_username: str):
         conn = self.connect_database()
         cursor = conn.cursor(dictionary=True)
 
         try:
-            # Check if homeowner has already viewed this cleaner
+            # Check if homeowner has already viewed this cleaner before
             check_statement = """
             SELECT 1 FROM CleanerViewTracker
             WHERE homeowner_username = %s AND cleaner_username = %s
@@ -59,7 +59,7 @@ class HomeOwner(User):
             result = cursor.fetchone()
 
             if not result:
-                # First time viewing, insert tracker
+                # First time viewing, insert into cleanerviewtracker table in db
                 insert_statement = """
                 INSERT INTO CleanerViewTracker (homeowner_username, cleaner_username)
                 VALUES (%s, %s)
@@ -83,11 +83,98 @@ class HomeOwner(User):
             cursor.close()
             conn.close()
 
-    def shortlist_cleaner(self):
-        pass
+    def shortlist_cleaner(self, homeowner_username: str, service_id: int):
+        conn = self.connect_database()
+        cursor = conn.cursor(dictionary=True)
+        
+        try:
+            prepared_statement = """
+            INSERT INTO shortlist
+            VALUES (%s, %s)
+            """
+            values = (homeowner_username, service_id)
+            cursor.execute(prepared_statement, values)
+            conn.commit()
+            success = True
+        except mysql.connector.Error as e:
+            print(f"Error saving {service_id} to shortlist")
+            success = False
+        finally:
+            cursor.close()
+            conn.close()
+            return success        
+        
+    def view_shortlisted_cleaners(self, homeowner_username: str):
+        conn = self.connect_database()
+        cursor = conn.cursor(dictionary=True)
 
-    def search_shortlist(self):
-        pass
+        try:
+            prepared_statement = """
+            SELECT 
+                s.cleaner_username,
+                s.service_id,
+                s.category,
+                s.service,
+                s.price
+            FROM
+                Shortlist sl
+            INNER JOIN
+                Services s ON sl.service_id = s.service_id
+            WHERE 
+                sl.homeowner_username = %s
+            """    
+            values = (homeowner_username, )
+            cursor.execute(prepared_statement, values)
+            shortlisted_cleaners_and_services = cursor.fetchall()
+
+            return shortlisted_cleaners_and_services or []
+
+        except Exception as e:
+            print(f"Error while fetching shortlist: {e}")
+            return []  
+
+        finally:
+            cursor.close()
+            conn.close()
+
+        
+        
+    # filter shortlist by service
+    def filter_shortlist(self, homeowner_username: str, service_filter: str):
+        conn = self.connect_database()
+        cursor = conn.cursor(dictionary=True)
+
+        try:
+            prepared_statement = """
+            SELECT 
+                s.cleaner_username,
+                s.service_id,
+                s.category,
+                s.service,
+                s.price
+            FROM
+                Shortlist sl
+            INNER JOIN
+                Services s ON sl.service_id = s.service_id
+            WHERE 
+                sl.homeowner_username = %s
+            AND
+                s.service LIKE %s
+            """    
+            values = (homeowner_username, f"%{service_filter}%")
+            cursor.execute(prepared_statement, values)
+            shortlisted_cleaners_and_services = cursor.fetchall()
+
+            return shortlisted_cleaners_and_services or []
+
+        except Exception as e:
+            print(f"Error while filtering shortlist: {e}")
+            return []  
+
+        finally:
+            cursor.close()
+            conn.close()
+
 
     def view_past_transactions(self):
         pass

@@ -11,7 +11,6 @@ class BaseHomeOwnerController:
 class FilterCleanersController(BaseHomeOwnerController):
     
     def filter_cleaners(self, service: Optional[str] = None):
-        
         ho = self.home_owner()
         return ho.filter_cleaners(service)
     
@@ -19,7 +18,6 @@ class FilterCleanersController(BaseHomeOwnerController):
 class ViewCleanerProfileController(BaseHomeOwnerController):
     
     def view_cleaner_profile(self, homeowner_username: str, cleaner_username: str):
-        
         ho = self.home_owner()
         ho.view_cleaner_profile(homeowner_username, cleaner_username)
         
@@ -28,3 +26,21 @@ class ViewCleanerProfileController(BaseHomeOwnerController):
         
         return services
 
+class ShortlistCleanerController(BaseHomeOwnerController):
+    
+    def shortlist_cleaner(self, homeowner_username: str, service_id: int):
+        ho = self.home_owner()
+        return ho.shortlist_cleaner(homeowner_username, service_id)
+        
+        
+class ViewShortlistedCleanersController(BaseHomeOwnerController):
+    
+    def view_shortlisted_cleaners(self, homeowner_username: str):
+        ho = self.home_owner()
+        return ho.view_shortlisted_cleaners(homeowner_username)
+    
+class FilterShortlistedCleanersController(BaseHomeOwnerController):
+    
+    def filter_shortlist(self, homeowner_username: str, service_filter: str):
+        ho = self.home_owner()
+        return ho.filter_shortlist(homeowner_username, service_filter)

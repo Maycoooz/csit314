@@ -8,7 +8,8 @@ from backend.schemas.utility_schemas import AvailableCategories, ActiveUsersOut
 from backend.schemas.admin_schemas import CreateAccountRequest, UserOut, SearchAccountRequest, SuspendAccountRequest, UpdateAccountRequest
 from backend.schemas.admin_schemas import CreateUserProfileRequest, UserProfileOut, SearchUserProfileRequest, SuspendUserProfileRequest, UpdateUserProfileRequest, UpdateUserRoleRequest, ViewAllUserWithSpecifiedRoleRequest
 from backend.schemas.platform_mangement_schemas import CreateServiceCategoryRequest, ServiceCategoryOut, UpdateServiceCategoryRequest, SuspendServiceCategoryRequest, SearchServiceCategoryRequest
-from backend.schemas.cleaner_schemas import CreateServiceRequest, ViewAllServicesRequest, ServicesOut, SearchServiceRequest, UpdateServiceRequest, SuspendServiceRequest
+from backend.schemas.cleaner_schemas import CreateServiceRequest, ServicesOut, SearchServiceRequest, UpdateServiceRequest, SuspendServiceRequest
+from backend.schemas.home_owner_schemas import ShortlistCleanerRequest, ShowShortlistedCleaners
 
 from backend.controllers.login_controller import LoginController, LoginProfileController
 from backend.controllers.utility_controllers import ServiceCategoriesController, ActiveUsersController
@@ -16,13 +17,13 @@ from backend.controllers.admin_controllers import CreateAccountController, ViewA
 from backend.controllers.admin_controllers import CreateUserProfileController, ViewAllUserProfilesController, SearchUserProfileController, SuspendUserProfileController, UpdateUserProfileController, ViewAllUsersWithSpecifiedRoleController
 from backend.controllers.platform_management_controllers import CreateServiceCategoryController, ViewAllServiceCategoryController, UpdateServiceCategoryController, SuspendServiceCategoryController, SearchServiceCategoryController
 from backend.controllers.cleaner_controllers import CreateServiceController, ViewAllServicesController, SearchServiceController, UpdateServiceController, SuspendServiceController, ViewNumViewsController
-from backend.controllers.home_owner_controllers import FilterCleanersController, ViewCleanerProfileController
+from backend.controllers.home_owner_controllers import FilterCleanersController, ViewCleanerProfileController, ShortlistCleanerController, ViewShortlistedCleanersController, FilterShortlistedCleanersController
 
 app = FastAPI()
 
 origins = [
     "http://localhost:3000",
-    "http://localhost:8000"
+    "http://localhost:8000" 
 ]
 
 app.add_middleware(
@@ -221,10 +222,10 @@ def create_service(data: CreateServiceRequest):
     
     return success
 
-@app.post("/cleaner/viewAllServices", response_model=List[ServicesOut])
-def view_all_service(data: ViewAllServicesRequest):
+@app.get("/cleaner/viewAllServices", response_model=List[ServicesOut])
+def view_all_service(cleaner_username: str):
     controller = ViewAllServicesController()
-    services = controller.view_all_services(data.cleaner_username)
+    services = controller.view_all_services(cleaner_username)
     
     return services
 
@@ -259,6 +260,10 @@ def view_num_views(cleaner_username: str):
     
     return num_views
 
+@app.get("/cleaner/viewNumShortlisted")
+def view_num_shortlisted(cleaner_username: str):
+    pass
+
 
 
 # Home Owner ----------------------------------------------------------------------------------------------------------------------------
@@ -277,3 +282,25 @@ def view_cleaner_profile(homeowner_username: str, cleaner_username: str):
     services = controller.view_cleaner_profile(homeowner_username, cleaner_username)
     
     return services
+
+@app.post("/ho/viewCleanerProfile/shortlistCleaner")
+def shortlist_cleaner(data: ShortlistCleanerRequest):
+    controller = ShortlistCleanerController()
+    success = controller.shortlist_cleaner(data.homeowner_username, data.service_id)
+    
+    return success
+
+@app.get("/ho/viewShortlist", response_model=List[ShowShortlistedCleaners])
+def show_shortlisted_cleaners(homeowner_username: str):
+    controller = ViewShortlistedCleanersController()
+    shortlisted_cleaners_and_services = controller.view_shortlisted_cleaners(homeowner_username)
+    
+    return shortlisted_cleaners_and_services
+
+# filtered by service
+@app.get("/ho/filteredShortlist", response_model=List[ShowShortlistedCleaners])
+def show_filtered_shortlisted_cleaners(homeowner_username: str, service_filter: str):
+    controller = FilterShortlistedCleanersController()
+    filtered_shortlist = controller.filter_shortlist(homeowner_username, service_filter)
+    
+    return filtered_shortlist
