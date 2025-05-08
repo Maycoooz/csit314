@@ -21,7 +21,9 @@ import AdminRoleManagementPage from "./pages/AdminRoleManagementPage";
 import AdminRMUpdateUserRolePage from "./pages/AdminRMUpdateUserRolePage";
 import AdminRMViewUsersByRolePage from "./pages/AdminRMViewUsersByRolePage";
 //-----------------------------------------------------------------------------------
-import CleanerDashboardPage from "./pages/CleanerDashboardPage";                       
+import CleanerDashboardPage from "./pages/CleanerDashboardPage";    
+import CleanerCreateServicePage from "./pages/CleanerCreateServicePage";        
+import CleanerViewServicesPage from "./pages/CleanerViewServicesPage";                    
 
 
 function App() {
@@ -47,7 +49,9 @@ function App() {
                         <Route path="/admin-rm-update-user-role" element={<AdminRMUpdateUserRolePage />} />
                         <Route path="/admin-rm-view-users-by-role" element={<AdminRMViewUsersByRolePage />} />
                 <Route path="/cleaner-dashboard" element={<CleanerDashboardPage />} />
-                
+                    <Route path="/cleaner-create-service" element={<CleanerCreateServicePage />} />
+                    <Route path="/cleaner-view-services" element={<CleanerViewServicesPage />} />
+
             </Routes>
         </Router>
     );
