@@ -11,11 +11,12 @@ from backend.schemas.platform_mangement_schemas import CreateServiceCategoryRequ
 from backend.schemas.cleaner_schemas import CreateServiceRequest, ViewAllServicesRequest, ServicesOut, SearchServiceRequest, UpdateServiceRequest, SuspendServiceRequest
 
 from backend.controllers.login_controller import LoginController, LoginProfileController
-from backend.controllers.utility_controllers import ServiceCategoriesController, ActiveUsersController, ActiveCleanersWithServicesController, CleanerViewCounterController
+from backend.controllers.utility_controllers import ServiceCategoriesController, ActiveUsersController
 from backend.controllers.admin_controllers import CreateAccountController, ViewAllAccountsController, SearchAccountController, SuspendAccountController, UpdateAccountController, UpdateUserRoleController
 from backend.controllers.admin_controllers import CreateUserProfileController, ViewAllUserProfilesController, SearchUserProfileController, SuspendUserProfileController, UpdateUserProfileController, ViewAllUsersWithSpecifiedRoleController
 from backend.controllers.platform_management_controllers import CreateServiceCategoryController, ViewAllServiceCategoryController, UpdateServiceCategoryController, SuspendServiceCategoryController, SearchServiceCategoryController
-from backend.controllers.cleaner_controllers import CreateServiceController, ViewAllServicesController, ViewActiveServicesController, SearchServiceController, UpdateServiceController, SuspendServiceController, ViewNumViewsController
+from backend.controllers.cleaner_controllers import CreateServiceController, ViewAllServicesController, SearchServiceController, UpdateServiceController, SuspendServiceController, ViewNumViewsController
+from backend.controllers.home_owner_controllers import FilterCleanersController, ViewCleanerProfileController
 
 app = FastAPI()
 
@@ -264,24 +265,15 @@ def view_num_views(cleaner_username: str):
 
 @app.get("/ho/viewCleaners", response_model=List[str])
 def view_cleaners(service: Optional[str] = Query(None, description="Service keyword to filter cleaners")):
-    if service:
-        controller = SearchServiceController()
-        services = controller.search_service(service)
-        cleaner_usernames = list({service['cleaner_username'] for service in services})
-        return cleaner_usernames
-    else:
-        controller = ActiveCleanersWithServicesController()
-        active_cleaners = controller.get_active_cleaners_with_services()
-        cleaner_usernames = [user['username'] for user in active_cleaners]
-        return cleaner_usernames
+    controller = FilterCleanersController()
+    cleaner_usernames = controller.filter_cleaners(service)
+    
+    return cleaner_usernames
     
 @app.get("/ho/viewCleanerProfile", response_model=List[ServicesOut])
 def view_cleaner_profile(homeowner_username: str, cleaner_username: str):
-    
-    counter_controller = CleanerViewCounterController()
-    counter_controller.increment_view(homeowner_username, cleaner_username)
-    
-    controller = ViewActiveServicesController()
-    services = controller.view_active_services(cleaner_username)
+    # homeowner responsibility to keep track of view of cleaner, but cleaner responsibility to display their services
+    controller = ViewCleanerProfileController()
+    services = controller.view_cleaner_profile(homeowner_username, cleaner_username)
     
     return services
