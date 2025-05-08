@@ -55,9 +55,7 @@ function App() {
                     <Route path="/cleaner-view-services" element={<CleanerViewServicesPage />} />
                     <Route path="/cleaner-search-service" element={<CleanerSearchServicePage />} />
                     <Route path="/cleaner-update-service" element={<CleanerUpdateServicePage />} />
-
-
-
+                    
             </Routes>
         </Router>
     );
