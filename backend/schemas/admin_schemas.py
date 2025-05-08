@@ -12,9 +12,6 @@ class UserOut(BaseModel):
     status: str 
     role: Optional[str] # so that can be null or string value
 
-class SearchAccountRequest(BaseModel):
-    username: str 
-    
 class SuspendAccountRequest(BaseModel):
     username: str
     
@@ -32,9 +29,6 @@ class UserProfileOut(BaseModel):
     description: str
     status: str
     
-class SearchUserProfileRequest(BaseModel):
-    role: str
-    
 class SuspendUserProfileRequest(BaseModel):
     role: str
     
@@ -47,5 +41,4 @@ class UpdateUserRoleRequest(BaseModel):
     target_username: str
     updated_role: str
     
-class ViewAllUserWithSpecifiedRoleRequest(BaseModel):
-    role: str
+

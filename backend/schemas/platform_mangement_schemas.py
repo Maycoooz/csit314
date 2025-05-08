@@ -17,5 +17,3 @@ class UpdateServiceCategoryRequest(BaseModel):
 class SuspendServiceCategoryRequest(BaseModel):
     target_category: str
     
-class SearchServiceCategoryRequest(BaseModel):
-    target_category: str

@@ -14,9 +14,6 @@ class ServicesOut(BaseModel):
     price: float
     status: str
     
-class SearchServiceRequest(BaseModel):
-    target_service: str
-    
 class UpdateServiceRequest(BaseModel):
     service_id: int
     updated_category: str

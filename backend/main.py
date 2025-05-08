@@ -5,10 +5,10 @@ from typing import List, Optional
 
 from backend.schemas.login_schema import LoginRequest, LoginProfiles
 from backend.schemas.utility_schemas import AvailableCategories, ActiveUsersOut
-from backend.schemas.admin_schemas import CreateAccountRequest, UserOut, SearchAccountRequest, SuspendAccountRequest, UpdateAccountRequest
-from backend.schemas.admin_schemas import CreateUserProfileRequest, UserProfileOut, SearchUserProfileRequest, SuspendUserProfileRequest, UpdateUserProfileRequest, UpdateUserRoleRequest, ViewAllUserWithSpecifiedRoleRequest
-from backend.schemas.platform_mangement_schemas import CreateServiceCategoryRequest, ServiceCategoryOut, UpdateServiceCategoryRequest, SuspendServiceCategoryRequest, SearchServiceCategoryRequest
-from backend.schemas.cleaner_schemas import CreateServiceRequest, ServicesOut, SearchServiceRequest, UpdateServiceRequest, SuspendServiceRequest
+from backend.schemas.admin_schemas import CreateAccountRequest, UserOut, SuspendAccountRequest, UpdateAccountRequest
+from backend.schemas.admin_schemas import CreateUserProfileRequest, UserProfileOut, SuspendUserProfileRequest, UpdateUserProfileRequest, UpdateUserRoleRequest
+from backend.schemas.platform_mangement_schemas import CreateServiceCategoryRequest, ServiceCategoryOut, UpdateServiceCategoryRequest, SuspendServiceCategoryRequest
+from backend.schemas.cleaner_schemas import CreateServiceRequest, ServicesOut, UpdateServiceRequest, SuspendServiceRequest
 from backend.schemas.home_owner_schemas import ShortlistCleanerRequest, ShowShortlistedCleaners
 
 from backend.controllers.login_controller import LoginController, LoginProfileController
@@ -73,8 +73,8 @@ def create_account(data: CreateAccountRequest):
     return success
     
 # Admin view all accounts 
-# response_model ensures that what we return is actually what is specified
-@app.post("/admin/viewAllAccounts", response_model=List[UserOut])
+# CHANGED TO GET
+@app.get("/admin/viewAllAccounts", response_model=List[UserOut])
 def view_all_accounts():
     controller = ViewAllAccountsController()
     users = controller.view_all_accounts()
@@ -82,11 +82,11 @@ def view_all_accounts():
     return users
 
 # Admin search accounts by a keyword
-# response_model ensures that what we return matches the specified schema
-@app.post("/admin/searchAccount", response_model=List[UserOut])
-def search_account(data: SearchAccountRequest):
+# Changed to GET
+@app.get("/admin/searchAccount", response_model=List[UserOut])
+def search_account(username: str):
     controller = SearchAccountController()
-    users = controller.search_account(data.username)
+    users = controller.search_account(username)
     
     return users
 
@@ -114,17 +114,19 @@ def create_userprofile(data: CreateUserProfileRequest) -> bool:
     
     return success
 
-@app.post("/admin/viewAllUserProfiles", response_model=List[UserProfileOut])
+# CHANGED TO GET
+@app.get("/admin/viewAllUserProfiles", response_model=List[UserProfileOut])
 def view_all_userprofiles():
     controller = ViewAllUserProfilesController()
     userprofiles = controller.view_all_userprofiles()
     
     return userprofiles
 
-@app.post("/admin/searchUserProfile", response_model=List[UserProfileOut])
-def search_userprofile(data: SearchUserProfileRequest):
+# CHANGED TO GET
+@app.get("/admin/searchUserProfile", response_model=List[UserProfileOut])
+def search_userprofile(role: str):
     controller = SearchUserProfileController()
-    userprofiles = controller.search_userprofile(data.role)
+    userprofiles = controller.search_userprofile(role)
     
     return userprofiles
 
@@ -151,10 +153,11 @@ def update_user_role(data: UpdateUserRoleRequest):
     
     return success
 
-@app.post("/admin/viewAllUserWithSpecifiedRole", response_model=List[UserOut])
-def view_all_user_with_specified_role(data: ViewAllUserWithSpecifiedRoleRequest):
+# CHANGED TO GET
+@app.get("/admin/viewAllUserWithSpecifiedRole", response_model=List[UserOut])
+def view_all_user_with_specified_role(role: str):
     controller = ViewAllUsersWithSpecifiedRoleController()
-    users = controller.view_all_users_with_specified_role(data.role)
+    users = controller.view_all_users_with_specified_role(role)
     
     return users
 
@@ -188,10 +191,11 @@ def suspend_service_category(data: SuspendServiceCategoryRequest):
     
     return success
 
+# Changed to GET
 @app.post("/pm/searchServiceCategory", response_model=List[ServiceCategoryOut])
-def search_service_category(data: SearchServiceCategoryRequest):
+def search_service_category(category: str):
     controller = SearchServiceCategoryController()
-    service_categories = controller.search_service_category(data.target_category)
+    service_categories = controller.search_service_category(category)
     
     return service_categories
 
@@ -222,7 +226,6 @@ def create_service(data: CreateServiceRequest):
     
     return success
 
-# GET REQUEST
 @app.get("/cleaner/viewAllServices", response_model=List[ServicesOut])
 def view_all_service(cleaner_username: str):
     controller = ViewAllServicesController()
@@ -230,8 +233,6 @@ def view_all_service(cleaner_username: str):
     
     return services
 
-# search by service
-# CHANGED TO GET
 @app.get("/cleaner/searchService", response_model=List[ServicesOut])
 def search_service(target_service: str):
     controller = SearchServiceController()
