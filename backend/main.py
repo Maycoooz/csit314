@@ -222,6 +222,7 @@ def create_service(data: CreateServiceRequest):
     
     return success
 
+# GET REQUEST
 @app.get("/cleaner/viewAllServices", response_model=List[ServicesOut])
 def view_all_service(cleaner_username: str):
     controller = ViewAllServicesController()
@@ -230,10 +231,11 @@ def view_all_service(cleaner_username: str):
     return services
 
 # search by service
-@app.post("/cleaner/searchService", response_model=List[ServicesOut])
-def search_service(data: SearchServiceRequest):
+# CHANGED TO GET
+@app.get("/cleaner/searchService", response_model=List[ServicesOut])
+def search_service(target_service: str):
     controller = SearchServiceController()
-    services = controller.search_service(data.target_service)
+    services = controller.search_service(target_service)
     
     return services
 

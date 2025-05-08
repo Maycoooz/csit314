@@ -8,3 +8,4 @@ __pycache__/
 *.pyc
 *.pyo
 *.pyd
+backend/models/__pycache__/user.cpython-313.pyc

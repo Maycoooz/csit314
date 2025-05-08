@@ -7,7 +7,7 @@ class ConnectDB(BaseModel):
         conn = mysql.connector.connect(
         host = "localhost",
         user = "root",
-        password = "csit115", #for antonio mysql : csit115 #grace
+        password = "", #for antonio mysql : csit115 #grace
         database = "csit314"
         )
         
