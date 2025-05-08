@@ -135,8 +135,23 @@ class Cleaner(User):
     def view_num_shortlist(self):
         pass
     
-    def view_num_views(self):
-        pass
+    def view_num_views(self, cleaner_username):
+        conn = self.connect_database()
+        cursor = conn.cursor(dictionary=True)
+
+        prepared_statement = """
+        SELECT views FROM CleanerViews
+        WHERE username = %s
+        """
+        values = (cleaner_username,)
+
+        cursor.execute(prepared_statement, values)
+        result = cursor.fetchone()
+
+        cursor.close()
+        conn.close()
+
+        return result
     
     
     # view and search past transactions

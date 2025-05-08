@@ -11,11 +11,11 @@ from backend.schemas.platform_mangement_schemas import CreateServiceCategoryRequ
 from backend.schemas.cleaner_schemas import CreateServiceRequest, ViewAllServicesRequest, ServicesOut, SearchServiceRequest, UpdateServiceRequest, SuspendServiceRequest
 
 from backend.controllers.login_controller import LoginController, LoginProfileController
-from backend.controllers.utility_controllers import ServiceCategoriesController, ActiveUsersController, ActiveCleanersWithServicesController
+from backend.controllers.utility_controllers import ServiceCategoriesController, ActiveUsersController, ActiveCleanersWithServicesController, CleanerViewCounterController
 from backend.controllers.admin_controllers import CreateAccountController, ViewAllAccountsController, SearchAccountController, SuspendAccountController, UpdateAccountController, UpdateUserRoleController
 from backend.controllers.admin_controllers import CreateUserProfileController, ViewAllUserProfilesController, SearchUserProfileController, SuspendUserProfileController, UpdateUserProfileController, ViewAllUsersWithSpecifiedRoleController
 from backend.controllers.platform_management_controllers import CreateServiceCategoryController, ViewAllServiceCategoryController, UpdateServiceCategoryController, SuspendServiceCategoryController, SearchServiceCategoryController
-from backend.controllers.cleaner_controllers import CreateServiceController, ViewAllServicesController, ViewActiveServicesController, SearchServiceController, UpdateServiceController, SuspendServiceController
+from backend.controllers.cleaner_controllers import CreateServiceController, ViewAllServicesController, ViewActiveServicesController, SearchServiceController, UpdateServiceController, SuspendServiceController, ViewNumViewsController
 
 app = FastAPI()
 
@@ -249,7 +249,14 @@ def suspend_servie(data: SuspendServiceRequest):
     
     return success
 
+# Cleaner view num views & num shortlist ------------------------------------------------------------------------------------------------
 
+@app.get("/cleaner/viewNumViews")
+def view_num_views(cleaner_username: str):
+    controller = ViewNumViewsController()
+    num_views = controller.view_num_views(cleaner_username)
+    
+    return num_views
 
 
 
@@ -269,7 +276,11 @@ def view_cleaners(service: Optional[str] = Query(None, description="Service keyw
         return cleaner_usernames
     
 @app.get("/ho/viewCleanerProfile", response_model=List[ServicesOut])
-def view_cleaner_profile(cleaner_username: str):
+def view_cleaner_profile(homeowner_username: str, cleaner_username: str):
+    
+    counter_controller = CleanerViewCounterController()
+    counter_controller.increment_view(homeowner_username, cleaner_username)
+    
     controller = ViewActiveServicesController()
     services = controller.view_active_services(cleaner_username)
     
