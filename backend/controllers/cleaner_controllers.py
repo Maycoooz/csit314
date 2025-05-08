@@ -15,7 +15,13 @@ class ViewAllServicesController(BaseCleanerController):
     
     def view_all_services(self, cleaner_username):
         cleaner = self.cleaner()
-        return cleaner.view_all_services(cleaner_username)
+        return cleaner.view_all_services_include_suspended(cleaner_username)
+    
+class ViewActiveServicesController(BaseCleanerController):
+    
+    def view_active_services(self, cleaner_username):
+        cleaner = self.cleaner()
+        return cleaner.view_active_services(cleaner_username)
     
 class SearchServiceController(BaseCleanerController):
     

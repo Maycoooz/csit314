@@ -1,7 +1,7 @@
 import uvicorn
-from fastapi import FastAPI
+from fastapi import FastAPI, Query
 from fastapi.middleware.cors import CORSMiddleware
-from typing import List
+from typing import List, Optional
 
 from backend.schemas.login_schema import LoginRequest, LoginProfiles
 from backend.schemas.utility_schemas import AvailableCategories, ActiveUsersOut
@@ -11,11 +11,11 @@ from backend.schemas.platform_mangement_schemas import CreateServiceCategoryRequ
 from backend.schemas.cleaner_schemas import CreateServiceRequest, ViewAllServicesRequest, ServicesOut, SearchServiceRequest, UpdateServiceRequest, SuspendServiceRequest
 
 from backend.controllers.login_controller import LoginController, LoginProfileController
-from backend.controllers.utility_controllers import ServiceCategoriesController, ActiveUsersController
+from backend.controllers.utility_controllers import ServiceCategoriesController, ActiveUsersController, ActiveCleanersWithServicesController
 from backend.controllers.admin_controllers import CreateAccountController, ViewAllAccountsController, SearchAccountController, SuspendAccountController, UpdateAccountController, UpdateUserRoleController
 from backend.controllers.admin_controllers import CreateUserProfileController, ViewAllUserProfilesController, SearchUserProfileController, SuspendUserProfileController, UpdateUserProfileController, ViewAllUsersWithSpecifiedRoleController
 from backend.controllers.platform_management_controllers import CreateServiceCategoryController, ViewAllServiceCategoryController, UpdateServiceCategoryController, SuspendServiceCategoryController, SearchServiceCategoryController
-from backend.controllers.cleaner_controllers import CreateServiceController, ViewAllServicesController, SearchServiceController, UpdateServiceController, SuspendServiceController
+from backend.controllers.cleaner_controllers import CreateServiceController, ViewAllServicesController, ViewActiveServicesController, SearchServiceController, UpdateServiceController, SuspendServiceController
 
 app = FastAPI()
 
@@ -59,7 +59,7 @@ def get_all_active_users():
     
     return users
 
-#----------------------------------------------------------------------------------------------------------------------------
+# Admin user accounts ----------------------------------------------------------------------------------------------------------------------------
     
 # Admin create account, do we need log which admin created the account?
 # returns a boolean
@@ -103,7 +103,7 @@ def update_account(data: UpdateAccountRequest) -> bool:
     
     return success
 
-#----------------------------------------------------------------------------------------------------------------------------
+# Admin User Profiles ----------------------------------------------------------------------------------------------------------------------------
 
 @app.post("/admin/createUserProfile")
 def create_userprofile(data: CreateUserProfileRequest) -> bool:
@@ -140,7 +140,7 @@ def update_userprofile(data: UpdateUserProfileRequest):
     
     return success
 
-#----------------------------------------------------------------------------------------------------------------------------
+# Admin ----------------------------------------------------------------------------------------------------------------------------
 
 @app.post("/admin/updateUserRole")
 def update_user_role(data: UpdateUserRoleRequest):
@@ -156,7 +156,7 @@ def view_all_user_with_specified_role(data: ViewAllUserWithSpecifiedRoleRequest)
     
     return users
 
-#----------------------------------------------------------------------------------------------------------------------------
+# Platform Management CRUDS ----------------------------------------------------------------------------------------------------------------------------
 
 @app.post("/pm/createServiceCategory")
 def create_service_category(data: CreateServiceCategoryRequest):
@@ -195,7 +195,7 @@ def search_service_category(data: SearchServiceCategoryRequest):
 
 
 
-#----------------------------------------------------------------------------------------------------------------------------
+# Cleaner ----------------------------------------------------------------------------------------------------------------------------
 
 # gives all available categories to cleaners to see when creating services
 @app.get("/cleaner/createService", response_model=List[AvailableCategories])
@@ -211,7 +211,7 @@ def show_available_categories_for_update():
     available_categories = controller.get_all_available_service_categories()
     return available_categories
 
-#----------------------------------------------------------------------------------------------------------------------------
+# Cleaner CRUDS ----------------------------------------------------------------------------------------------------------------------------
 
 @app.post("/cleaner/createService")
 def create_service(data: CreateServiceRequest):
@@ -248,3 +248,29 @@ def suspend_servie(data: SuspendServiceRequest):
     success = controller.suspend_service(data.service_id)
     
     return success
+
+
+
+
+
+# Home Owner ----------------------------------------------------------------------------------------------------------------------------
+
+@app.get("/ho/viewCleaners", response_model=List[str])
+def view_cleaners(service: Optional[str] = Query(None, description="Service keyword to filter cleaners")):
+    if service:
+        controller = SearchServiceController()
+        services = controller.search_service(service)
+        cleaner_usernames = list({service['cleaner_username'] for service in services})
+        return cleaner_usernames
+    else:
+        controller = ActiveCleanersWithServicesController()
+        active_cleaners = controller.get_active_cleaners_with_services()
+        cleaner_usernames = [user['username'] for user in active_cleaners]
+        return cleaner_usernames
+    
+@app.get("/ho/viewCleanerProfile", response_model=List[ServicesOut])
+def view_cleaner_profile(cleaner_username: str):
+    controller = ViewActiveServicesController()
+    services = controller.view_active_services(cleaner_username)
+    
+    return services

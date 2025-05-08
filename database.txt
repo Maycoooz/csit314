@@ -44,7 +44,7 @@ CREATE TABLE Services (
     FOREIGN KEY (category) REFERENCES ServiceCategories(category) ON UPDATE CASCADE ON DELETE CASCADE,
     FOREIGN KEY (cleaner_username) REFERENCES Users(username) ON UPDATE CASCADE ON DELETE CASCADE,
 
-    UNIQUE (cleaner_username, category, service)  -- ⚡ Enforce unique services per cleaner+category
+    UNIQUE (cleaner_username, category, service)  
 );
 
 -- CleanerViews table
@@ -138,6 +138,9 @@ INSERT INTO Users (username, password, role) VALUES
 ('admin3', '123', NULL),
 ('cleaner1', '123', 'cleaner'),
 ('cleaner2', '123', NULL),
+('cleaner3', '123', 'cleaner'),
+('cleaner4', '123', 'cleaner'),
+('cleaner5', '123', 'cleaner'),
 ('ho1', '123', 'home owner'),
 ('pm1', '123', 'platform management');
 
@@ -149,5 +152,9 @@ INSERT INTO ServiceCategories (category, description) VALUES
 INSERT INTO Services (cleaner_username, category, service, price) VALUES 
 ('cleaner1', 'Home Cleaning', 'Mopping floor of house', 25.5),
 ('cleaner1', 'Home Cleaning', 'Sweeping floor of house', 25.5),
-('cleaner1', 'Outdoor Cleaning', 'Powerwashing driveway', 40.0),
-('cleaner1', 'Deep Cleaning', 'Fungal Removal', 150);
+('cleaner1', 'Outdoor Cleaning', 'Powerwashing driveway', 50.0),
+('cleaner1', 'Deep Cleaning', 'Fungal Removal', 150.6),
+('cleaner3', 'Home Cleaning', 'Sweeping house floor', 35.5),
+('cleaner3', 'Home Cleaning', 'Mopping floor', 15.5),
+('cleaner4', 'Home Cleaning', 'Sweep house floor', 45.5);
+

@@ -30,7 +30,7 @@ class Cleaner(User):
         
         return success
              
-    def view_all_services(self, cleaner_username):
+    def view_all_services_include_suspended(self, cleaner_username):
         conn = self.connect_database()
         cursor = conn.cursor(dictionary=True)
         
@@ -45,6 +45,21 @@ class Cleaner(User):
         
         return services
     
+    def view_active_services(self, cleaner_username):
+        conn = self.connect_database()
+        cursor = conn.cursor(dictionary=True)
+        
+        prepared_statement = "SELECT * FROM services WHERE cleaner_username = %s AND status = 'active'"
+        values = (cleaner_username,)
+        
+        cursor.execute(prepared_statement, values)
+        services = cursor.fetchall()
+        
+        cursor.close()
+        conn.close()
+        
+        return services
+        
     def search_service(self, target_service):
         conn = self.connect_database()
         cursor = conn.cursor(dictionary=True)
