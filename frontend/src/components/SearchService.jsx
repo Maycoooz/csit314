@@ -1,41 +1,43 @@
-// src/components/SearchService.jsx
 import React, { useState } from "react";
 import { searchService } from "../services/cleanerService";
+import { useNavigate } from "react-router-dom";
+import "../styles/SearchService.css";
 
 const SearchService = () => {
     const [query, setQuery] = useState("");
     const [results, setResults] = useState([]);
     const [error, setError] = useState("");
+    const navigate = useNavigate();
 
     const handleSearch = async () => {
         try {
-            const data = await searchService({ target_service: query });
+            const data = await searchService(query);
             setResults(data);
             setError("");
         } catch (err) {
             setResults([]);
-            setError("Search failed.");
+            setError("❌ Search failed.");
         }
     };
 
     return (
-        <div>
-            <input
-                type="text"
-                placeholder="Enter service name"
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                style={{ margin: "10px", padding: "10px", fontSize: "16px" }}
-            />
-            <button onClick={handleSearch} style={{ padding: "10px 20px", fontSize: "16px" }}>
-                Search
-            </button>
+        <div className="search-service-container">
+            <div className="search-service-box">
+                <h2>Search Services</h2>
+                <div className="search-form">
+                    <input
+                        type="text"
+                        placeholder="Enter service name"
+                        value={query}
+                        onChange={(e) => setQuery(e.target.value)}
+                    />
+                    <button onClick={handleSearch}>Search</button>
+                </div>
 
-            {error && <p style={{ color: "red" }}>{error}</p>}
+                {error && <p className="error-text">{error}</p>}
 
-            {results.length > 0 && (
-                <div style={{ marginTop: "20px" }}>
-                    <table style={{ margin: "0 auto", borderCollapse: "collapse", width: "80%" }}>
+                {results.length > 0 && (
+                    <table className="services-table">
                         <thead>
                             <tr>
                                 <th>Service</th>
@@ -55,8 +57,10 @@ const SearchService = () => {
                             ))}
                         </tbody>
                     </table>
-                </div>
-            )}
+                )}
+            </div>
+
+            <button className="back-button" onClick={() => navigate(-1)}>← Back</button>
         </div>
     );
 };

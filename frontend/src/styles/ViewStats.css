@@ -1,0 +1,50 @@
+.view-stats-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.view-stats-box {
+    background: white;
+    padding: 30px 40px;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    width: 100%;
+    text-align: center;
+}
+
+.view-stats-box h2 {
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.view-count {
+    font-size: 18px;
+    color: #222;
+    margin-top: 10px;
+}
+
+.error-text {
+    color: red;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.back-button {
+    margin-top: 15px;
+    padding: 10px 20px;
+    background-color: rgb(65, 129, 172);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.back-button:hover {
+    background-color: rgb(50, 110, 150);
+}

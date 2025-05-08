@@ -1,0 +1,80 @@
+.update-service-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.update-service-box {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px;
+    text-align: center;
+}
+
+.update-service-box h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.update-service-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.update-service-form label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #444;
+    text-align: left;
+}
+
+.update-service-form input,
+.update-service-form select {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.update-service-form button {
+    padding: 10px 20px;
+    background-color: #ffc107;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.update-service-form button:hover {
+    background-color: #e0a800;
+}
+
+.update-service-form p {
+    margin-top: 15px;
+    font-weight: bold;
+    color: #333;
+}
+
+.back-button {
+    margin-top: 15px;
+    padding: 10px 20px;
+    background-color: rgb(65, 129, 172);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.back-button:hover {
+    background-color: rgb(50, 110, 150);
+}

@@ -26,7 +26,8 @@ import CleanerCreateServicePage from "./pages/CleanerCreateServicePage";
 import CleanerViewServicesPage from "./pages/CleanerViewServicesPage";                    
 import CleanerSearchServicePage from "./pages/CleanerSearchServicePage";  
 import CleanerUpdateServicePage from "./pages/CleanerUpdateServicePage";  
-
+import CleanerSuspendServicePage from "./pages/CleanerSuspendServicePage";  
+import CleanerViewStatsPage from "./pages/CleanerViewStatsPage";
 
 function App() {
     return (
@@ -55,7 +56,8 @@ function App() {
                     <Route path="/cleaner-view-services" element={<CleanerViewServicesPage />} />
                     <Route path="/cleaner-search-service" element={<CleanerSearchServicePage />} />
                     <Route path="/cleaner-update-service" element={<CleanerUpdateServicePage />} />
-                    
+                    <Route path="/cleaner-suspend-service" element={<CleanerSuspendServicePage />} />
+                    <Route path="/cleaner-view-stats" element={<CleanerViewStatsPage />} />            
             </Routes>
         </Router>
     );

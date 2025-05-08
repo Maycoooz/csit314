@@ -1,0 +1,74 @@
+.suspend-service-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.suspend-service-box {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.suspend-service-box h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.suspend-service-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.suspend-service-form select {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.red-button {
+    padding: 10px 20px;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.red-button:hover {
+    background-color: #c82333;
+}
+
+.suspend-service-form p {
+    margin-top: 10px;
+    font-weight: bold;
+    color: #333;
+}
+
+.back-button {
+    margin-top: 15px;
+    padding: 10px 20px;
+    background-color: rgb(65, 129, 172);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.back-button:hover {
+    background-color: rgb(50, 110, 150);
+}

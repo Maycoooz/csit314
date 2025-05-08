@@ -267,7 +267,6 @@ def view_num_shortlisted(cleaner_username: str):
     pass
 
 
-
 # Home Owner ----------------------------------------------------------------------------------------------------------------------------
 
 @app.get("/ho/viewCleaners", response_model=List[str])
