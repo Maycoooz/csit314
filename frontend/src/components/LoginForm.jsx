@@ -53,7 +53,10 @@ const LoginForm = () => {
             });
     
             if (isSuccess) {
+                localStorage.setItem("username", username);
+                localStorage.setItem("role", selectedRole);
                 openSuccessAlert();
+                setMessage("");
             
                 setTimeout(() => {
 
@@ -61,6 +64,7 @@ const LoginForm = () => {
                     // Redirect based on selected role
                     if (selectedRole.toLowerCase() === "admin") {
                         navigate("/admin-dashboard");
+                        
                     } else if (selectedRole.toLowerCase() === "cleaner") {
                         navigate("/cleaner-dashboard");
                     } 

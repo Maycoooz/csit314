@@ -22,7 +22,7 @@ export async function createUserAccount(data) {
 
 export async function getAllAccounts() {
     const response = await fetch("http://localhost:8000/admin/viewAllAccounts", {
-        method: "POST",
+        method: "GET",
         headers: {
             "Content-Type": "application/json",
         },
@@ -40,13 +40,15 @@ export async function getAllAccounts() {
 //-------------------------------------------------------------------------------------------------------------
 
 export async function searchAccount(username) {
-    const response = await fetch("http://localhost:8000/admin/searchAccount", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ username }),
-    });
+    const response = await fetch(
+        `http://localhost:8000/admin/searchAccount?username=${encodeURIComponent(username)}`,
+        {
+            method: "GET", 
+            headers: {
+                "Content-Type": "application/json",
+            },
+        }
+    );
 
     const result = await response.json();
 
@@ -85,7 +87,7 @@ export async function updateAccount(data) {
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify(data), // expects target_username, updated_username, updated_password
+        body: JSON.stringify(data), 
     });
 
     const result = await response.json();

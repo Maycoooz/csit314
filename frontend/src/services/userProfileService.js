@@ -20,7 +20,7 @@ export async function createUserProfile(data) {
 
 export async function viewAllUserProfiles() {
     const response = await fetch(`${BASE_URL}/viewAllUserProfiles`, {
-        method: "POST",
+        method: "GET",
         headers: {
             "Content-Type": "application/json",
         },
@@ -37,7 +37,7 @@ export async function viewAllUserProfiles() {
 
 export async function searchUserProfile(role) {
     const response = await fetch(`${BASE_URL}/searchUserProfile`, {
-        method: "POST",
+        method: "GET",
         headers: {
             "Content-Type": "application/json",
         },

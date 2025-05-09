@@ -24,7 +24,9 @@
 
 .navbar-links {
     display: flex;
+    align-items: center;
     gap: 20px;
+    margin-right: 20px; /* spacing on right edge */
 }
 
 .navbar-links a {
@@ -41,3 +43,35 @@
     padding-right: 20px;
 }
 
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: white;
+    font-weight: 500;
+    font-size: 16px;
+    padding: 6px 10px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+}
+
+/* Font Awesome icon spacing */
+.user-info i {
+    font-size: 16px;
+}
+
+/* New: logout button styling */
+.logout-button {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.logout-button:hover {
+    background-color: #d32f2f;
+}

@@ -29,7 +29,7 @@ const ViewStats = () => {
                 <h2>Service View Statistics</h2>
                 {error && <p className="error-text">{error}</p>}
                 {numViews !== null && (
-                    <p className="view-count">👀 Your services have been viewed <strong>{numViews}</strong> times.</p>
+                    <p className="view-count">👀 Your services have been viewed <strong>{numViews.views}</strong> times.</p>
                 )}
             </div>
             <button className="back-button" onClick={() => navigate(-1)}>← Back</button>
