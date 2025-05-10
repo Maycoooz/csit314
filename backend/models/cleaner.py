@@ -60,12 +60,12 @@ class Cleaner(User):
         
         return services
         
-    def search_service(self, target_service):
+    def search_service(self, cleaner_username, filter_service):
         conn = self.connect_database()
         cursor = conn.cursor(dictionary=True)
         
-        prepared_statement = "SELECT * FROM services WHERE service LIKE %s"
-        values = ("%" + target_service + "%",)
+        prepared_statement = "SELECT * FROM services WHERE service LIKE %s AND cleaner_username = %s"
+        values = ("%" + filter_service + "%", cleaner_username)
         
         try:
             cursor.execute(prepared_statement, values)

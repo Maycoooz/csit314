@@ -25,9 +25,9 @@ class ViewActiveServicesController(BaseCleanerController):
     
 class SearchServiceController(BaseCleanerController):
     
-    def search_service(self, target_service):
+    def search_service(self, cleaner_username, filter_service):
         cleaner = self.cleaner()
-        return cleaner.search_service(target_service)
+        return cleaner.search_service(cleaner_username, filter_service)
     
 class UpdateServiceController(BaseCleanerController):
     

@@ -210,9 +210,9 @@ def view_all_service(cleaner_username: str):
     return services
 
 @app.get("/cleaner/searchService", response_model=List[ServicesOut])
-def search_service(target_service: str):
+def search_service(cleaner_username: str, filter_service: str):
     controller = SearchServiceController()
-    services = controller.search_service(target_service)
+    services = controller.search_service(cleaner_username, filter_service)
     return services
 
 @app.post("/cleaner/updateService")
