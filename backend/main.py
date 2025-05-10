@@ -16,7 +16,7 @@ from backend.controllers.utility_controllers import ServiceCategoriesController,
 from backend.controllers.admin_controllers import CreateAccountController, ViewAllAccountsController, SearchAccountController, SuspendAccountController, UpdateAccountController, UpdateUserRoleController
 from backend.controllers.admin_controllers import CreateUserProfileController, ViewAllUserProfilesController, SearchUserProfileController, SuspendUserProfileController, UpdateUserProfileController, ViewAllUsersWithSpecifiedRoleController
 from backend.controllers.platform_management_controllers import CreateServiceCategoryController, ViewAllServiceCategoryController, UpdateServiceCategoryController, SuspendServiceCategoryController, SearchServiceCategoryController
-from backend.controllers.cleaner_controllers import CreateServiceController, ViewAllServicesController, SearchServiceController, UpdateServiceController, SuspendServiceController, ViewNumViewsController
+from backend.controllers.cleaner_controllers import CreateServiceController, ViewAllServicesController, SearchServiceController, UpdateServiceController, SuspendServiceController, ViewNumViewsController, ViewShortlistCountController
 from backend.controllers.home_owner_controllers import FilterCleanersController, ViewCleanerProfileController, ShortlistCleanerController, ViewShortlistedCleanersController, FilterShortlistedCleanersController
 
 app = FastAPI()
@@ -237,7 +237,9 @@ def view_num_views(cleaner_username: str):
 
 @app.get("/cleaner/viewNumShortlisted")
 def view_num_shortlisted(cleaner_username: str):
-    pass
+    controller = ViewShortlistCountController()
+    shortlist_count = controller.view_shortlist_count(cleaner_username)
+    return shortlist_count
 
 
 # Home Owner ----------------------------------------------------------------------------------------------------------------------------

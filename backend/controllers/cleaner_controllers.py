@@ -41,6 +41,12 @@ class SuspendServiceController(BaseCleanerController):
         cleaner = self.cleaner()
         return cleaner.suspend_service(service_id)
     
+class ViewShortlistCountController(BaseCleanerController):
+
+    def view_shortlist_count(self, cleaner_username):
+        cleaner = self.cleaner()
+        return cleaner.view_shortlist_count(cleaner_username)
+    
 class ViewNumViewsController(BaseCleanerController):
     
     def view_num_views(self, cleaner_username):

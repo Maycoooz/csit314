@@ -132,8 +132,25 @@ class Cleaner(User):
     
     
     # view shortlists and number of views
-    def view_num_shortlist(self):
-        pass
+    def view_shortlist_count(self, cleaner_username):
+        conn = self.connect_database()
+        cursor = conn.cursor(dictionary=True)
+
+        prepared_statement = """
+        SELECT COUNT(*) AS shortlist_count
+        FROM Shortlist sl
+        JOIN Services s ON sl.service_id = s.service_id
+        WHERE s.cleaner_username = %s;
+        """
+
+        cursor.execute(prepared_statement, (cleaner_username,))
+        shortlist_count = cursor.fetchone()
+
+        cursor.close()
+        conn.close()
+
+        return shortlist_count
+
     
     def view_num_views(self, cleaner_username):
         conn = self.connect_database()
