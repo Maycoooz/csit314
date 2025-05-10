@@ -53,7 +53,7 @@ class ViewNumViewsController(BaseCleanerController):
         cleaner = self.cleaner()
         return cleaner.view_num_views(cleaner_username)
     
-class ViewPastTransactionsController(BaseCleanerController):
+class ViewPastTransactionsCleanerController(BaseCleanerController):
 
     def view_past_transactions(self, cleaner_username):
         cleaner = self.cleaner()

@@ -24,7 +24,7 @@ class UpdateServiceRequest(BaseModel):
 class SuspendServiceRequest(BaseModel):
     service_id: int
 
-class TransactionsOut(BaseModel):
+class CleanerTransactionsOut(BaseModel):
     homeowner_username: str
     category: str
     service: str

@@ -176,8 +176,74 @@ class HomeOwner(User):
             conn.close()
 
 
-    def view_past_transactions(self):
-        pass
+    def view_past_transactions(self, homeowner_username):
+        conn = self.connect_database()
+        cursor = conn.cursor(dictionary=True)
+        result = []
 
-    def search_past_transactions(self):
-        pass
+        try:
+            prepared_statement = """
+            SELECT 
+                t.cleaner_username, 
+                s.category,
+                s.service,
+                s.price,
+                t.date
+            FROM 
+                Transactions t
+            JOIN 
+                Services s ON t.service_id = s.service_id
+            WHERE 
+                t.homeowner_username = %s
+            ORDER BY 
+                t.date DESC
+            """
+
+            values = (homeowner_username, )
+            cursor.execute(prepared_statement, values)
+            result = cursor.fetchall()
+
+        except mysql.connector.Error as e:
+            print(f"Error viewing past transactions of {homeowner_username}: {e}")
+        finally:
+            cursor.close()
+            conn.close()
+
+        return result
+
+    def filter_past_transactions(self, homeowner_username, service_filter):
+        conn = self.connect_database()
+        cursor = conn.cursor(dictionary=True)
+        result = []
+
+        try:
+            prepared_statement = """
+            SELECT 
+                t.cleaner_username, 
+                s.category,
+                s.service,
+                s.price,
+                t.date
+            FROM 
+                Transactions t
+            JOIN 
+                Services s ON t.service_id = s.service_id
+            WHERE 
+                t.homeowner_username = %s 
+            AND
+                s.service LIKE %s
+            ORDER BY 
+                t.date DESC
+            """
+
+            values = (homeowner_username, f"%{service_filter}%")
+            cursor.execute(prepared_statement, values)
+            result = cursor.fetchall()
+
+        except mysql.connector.Error as e:
+            print(f"Error viewing past transactions of {homeowner_username}: {e}")
+        finally:
+            cursor.close()
+            conn.close()
+
+        return result

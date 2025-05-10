@@ -44,3 +44,15 @@ class FilterShortlistedCleanersController(BaseHomeOwnerController):
     def filter_shortlist(self, homeowner_username: str, service_filter: str):
         ho = self.home_owner()
         return ho.filter_shortlist(homeowner_username, service_filter)
+    
+class ViewPastTransactionsHOController(BaseHomeOwnerController):
+
+    def view_past_transactions(self, homeowner_username: str):
+        ho = self.home_owner()
+        return ho.view_past_transactions(homeowner_username)
+    
+class FilterPastTransactionsHOController(BaseHomeOwnerController):
+
+    def filter_past_transactions(self, homeowner_username: str, service_filter: str):
+        ho = self.home_owner()
+        return ho.filter_past_transactions(homeowner_username, service_filter)

@@ -8,16 +8,16 @@ from backend.schemas.utility_schemas import AvailableCategories, ActiveUsersOut
 from backend.schemas.admin_schemas import CreateAccountRequest, UserOut, SuspendAccountRequest, UpdateAccountRequest
 from backend.schemas.admin_schemas import CreateUserProfileRequest, UserProfileOut, SuspendUserProfileRequest, UpdateUserProfileRequest, UpdateUserRoleRequest
 from backend.schemas.platform_mangement_schemas import CreateServiceCategoryRequest, ServiceCategoryOut, UpdateServiceCategoryRequest, SuspendServiceCategoryRequest
-from backend.schemas.cleaner_schemas import CreateServiceRequest, ServicesOut, UpdateServiceRequest, SuspendServiceRequest, TransactionsOut
-from backend.schemas.home_owner_schemas import ShortlistCleanerRequest, ShowShortlistedCleaners
+from backend.schemas.cleaner_schemas import CreateServiceRequest, ServicesOut, UpdateServiceRequest, SuspendServiceRequest, CleanerTransactionsOut
+from backend.schemas.home_owner_schemas import ShortlistCleanerRequest, ShowShortlistedCleaners, HomeOwnerTransactionsOut
 
 from backend.controllers.login_controller import LoginController, LoginProfileController
 from backend.controllers.utility_controllers import ServiceCategoriesController, ActiveUsersController
 from backend.controllers.admin_controllers import CreateAccountController, ViewAllAccountsController, SearchAccountController, SuspendAccountController, UpdateAccountController, UpdateUserRoleController
 from backend.controllers.admin_controllers import CreateUserProfileController, ViewAllUserProfilesController, SearchUserProfileController, SuspendUserProfileController, UpdateUserProfileController, ViewAllUsersWithSpecifiedRoleController
 from backend.controllers.platform_management_controllers import CreateServiceCategoryController, ViewAllServiceCategoryController, UpdateServiceCategoryController, SuspendServiceCategoryController, SearchServiceCategoryController
-from backend.controllers.cleaner_controllers import CreateServiceController, ViewAllServicesController, SearchServiceController, UpdateServiceController, SuspendServiceController, ViewNumViewsController, ViewShortlistCountController, ViewPastTransactionsController, SearchPastTransactionsController
-from backend.controllers.home_owner_controllers import FilterCleanersController, ViewCleanerProfileController, ShortlistCleanerController, ViewShortlistedCleanersController, FilterShortlistedCleanersController
+from backend.controllers.cleaner_controllers import CreateServiceController, ViewAllServicesController, SearchServiceController, UpdateServiceController, SuspendServiceController, ViewNumViewsController, ViewShortlistCountController, ViewPastTransactionsCleanerController, SearchPastTransactionsController
+from backend.controllers.home_owner_controllers import FilterCleanersController, ViewCleanerProfileController, ShortlistCleanerController, ViewShortlistedCleanersController, FilterShortlistedCleanersController, ViewPastTransactionsHOController, FilterPastTransactionsHOController
 
 app = FastAPI()
 
@@ -243,14 +243,14 @@ def view_num_shortlisted(cleaner_username: str):
 
 # Cleaner view & search past transactions -----------------------------------------------------------------------------------------------
 
-@app.get("/cleaner/viewPastTransactions", response_model=list[TransactionsOut])
-def view_past_transactions(cleaner_username: str):
-    controller = ViewPastTransactionsController()
+@app.get("/cleaner/viewPastTransactions", response_model=list[CleanerTransactionsOut])
+def view_past_cleaner_transactions(cleaner_username: str):
+    controller = ViewPastTransactionsCleanerController()
     past_transactions = controller.view_past_transactions(cleaner_username)
     return past_transactions
 
-@app.get("/cleaner/searchPastTransactions", response_model=list[TransactionsOut])
-def search_past_transactions(cleaner_username: str, filtered_service: str):
+@app.get("/cleaner/searchPastTransactions", response_model=list[CleanerTransactionsOut])
+def search_past_cleaner_transactions(cleaner_username: str, filtered_service: str):
     controller = SearchPastTransactionsController()
     filtered_transactions = controller.search_past_transactions(cleaner_username, filtered_service)
 
@@ -278,14 +278,28 @@ def shortlist_cleaner(data: ShortlistCleanerRequest):
     return success
 
 @app.get("/ho/viewShortlist", response_model=List[ShowShortlistedCleaners])
-def show_shortlisted_cleaners(homeowner_username: str):
+def view_shortlisted_cleaners(homeowner_username: str):
     controller = ViewShortlistedCleanersController()
     shortlisted_cleaners_and_services = controller.view_shortlisted_cleaners(homeowner_username)
     return shortlisted_cleaners_and_services
 
 # filtered by service
 @app.get("/ho/filteredShortlist", response_model=List[ShowShortlistedCleaners])
-def show_filtered_shortlisted_cleaners(homeowner_username: str, service_filter: str):
+def view_filtered_shortlisted_cleaners(homeowner_username: str, service_filter: str):
     controller = FilterShortlistedCleanersController()
     filtered_shortlist = controller.filter_shortlist(homeowner_username, service_filter)
     return filtered_shortlist
+
+# view past transactions
+@app.get("/ho/viewPastTransactions", response_model=List[HomeOwnerTransactionsOut])
+def view_past_ho_transactions(homeowner_username: str):
+    controller = ViewPastTransactionsHOController()
+    past_transactions = controller.view_past_transactions(homeowner_username)
+    return past_transactions
+
+#filter view past transactions
+@app.get("/ho/filterPastTransactions", response_model=List[HomeOwnerTransactionsOut])
+def filter_past_ho_transactions(homeowner_username: str, service_filter: str):
+    controller = FilterPastTransactionsHOController()
+    filtered_transactions = controller.filter_past_transactions(homeowner_username, service_filter)
+    return filtered_transactions
