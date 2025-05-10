@@ -1,4 +1,5 @@
 from pydantic import BaseModel
+from datetime import date
 
 class CreateServiceRequest(BaseModel):
     cleaner_username: str
@@ -22,3 +23,10 @@ class UpdateServiceRequest(BaseModel):
     
 class SuspendServiceRequest(BaseModel):
     service_id: int
+
+class TransactionsOut(BaseModel):
+    homeowner_username: str
+    category: str
+    service: str
+    price: float
+    date: date

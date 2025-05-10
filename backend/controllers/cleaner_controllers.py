@@ -52,3 +52,15 @@ class ViewNumViewsController(BaseCleanerController):
     def view_num_views(self, cleaner_username):
         cleaner = self.cleaner()
         return cleaner.view_num_views(cleaner_username)
+    
+class ViewPastTransactionsController(BaseCleanerController):
+
+    def view_past_transactions(self, cleaner_username):
+        cleaner = self.cleaner()
+        return cleaner.view_past_transaction(cleaner_username)
+    
+class SearchPastTransactionsController(BaseCleanerController):
+
+    def search_past_transactions(self, cleaner_username, filtered_service):
+        cleaner = self.cleaner()
+        return cleaner.search_past_transactions(cleaner_username, filtered_service)

@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS Transactions;
 DROP TABLE IF EXISTS CleanerViewTracker;
 DROP TABLE IF EXISTS Shortlist;
 DROP TABLE IF EXISTS CleanerViews;
@@ -77,6 +78,19 @@ CREATE TABLE CleanerViewTracker (
     FOREIGN KEY (cleaner_username) REFERENCES Users(username) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
+-- Transactions table
+CREATE TABLE Transactions (
+	transaction_id int AUTO_INCREMENT PRIMARY KEY,
+	homeowner_username VARCHAR(100) NOT NULL,
+    cleaner_username VARCHAR(100) NOT NULL,
+    service_id INT NOT NULL,
+    date DATE NOT NULL DEFAULT (CURRENT_DATE),
+    
+    FOREIGN KEY (homeowner_username) REFERENCES Users(username) ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (cleaner_username) REFERENCES Users(username) ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (service_id) REFERENCES Services(service_id) ON UPDATE CASCADE ON DELETE CASCADE
+);
+
 -- TRIGGERS and PROCEDURES
 DELIMITER $$
 
@@ -142,7 +156,10 @@ INSERT INTO Users (username, password, role) VALUES
 ('cleaner4', '123', 'cleaner'),
 ('cleaner5', '123', 'cleaner'),
 ('ho1', '123', 'home owner'),
-('pm1', '123', 'platform management');
+('ho2', '123', 'home owner'),
+('ho3', '123', 'home owner'),
+('pm1', '123', 'platform management'),
+('pm2', '123', 'platform management');
 
 INSERT INTO ServiceCategories (category, description) VALUES 
 ('Home Cleaning', 'General daily house cleaning services'),
@@ -158,3 +175,22 @@ INSERT INTO Services (cleaner_username, category, service, price) VALUES
 ('cleaner3', 'Home Cleaning', 'Mopping floor', 15.5),
 ('cleaner4', 'Home Cleaning', 'Sweep house floor', 45.5);
 
+INSERT INTO Transactions (homeowner_username, cleaner_username, service_id, date) VALUES 
+('ho1', 'cleaner1', 1, '2025-01-10'),
+('ho1', 'cleaner1', 1, '2025-02-15'),
+('ho1', 'cleaner1', 1, '2025-03-20'),
+('ho1', 'cleaner1', 2, '2025-01-10'),
+('ho1', 'cleaner1', 2, '2025-02-15'),
+('ho1', 'cleaner1', 2, '2025-03-20');
+
+INSERT INTO Transactions (homeowner_username, cleaner_username, service_id, date) VALUES 
+('ho2', 'cleaner1', 1, '2025-01-10'),
+('ho2', 'cleaner1', 1, '2025-02-15'),
+('ho2', 'cleaner1', 1, '2025-04-20'),
+('ho2', 'cleaner3', 5, '2025-01-10');
+
+INSERT INTO Transactions (homeowner_username, cleaner_username, service_id, date) VALUES 
+('ho3', 'cleaner1', 1, '2025-01-10'),
+('ho3', 'cleaner1', 1, '2025-02-15'),
+('ho3', 'cleaner4', 7, '2025-04-20'),
+('ho3', 'cleaner3', 5, '2025-01-10');

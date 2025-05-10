@@ -8,7 +8,7 @@ from backend.schemas.utility_schemas import AvailableCategories, ActiveUsersOut
 from backend.schemas.admin_schemas import CreateAccountRequest, UserOut, SuspendAccountRequest, UpdateAccountRequest
 from backend.schemas.admin_schemas import CreateUserProfileRequest, UserProfileOut, SuspendUserProfileRequest, UpdateUserProfileRequest, UpdateUserRoleRequest
 from backend.schemas.platform_mangement_schemas import CreateServiceCategoryRequest, ServiceCategoryOut, UpdateServiceCategoryRequest, SuspendServiceCategoryRequest
-from backend.schemas.cleaner_schemas import CreateServiceRequest, ServicesOut, UpdateServiceRequest, SuspendServiceRequest
+from backend.schemas.cleaner_schemas import CreateServiceRequest, ServicesOut, UpdateServiceRequest, SuspendServiceRequest, TransactionsOut
 from backend.schemas.home_owner_schemas import ShortlistCleanerRequest, ShowShortlistedCleaners
 
 from backend.controllers.login_controller import LoginController, LoginProfileController
@@ -16,7 +16,7 @@ from backend.controllers.utility_controllers import ServiceCategoriesController,
 from backend.controllers.admin_controllers import CreateAccountController, ViewAllAccountsController, SearchAccountController, SuspendAccountController, UpdateAccountController, UpdateUserRoleController
 from backend.controllers.admin_controllers import CreateUserProfileController, ViewAllUserProfilesController, SearchUserProfileController, SuspendUserProfileController, UpdateUserProfileController, ViewAllUsersWithSpecifiedRoleController
 from backend.controllers.platform_management_controllers import CreateServiceCategoryController, ViewAllServiceCategoryController, UpdateServiceCategoryController, SuspendServiceCategoryController, SearchServiceCategoryController
-from backend.controllers.cleaner_controllers import CreateServiceController, ViewAllServicesController, SearchServiceController, UpdateServiceController, SuspendServiceController, ViewNumViewsController, ViewShortlistCountController
+from backend.controllers.cleaner_controllers import CreateServiceController, ViewAllServicesController, SearchServiceController, UpdateServiceController, SuspendServiceController, ViewNumViewsController, ViewShortlistCountController, ViewPastTransactionsController, SearchPastTransactionsController
 from backend.controllers.home_owner_controllers import FilterCleanersController, ViewCleanerProfileController, ShortlistCleanerController, ViewShortlistedCleanersController, FilterShortlistedCleanersController
 
 app = FastAPI()
@@ -241,6 +241,20 @@ def view_num_shortlisted(cleaner_username: str):
     shortlist_count = controller.view_shortlist_count(cleaner_username)
     return shortlist_count
 
+# Cleaner view & search past transactions -----------------------------------------------------------------------------------------------
+
+@app.get("/cleaner/viewPastTransactions", response_model=list[TransactionsOut])
+def view_past_transactions(cleaner_username: str):
+    controller = ViewPastTransactionsController()
+    past_transactions = controller.view_past_transactions(cleaner_username)
+    return past_transactions
+
+@app.get("/cleaner/searchPastTransactions", response_model=list[TransactionsOut])
+def search_past_transactions(cleaner_username: str, filtered_service: str):
+    controller = SearchPastTransactionsController()
+    filtered_transactions = controller.search_past_transactions(cleaner_username, filtered_service)
+
+    return filtered_transactions
 
 # Home Owner ----------------------------------------------------------------------------------------------------------------------------
 

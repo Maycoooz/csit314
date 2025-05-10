@@ -172,11 +172,74 @@ class Cleaner(User):
     
     
     # view and search past transactions
+    def view_past_transaction(self, cleaner_username):
+        conn = self.connect_database()
+        cursor = conn.cursor(dictionary=True)
+        result = []
+
+        try:
+            prepared_statement = """
+            SELECT 
+                t.homeowner_username, 
+                s.category,
+                s.service,
+                s.price,
+                t.date
+            FROM 
+                Transactions t
+            JOIN 
+                Services s ON t.service_id = s.service_id
+            WHERE 
+                t.cleaner_username = %s
+            ORDER BY 
+                t.date DESC
+            """
+
+            values = (cleaner_username, )
+            cursor.execute(prepared_statement, values)
+            result = cursor.fetchall()
+
+        except mysql.connector.Error as e:
+            print(f"Error viewing past transactions of {cleaner_username}")
+        finally:
+            cursor.close()
+            conn.close()
+        
+        return result
     
-    def view_past_matches(self):
-        pass
-    
-    def search_past_matches(self):
-        pass
+    def search_past_transactions(self, cleaner_username, filtered_service):
+        conn = self.connect_database()
+        cursor = conn.cursor(dictionary=True)
+        result = []
+
+        try:
+            prepared_statement = """
+            SELECT 
+                t.homeowner_username, 
+                s.category,
+                s.service,
+                s.price,
+                t.date
+            FROM 
+                Transactions t
+            JOIN 
+                Services s ON t.service_id = s.service_id
+            WHERE 
+                t.cleaner_username = %s 
+            AND
+                s.service LIKE %s
+            """
+            values = (cleaner_username, f"%{filtered_service}%")
+            cursor.execute(prepared_statement, values)
+            result = cursor.fetchall()
+
+        except mysql.connector.Error as e:
+            print(f"Error viewing filtered past transactions of {cleaner_username} by {filtered_service}")
+        finally:
+            cursor.close()
+            conn.close()
+        
+        return result
+        
         
     
