@@ -43,7 +43,6 @@ def home_page():
 def login(data: LoginRequest) -> bool:
     controller = LoginController()
     success = controller.login_user(data.username, data.password, data.role)
-    
     return success
 
 # gives login page all current roles in database for user to choose before logging in
@@ -51,58 +50,50 @@ def login(data: LoginRequest) -> bool:
 def get_profiles():
     controller = LoginProfileController()
     roles = controller.get_all_roles()
-
     return roles
 
-@app.get("/admin", response_model=List[ActiveUsersOut])
+@app.get("/admin/allUsers", response_model=List[ActiveUsersOut])
 def get_all_active_users():
     controller = ActiveUsersController()
     users = controller.get_all_active_users()
-    
     return users
+
+@app.get("/admin/allProfiles", response_model=List[LoginProfiles])
+def get_all_profiles():
+    controller = LoginProfileController()
+    roles = controller.get_all_roles()
+    return roles
 
 # Admin user accounts ----------------------------------------------------------------------------------------------------------------------------
     
-# Admin create account, do we need log which admin created the account?
-# returns a boolean
 @app.post("/admin/createAccount")
 def create_account(data: CreateAccountRequest):
     controller = CreateAccountController()
     success = controller.create_account(data.new_username, data.new_password)
-    
     return success
     
-# Admin view all accounts 
-# CHANGED TO GET
 @app.get("/admin/viewAllAccounts", response_model=List[UserOut])
 def view_all_accounts():
     controller = ViewAllAccountsController()
     users = controller.view_all_accounts()
-    
     return users
 
-# Admin search accounts by a keyword
-# Changed to GET
 @app.get("/admin/searchAccount", response_model=List[UserOut])
 def search_account(username: str):
     controller = SearchAccountController()
     users = controller.search_account(username)
-    
     return users
 
-# Admin suspend account (change status from active to suspended in db)
 @app.post("/admin/suspendAccount")
 def suspend_account(data: SuspendAccountRequest) -> bool:
     controller = SuspendAccountController()
     success = controller.suspend_account(data.username)
-    
     return success
 
 @app.post("/admin/updateAccount")
 def update_account(data: UpdateAccountRequest) -> bool:
     controller = UpdateAccountController()
     success = controller.update_account(data.target_username, data.updated_username, data.updated_password)
-    
     return success
 
 # Admin User Profiles ----------------------------------------------------------------------------------------------------------------------------
@@ -111,37 +102,30 @@ def update_account(data: UpdateAccountRequest) -> bool:
 def create_userprofile(data: CreateUserProfileRequest) -> bool:
     controller = CreateUserProfileController()
     success = controller.create_userprofile(data.new_role, data.new_description)
-    
     return success
 
-# CHANGED TO GET
 @app.get("/admin/viewAllUserProfiles", response_model=List[UserProfileOut])
 def view_all_userprofiles():
     controller = ViewAllUserProfilesController()
     userprofiles = controller.view_all_userprofiles()
-    
     return userprofiles
 
-# CHANGED TO GET
 @app.get("/admin/searchUserProfile", response_model=List[UserProfileOut])
 def search_userprofile(role: str):
     controller = SearchUserProfileController()
     userprofiles = controller.search_userprofile(role)
-    
     return userprofiles
 
 @app.post("/admin/suspendUserProfile")
 def suspend_userprofile(data: SuspendUserProfileRequest):
     controller = SuspendUserProfileController()
     success = controller.suspend_userprofile(data.role)
-    
     return success
 
 @app.post("/admin/updateUserProfile")
 def update_userprofile(data: UpdateUserProfileRequest):
     controller = UpdateUserProfileController()
     success = controller.update_userprofile(data.target_role, data.updated_role, data.updated_description)
-    
     return success
 
 # Admin ----------------------------------------------------------------------------------------------------------------------------
@@ -150,7 +134,6 @@ def update_userprofile(data: UpdateUserProfileRequest):
 def update_user_role(data: UpdateUserRoleRequest):
     controller = UpdateUserRoleController()
     success = controller.update_user_role(data.target_username, data.updated_role)
-    
     return success
 
 # CHANGED TO GET
@@ -158,7 +141,6 @@ def update_user_role(data: UpdateUserRoleRequest):
 def view_all_user_with_specified_role(role: str):
     controller = ViewAllUsersWithSpecifiedRoleController()
     users = controller.view_all_users_with_specified_role(role)
-    
     return users
 
 # Platform Management CRUDS ----------------------------------------------------------------------------------------------------------------------------
@@ -167,36 +149,32 @@ def view_all_user_with_specified_role(role: str):
 def create_service_category(data: CreateServiceCategoryRequest):
     controller = CreateServiceCategoryController()
     success = controller.create_service_category(data.new_category, data.new_description)
-    
     return success
 
-@app.post("/pm/viewAllServiceCategories", response_model=List[ServiceCategoryOut])
+# Changed to GET
+@app.get("/pm/viewAllServiceCategories", response_model=List[ServiceCategoryOut])
 def view_all_service_categories():
     controller = ViewAllServiceCategoryController()
     service_categories = controller.view_all_service_categories()
-    
     return service_categories
 
 @app.post("/pm/updateServiceCategory")
 def update_service_category(data: UpdateServiceCategoryRequest):
     controller = UpdateServiceCategoryController()
     success = controller.update_service_category(data.target_category, data.updated_category, data.updated_description)
-    
     return success
 
 @app.post("/pm/suspendServiceCategory")
 def suspend_service_category(data: SuspendServiceCategoryRequest):
     controller = SuspendServiceCategoryController()
     success = controller.suspend_service_category(data.target_category)
-    
     return success
 
 # Changed to GET
-@app.post("/pm/searchServiceCategory", response_model=List[ServiceCategoryOut])
+@app.get("/pm/searchServiceCategory", response_model=List[ServiceCategoryOut])
 def search_service_category(category: str):
     controller = SearchServiceCategoryController()
     service_categories = controller.search_service_category(category)
-    
     return service_categories
 
 
@@ -223,35 +201,30 @@ def show_available_categories_for_update():
 def create_service(data: CreateServiceRequest):
     controller = CreateServiceController()
     success = controller.create_service(data.cleaner_username, data.selected_category, data.new_service, data.new_price)
-    
     return success
 
 @app.get("/cleaner/viewAllServices", response_model=List[ServicesOut])
 def view_all_service(cleaner_username: str):
     controller = ViewAllServicesController()
     services = controller.view_all_services(cleaner_username)
-    
     return services
 
 @app.get("/cleaner/searchService", response_model=List[ServicesOut])
 def search_service(target_service: str):
     controller = SearchServiceController()
     services = controller.search_service(target_service)
-    
     return services
 
 @app.post("/cleaner/updateService")
 def update_service(data: UpdateServiceRequest):
     controller = UpdateServiceController()
     success = controller.update_service(data.service_id, data.updated_category, data.updated_service, data.updated_price)
-    
     return success
 
 @app.post("/cleaner/suspendService")
 def suspend_servie(data: SuspendServiceRequest):
     controller = SuspendServiceController()
     success = controller.suspend_service(data.service_id)
-    
     return success
 
 # Cleaner view num views & num shortlist ------------------------------------------------------------------------------------------------
@@ -260,7 +233,6 @@ def suspend_servie(data: SuspendServiceRequest):
 def view_num_views(cleaner_username: str):
     controller = ViewNumViewsController()
     num_views = controller.view_num_views(cleaner_username)
-    
     return num_views
 
 @app.get("/cleaner/viewNumShortlisted")
@@ -274,7 +246,6 @@ def view_num_shortlisted(cleaner_username: str):
 def view_cleaners(service: Optional[str] = Query(None, description="Service keyword to filter cleaners")):
     controller = FilterCleanersController()
     cleaner_usernames = controller.filter_cleaners(service)
-    
     return cleaner_usernames
     
 @app.get("/ho/viewCleanerProfile", response_model=List[ServicesOut])
@@ -282,21 +253,18 @@ def view_cleaner_profile(homeowner_username: str, cleaner_username: str):
     # homeowner responsibility to keep track of view of cleaner, but cleaner responsibility to display their services
     controller = ViewCleanerProfileController()
     services = controller.view_cleaner_profile(homeowner_username, cleaner_username)
-    
     return services
 
 @app.post("/ho/viewCleanerProfile/shortlistCleaner")
 def shortlist_cleaner(data: ShortlistCleanerRequest):
     controller = ShortlistCleanerController()
     success = controller.shortlist_cleaner(data.homeowner_username, data.service_id)
-    
     return success
 
 @app.get("/ho/viewShortlist", response_model=List[ShowShortlistedCleaners])
 def show_shortlisted_cleaners(homeowner_username: str):
     controller = ViewShortlistedCleanersController()
     shortlisted_cleaners_and_services = controller.view_shortlisted_cleaners(homeowner_username)
-    
     return shortlisted_cleaners_and_services
 
 # filtered by service
@@ -304,5 +272,4 @@ def show_shortlisted_cleaners(homeowner_username: str):
 def show_filtered_shortlisted_cleaners(homeowner_username: str, service_filter: str):
     controller = FilterShortlistedCleanersController()
     filtered_shortlist = controller.filter_shortlist(homeowner_username, service_filter)
-    
     return filtered_shortlist

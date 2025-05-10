@@ -6,6 +6,7 @@ from typing import Dict
 class Admin(User):
 
     # CRUDS for user accounts
+    # ------------------------- Account CRUDS -------------------------
     def create_account(self, new_username, new_password):
         conn = self.connect_database()
         cursor = conn.cursor()
@@ -24,8 +25,6 @@ class Admin(User):
         finally:
             cursor.close()
             conn.close()
-            
-# ------------------------- Account CRUDS -------------------------
 
     def view_all_accounts(self):
         conn = self.connect_database()
