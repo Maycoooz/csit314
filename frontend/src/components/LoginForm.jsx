@@ -67,6 +67,12 @@ const LoginForm = () => {
                         
                     } else if (selectedRole.toLowerCase() === "cleaner") {
                         navigate("/cleaner-dashboard");
+                    
+                    } else if (selectedRole.toLowerCase() === "home owner") {
+                        navigate("/home-owner-dashboard");
+                    
+                    } else if (selectedRole.toLowerCase() === "platform management") {
+                        navigate("/platform-management-dashboard");
                     } 
                 }, 1500);
 

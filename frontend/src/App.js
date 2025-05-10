@@ -28,6 +28,11 @@ import CleanerSearchServicePage from "./pages/CleanerSearchServicePage";
 import CleanerUpdateServicePage from "./pages/CleanerUpdateServicePage";  
 import CleanerSuspendServicePage from "./pages/CleanerSuspendServicePage";  
 import CleanerViewStatsPage from "./pages/CleanerViewStatsPage";
+//-----------------------------------------------------------------------------------
+import HomeOwnerDashboardPage from "./pages/HomeOwnerDashboardPage";
+import HomeOwnerViewCleanersPage from "./pages/HomeOwnerViewCleanersPage";
+import HomeOwnerViewShortlistPage from "./pages/HomeOwnerViewShortlistPage";
+
 
 function App() {
     return (
@@ -57,7 +62,10 @@ function App() {
                     <Route path="/cleaner-search-service" element={<CleanerSearchServicePage />} />
                     <Route path="/cleaner-update-service" element={<CleanerUpdateServicePage />} />
                     <Route path="/cleaner-suspend-service" element={<CleanerSuspendServicePage />} />
-                    <Route path="/cleaner-view-stats" element={<CleanerViewStatsPage />} />            
+                    <Route path="/cleaner-view-stats" element={<CleanerViewStatsPage />} />   
+                <Route path="/home-owner-dashboard" element={<HomeOwnerDashboardPage />} />
+                    <Route path="/home-owner-view-cleaners" element={<HomeOwnerViewCleanersPage />} />
+                    <Route path="/home-owner-view-shortlist-cleaners" element={<HomeOwnerViewShortlistPage />} />          
             </Routes>
         </Router>
     );
