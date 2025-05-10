@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { updateAccount } from "../services/accountService";
+import React, { useState, useEffect } from "react";
+import { updateAccount, getAllActiveUsers } from "../services/accountService"; // import the new function
 import { useNavigate } from "react-router-dom";
 import "../styles/UpdateAccount.css";
 
@@ -8,7 +8,20 @@ const UpdateAccount = () => {
     const [newUsername, setNewUsername] = useState("");
     const [newPassword, setNewPassword] = useState("");
     const [message, setMessage] = useState("");
+    const [users, setUsers] = useState([]);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        const fetchUsers = async () => {
+            try {
+                const data = await getAllActiveUsers(); // your GET /admin/allUsers
+                setUsers(data);
+            } catch (err) {
+                console.error("❌ Failed to fetch users", err);
+            }
+        };
+        fetchUsers();
+    }, []);
 
     const handleUpdate = async () => {
         try {
@@ -27,12 +40,16 @@ const UpdateAccount = () => {
         <div className="update-account-container">
             <div className="update-account-box">
                 <h2>Update Account</h2>
-                <input
-                    type="text"
-                    placeholder="Target Username"
-                    value={target}
-                    onChange={(e) => setTarget(e.target.value)}
-                />
+
+                <select value={target} onChange={(e) => setTarget(e.target.value)}>
+                    <option value="">-- Select a Username --</option>
+                    {users.map((user, index) => (
+                        <option key={index} value={user.username}>
+                            {user.username}
+                        </option>
+                    ))}
+                </select>
+
                 <input
                     type="text"
                     placeholder="New Username"

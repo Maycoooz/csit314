@@ -36,12 +36,8 @@ export async function viewAllUserProfiles() {
 //-------------------------------------------------------------------------------------------------------------
 
 export async function searchUserProfile(role) {
-    const response = await fetch(`${BASE_URL}/searchUserProfile`, {
+    const response = await fetch(`${BASE_URL}/searchUserProfile?role=${encodeURIComponent(role)}`, {
         method: "GET",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ role }),
     });
 
     const result = await response.json();
@@ -50,6 +46,7 @@ export async function searchUserProfile(role) {
     }
     return result;
 }
+
 
 //-------------------------------------------------------------------------------------------------------------
 

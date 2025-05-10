@@ -98,3 +98,18 @@ export async function updateAccount(data) {
 
     return result;
 }
+
+export async function getAllActiveUsers() {
+    const response = await fetch("http://localhost:8000/admin/allUsers", {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    });
+
+    if (!response.ok) {
+        throw new Error("Failed to fetch roles");
+    }
+
+    return await response.json(); // should be a list of roles
+}

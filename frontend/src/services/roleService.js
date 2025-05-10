@@ -18,7 +18,7 @@ export async function updateUserRole(data) {
 }
 
 export async function getRoles() {
-    const response = await fetch("http://localhost:8000/admin", { // get current active roles from the login side
+    const response = await fetch("http://localhost:8000/admin/allProfiles", { 
         method: "GET",
         headers: {
             "Content-Type": "application/json",
@@ -37,7 +37,7 @@ export async function getRoles() {
 // Get users by role
 export async function getUsersByRole(data) {
     const response = await fetch("http://localhost:8000/admin/viewAllUserWithSpecifiedRole", {
-        method: "POST",
+        method: "GET",
         headers: {
             "Content-Type": "application/json",
         },
