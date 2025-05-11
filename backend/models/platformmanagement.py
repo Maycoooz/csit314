@@ -147,6 +147,7 @@ class PlatformManagement(User):
             category_summary = cursor.fetchall()
 
             return {
+                "date": str(date),
                 "transactions": transaction_details,
                 "usage_stats": usage_stats,
                 "category_summary": category_summary
