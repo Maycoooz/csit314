@@ -15,7 +15,7 @@ from backend.controllers.login_controller import LoginController, LoginProfileCo
 from backend.controllers.utility_controllers import ServiceCategoriesController, ActiveUsersController
 from backend.controllers.admin_controllers import CreateAccountController, ViewAllAccountsController, SearchAccountController, SuspendAccountController, UpdateAccountController, UpdateUserRoleController
 from backend.controllers.admin_controllers import CreateUserProfileController, ViewAllUserProfilesController, SearchUserProfileController, SuspendUserProfileController, UpdateUserProfileController, ViewAllUsersWithSpecifiedRoleController
-from backend.controllers.platform_management_controllers import CreateServiceCategoryController, ViewAllServiceCategoryController, UpdateServiceCategoryController, SuspendServiceCategoryController, SearchServiceCategoryController
+from backend.controllers.platform_management_controllers import CreateServiceCategoryController, ViewAllServiceCategoryController, UpdateServiceCategoryController, SuspendServiceCategoryController, SearchServiceCategoryController, GetDailyReportController, GetWeeklyReportController, GetMonthlyReportController
 from backend.controllers.cleaner_controllers import CreateServiceController, ViewAllServicesController, SearchServiceController, UpdateServiceController, SuspendServiceController, ViewNumViewsController, ViewShortlistCountController, ViewPastTransactionsCleanerController, SearchPastTransactionsController
 from backend.controllers.home_owner_controllers import FilterCleanersController, ViewCleanerProfileController, ShortlistCleanerController, ViewShortlistedCleanersController, FilterShortlistedCleanersController, ViewPastTransactionsHOController, FilterPastTransactionsHOController
 
@@ -176,6 +176,26 @@ def search_service_category(category: str):
     controller = SearchServiceCategoryController()
     service_categories = controller.search_service_category(category)
     return service_categories
+
+# Platform Management reports --------------------------------------------------------------------------------------------------------
+
+@app.get("/pm/getDailyReport")
+def get_daily_report(date: str): # YYYY-MM-DD 
+    controller = GetDailyReportController()
+    report = controller.get_daily_report(date)
+    return report
+
+@app.get("/pm/getWeeklyReport")
+def get_weekly_report(start_date: str, end_date: str): # YYYY-MM-DD 
+    controller = GetWeeklyReportController()
+    report = controller.get_weekly_report(start_date, end_date)
+    return report
+
+@app.get("/pm/getMonthlyReport")
+def get_monthly_report(year: int, month: int): # YYYY-MM-DD 
+    controller = GetMonthlyReportController()
+    report = controller.get_monthly_report(year, month)
+    return report
 
 
 

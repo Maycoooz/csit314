@@ -1,5 +1,7 @@
 import mysql.connector
 from backend.models.user import User
+import calendar
+from datetime import date
 
 class PlatformManagement(User):
     
@@ -91,12 +93,204 @@ class PlatformManagement(User):
 
         return service_categories
     
-    def generate_daily_report(self):
-        pass
+    def get_daily_report(self, date):
+        conn = self.connect_database()
+        cursor = conn.cursor(dictionary=True)
+
+        try:
+            # All transaction details
+            cursor.execute("""
+                SELECT
+                    t.transaction_id,
+                    t.date,
+                    t.homeowner_username,
+                    t.cleaner_username,
+                    s.service,
+                    s.category,
+                    s.price
+                FROM Transactions t
+                JOIN Services s ON t.service_id = s.service_id
+                JOIN Users c ON t.cleaner_username = c.username
+                JOIN UserProfiles up ON c.role = up.role
+                WHERE t.date = %s;
+            """, (date,))
+            transaction_details = cursor.fetchall()
+
+            # Services bought count per cleaner & service
+            cursor.execute("""
+                SELECT 
+                    t.cleaner_username,
+                    s.service,
+                    s.category,
+                    COUNT(*) AS services_bought
+                FROM Transactions t
+                JOIN Services s ON t.service_id = s.service_id
+                WHERE t.date = %s
+                GROUP BY t.cleaner_username, s.service, s.category
+                ORDER BY services_bought DESC;
+            """, (date,))
+            usage_stats = cursor.fetchall()
+
+            # Revenue & average price per category
+            cursor.execute("""
+                SELECT 
+                    s.category,
+                    SUM(s.price) AS total_revenue,
+                    AVG(s.price) AS average_price,
+                    COUNT(*) AS times_used
+                FROM Transactions t
+                JOIN Services s ON t.service_id = s.service_id
+                WHERE t.date = %s
+                GROUP BY s.category
+                ORDER BY total_revenue DESC;
+            """, (date,))
+            category_summary = cursor.fetchall()
+
+            return {
+                "transactions": transaction_details,
+                "usage_stats": usage_stats,
+                "category_summary": category_summary
+            }
+
+        except Exception as e:
+            print("Error:", e)
+            return {"error": str(e)}
+        finally:
+            conn.close()
+
     
-    def generate_weekly_report(self):
-        pass
-    
-    def generate_monthlt_report(self):
-        pass
-    
+    def get_weekly_report(self, start_date, end_date):
+        conn = self.connect_database()
+        cursor = conn.cursor(dictionary=True)
+
+        try:
+            # Transactions in the week
+            cursor.execute("""
+                SELECT
+                    t.transaction_id,
+                    t.date,
+                    t.homeowner_username,
+                    t.cleaner_username,
+                    s.service,
+                    s.category,
+                    s.price
+                FROM Transactions t
+                JOIN Services s ON t.service_id = s.service_id
+                JOIN Users c ON t.cleaner_username = c.username
+                JOIN UserProfiles up ON c.role = up.role
+                WHERE t.date BETWEEN %s AND %s;
+            """, (start_date, end_date))
+            transactions = cursor.fetchall()
+
+            # Service usage in the week
+            cursor.execute("""
+                SELECT 
+                    t.cleaner_username,
+                    s.service,
+                    s.category,
+                    COUNT(*) AS services_bought
+                FROM Transactions t
+                JOIN Services s ON t.service_id = s.service_id
+                WHERE t.date BETWEEN %s AND %s
+                GROUP BY t.cleaner_username, s.service, s.category
+                ORDER BY services_bought DESC;
+            """, (start_date, end_date))
+            usage_stats = cursor.fetchall()
+
+            # Revenue summary per category
+            cursor.execute("""
+                SELECT 
+                    s.category,
+                    SUM(s.price) AS total_revenue,
+                    AVG(s.price) AS average_price,
+                    COUNT(*) AS times_used
+                FROM Transactions t
+                JOIN Services s ON t.service_id = s.service_id
+                WHERE t.date BETWEEN %s AND %s
+                GROUP BY s.category
+                ORDER BY total_revenue DESC;
+            """, (start_date, end_date))
+            category_summary = cursor.fetchall()
+
+            return {
+                "start_date": str(start_date),
+                "end_date": str(end_date),
+                "transactions": transactions,
+                "usage_stats": usage_stats,
+                "category_summary": category_summary
+            }
+
+        except Exception as e:
+            return {"error": str(e)}
+        finally:
+            conn.close()
+
+
+    def get_monthly_report(self, year: int, month: int):
+        conn = self.connect_database()
+        cursor = conn.cursor(dictionary=True)
+
+        # Calculate start and end of the month
+        start_date = date(year, month, 1)
+        last_day = calendar.monthrange(year, month)[1]
+        end_date = date(year, month, last_day)
+
+        try:
+            cursor.execute("""
+                SELECT
+                    t.transaction_id,
+                    t.date,
+                    t.homeowner_username,
+                    t.cleaner_username,
+                    s.service,
+                    s.category,
+                    s.price
+                FROM Transactions t
+                JOIN Services s ON t.service_id = s.service_id
+                JOIN Users c ON t.cleaner_username = c.username
+                JOIN UserProfiles up ON c.role = up.role
+                WHERE t.date BETWEEN %s AND %s;
+            """, (start_date, end_date))
+            transactions = cursor.fetchall()
+
+            cursor.execute("""
+                SELECT 
+                    t.cleaner_username,
+                    s.service,
+                    s.category,
+                    COUNT(*) AS services_bought
+                FROM Transactions t
+                JOIN Services s ON t.service_id = s.service_id
+                WHERE t.date BETWEEN %s AND %s
+                GROUP BY t.cleaner_username, s.service, s.category
+                ORDER BY services_bought DESC;
+            """, (start_date, end_date))
+            usage_stats = cursor.fetchall()
+
+            cursor.execute("""
+                SELECT 
+                    s.category,
+                    SUM(s.price) AS total_revenue,
+                    AVG(s.price) AS average_price,
+                    COUNT(*) AS times_used
+                FROM Transactions t
+                JOIN Services s ON t.service_id = s.service_id
+                WHERE t.date BETWEEN %s AND %s
+                GROUP BY s.category
+                ORDER BY total_revenue DESC;
+            """, (start_date, end_date))
+            category_summary = cursor.fetchall()
+
+            return {
+                "start_date": str(start_date),
+                "end_date": str(end_date),
+                "transactions": transactions,
+                "usage_stats": usage_stats,
+                "category_summary": category_summary
+            }
+
+        except Exception as e:
+            return {"error": str(e)}
+        finally:
+            conn.close()
+

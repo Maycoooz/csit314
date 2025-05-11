@@ -35,4 +35,24 @@ class SearchServiceCategoryController(BasePlatformManagementController):
         pm = self.platform_management()
         return pm.search_service_category(target_category)
     
+class GetDailyReportController(BasePlatformManagementController):
+    
+    def get_daily_report(self, date):
+        pm = self.platform_management()
+        return pm.get_daily_report(date)
+    
+class GetWeeklyReportController(BasePlatformManagementController):
+    
+    def get_weekly_report(self, start_date, end_date):
+        pm = self.platform_management()
+        return pm.get_weekly_report(start_date, end_date)
+
+    
+class GetMonthlyReportController(BasePlatformManagementController):
+    
+    def get_monthly_report(self, year, month):
+        pm = self.platform_management()
+        return pm.get_monthly_report(year, month)
+
+    
     
