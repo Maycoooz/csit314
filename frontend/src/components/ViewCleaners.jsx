@@ -43,7 +43,7 @@ const ViewCleaners = () => {
                                 {cleaner}
                                 <button
                                     className="view-button"
-                                    onClick={() => alert(`TODO: View ${cleaner}'s profile`)}
+                                    onClick={() => navigate(`/homeowner/view-cleaner-profile/${cleaner}`)}
                                 >
                                     View Profile
                                 </button>

@@ -30,3 +30,27 @@ export async function filterShortlist(homeownerUsername, serviceFilter) {
     if (!response.ok) throw new Error("Failed to fetch filtered shortlist");
     return await response.json();
 }
+
+//-------------------------------------------------------------------------------------------------------------
+
+export async function getCleanerProfile(homeownerUsername, cleanerUsername) {
+    const url = `http://localhost:8000/ho/viewCleanerProfile?homeowner_username=${encodeURIComponent(homeownerUsername)}&cleaner_username=${encodeURIComponent(cleanerUsername)}`;
+
+    const response = await fetch(url);
+    if (!response.ok) throw new Error("Failed to fetch cleaner profile");
+    return await response.json();
+}
+
+export async function shortlistCleaner(homeownerUsername, serviceId) {
+    const response = await fetch("http://localhost:8000/ho/viewCleanerProfile/shortlistCleaner", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ homeowner_username: homeownerUsername, service_id: serviceId }),
+    });
+
+    if (!response.ok) return false;
+    return await response.json(); // true or false
+}
+

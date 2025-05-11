@@ -32,6 +32,8 @@ import CleanerViewStatsPage from "./pages/CleanerViewStatsPage";
 import HomeOwnerDashboardPage from "./pages/HomeOwnerDashboardPage";
 import HomeOwnerViewCleanersPage from "./pages/HomeOwnerViewCleanersPage";
 import HomeOwnerViewShortlistPage from "./pages/HomeOwnerViewShortlistPage";
+import HomeOwnerViewCleanerProfilePage from "./pages/HomeOwnerViewCleanerProfilePage";
+
 
 
 function App() {
@@ -65,7 +67,9 @@ function App() {
                     <Route path="/cleaner-view-stats" element={<CleanerViewStatsPage />} />   
                 <Route path="/home-owner-dashboard" element={<HomeOwnerDashboardPage />} />
                     <Route path="/home-owner-view-cleaners" element={<HomeOwnerViewCleanersPage />} />
-                    <Route path="/home-owner-view-shortlist-cleaners" element={<HomeOwnerViewShortlistPage />} />          
+                    <Route path="/home-owner-view-shortlist-cleaners" element={<HomeOwnerViewShortlistPage />} />
+                    <Route path="/homeowner/view-cleaner-profile/:cleanerUsername" element={<HomeOwnerViewCleanerProfilePage />} />
+          
             </Routes>
         </Router>
     );
