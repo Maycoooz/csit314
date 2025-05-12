@@ -33,6 +33,23 @@ import HomeOwnerDashboardPage from "./pages/HomeOwnerDashboardPage";
 import HomeOwnerViewCleanersPage from "./pages/HomeOwnerViewCleanersPage";
 import HomeOwnerViewShortlistPage from "./pages/HomeOwnerViewShortlistPage";
 import HomeOwnerViewCleanerProfilePage from "./pages/HomeOwnerViewCleanerProfilePage";
+//-----------------------------------------------------------------------------------
+import PlatformManagementDashboardPage from "./pages/PlatformManagement/PlatformManagementDashboardPage";
+import PlatformManagementServiceCategoryPage from "./pages/PlatformManagement/PMServiceCategoryPage";
+import PlatformManagementReportPage from "./pages/PlatformManagement/PMReportPage";
+
+// Service Category Pages
+import PMCreateServiceCategoryPage from "./pages/PlatformManagement/ServiceCategory/PMCreateServiceCategoryPage";
+import PMViewAllServiceCategoriesPage from "./pages/PlatformManagement/ServiceCategory/PMViewAllServiceCategoriesPage";
+//import PMUpdateServiceCategoryPage from "./pages/PlatformManagement/ServiceCategory/PMUpdateServiceCategoryPage";
+//import PMSuspendServiceCategoryPage from "./pages/PlatformManagement/ServiceCategory/PMSuspendServiceCategoryPage";
+//import PMSearchServiceCategoryPage from "./pages/PlatformManagement/ServiceCategory/PMSearchServiceCategoryPage";
+
+// Report Pages
+//import PMDailyReportPage from "./pages/PlatformManagement/Report/PMDailyReportPage";
+//import PMWeeklyReportPage from "./pages/PlatformManagement/Report/PMWeeklyReportPage";
+//import PMMonthlyReportPage from "./pages/PlatformManagement/Report/PMMonthlyReportPage";
+
 
 
 
@@ -69,6 +86,11 @@ function App() {
                     <Route path="/home-owner-view-cleaners" element={<HomeOwnerViewCleanersPage />} />
                     <Route path="/home-owner-view-shortlist-cleaners" element={<HomeOwnerViewShortlistPage />} />
                     <Route path="/homeowner/view-cleaner-profile/:cleanerUsername" element={<HomeOwnerViewCleanerProfilePage />} />
+                <Route path="/PlatformManagement/Platform-Management-Dashboard" element={<PlatformManagementDashboardPage />} />
+                    <Route path="/PlatformManagement/ServiceCategory" element={<PlatformManagementServiceCategoryPage />} />
+                    <Route path="/PlatformManagement/Report" element={<PlatformManagementReportPage />} />
+                    <Route path="/PlatformManagement/ServiceCategory/CreateServiceCategory" element={<PMCreateServiceCategoryPage />} />
+                    <Route path="/PlatformManagement/ServiceCategory/ViewAllServiceCategories" element={<PMViewAllServiceCategoriesPage />} />
           
             </Routes>
         </Router>
@@ -76,3 +98,20 @@ function App() {
 }
 
 export default App;
+
+
+
+// {/* Service Category Routes */}
+
+// <Route path="/PlatformManagement/ServiceCategory/CreateServiceCategory" element={<PMCreateServiceCategoryPage />} />
+
+// <Route path="/PlatformManagement/ServiceCategory/UpdateServiceCategory" element={<PMUpdateServiceCategoryPage />} />
+// <Route path="/PlatformManagement/ServiceCategory/SuspendServiceCategory" element={<PMSuspendServiceCategoryPage />} />
+// <Route path="/PlatformManagement/ServiceCategory/SearchServiceCategory" element={<PMSearchServiceCategoryPage />} />
+
+// {/* Report Routes */}
+// <Route path="/PlatformManagement/Report" element={<PlatformManagementReportPage />} />
+// <Route path="/PlatformManagement/Report/DailyReport" element={<PMDailyReportPage />} />
+// <Route path="/PlatformManagement/Report/WeeklyReport" element={<PMWeeklyReportPage />} />
+// <Route path="/PlatformManagement/Report/MonthlyReport" element={<PMMonthlyReportPage />} /> */}
+

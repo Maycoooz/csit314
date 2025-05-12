@@ -72,7 +72,7 @@ const LoginForm = () => {
                         navigate("/home-owner-dashboard");
                     
                     } else if (selectedRole.toLowerCase() === "platform management") {
-                        navigate("/platform-management-dashboard");
+                        navigate("/PlatformManagement/Platform-Management-Dashboard");
                     } 
                 }, 1500);
 
