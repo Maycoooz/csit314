@@ -2,57 +2,50 @@ from backend.models.homeowner import HomeOwner
 from backend.models.cleaner import Cleaner
 from typing import Optional
 
-class BaseHomeOwnerController:
-    
-    def home_owner(self):
-        return HomeOwner(username="", password="")
-    
-
-class FilterCleanersController(BaseHomeOwnerController):
+class FilterCleanersController():
     
     def filter_cleaners(self, service: Optional[str] = None):
-        ho = self.home_owner()
+        ho = HomeOwner()
         return ho.filter_cleaners(service)
     
-    
-class ViewCleanerProfileController(BaseHomeOwnerController):
+class ViewCleanerProfileController():
     
     def view_cleaner_profile(self, homeowner_username: str, cleaner_username: str):
-        ho = self.home_owner()
+        ho = HomeOwner()
         ho.view_cleaner_profile(homeowner_username, cleaner_username)
         
-        cleaner = Cleaner(username="", password="")
+        cleaner = Cleaner()
         services = cleaner.view_active_services(cleaner_username)
         
         return services
 
-class ShortlistCleanerController(BaseHomeOwnerController):
+class ShortlistCleanerController():
     
     def shortlist_cleaner(self, homeowner_username: str, service_id: int):
-        ho = self.home_owner()
+        ho = HomeOwner()
         return ho.shortlist_cleaner(homeowner_username, service_id)
         
         
-class ViewShortlistedCleanersController(BaseHomeOwnerController):
+class ViewShortlistedCleanersController():
     
     def view_shortlisted_cleaners(self, homeowner_username: str):
-        ho = self.home_owner()
+        ho = HomeOwner()
         return ho.view_shortlisted_cleaners(homeowner_username)
     
-class FilterShortlistedCleanersController(BaseHomeOwnerController):
+class FilterShortlistedCleanersController():
     
     def filter_shortlist(self, homeowner_username: str, service_filter: str):
-        ho = self.home_owner()
+        ho = HomeOwner()
         return ho.filter_shortlist(homeowner_username, service_filter)
     
-class ViewPastTransactionsHOController(BaseHomeOwnerController):
+class ViewPastTransactionsHOController():
 
     def view_past_transactions(self, homeowner_username: str):
-        ho = self.home_owner()
+        ho = HomeOwner()
         return ho.view_past_transactions(homeowner_username)
     
-class FilterPastTransactionsHOController(BaseHomeOwnerController):
+class FilterPastTransactionsHOController():
 
     def filter_past_transactions(self, homeowner_username: str, service_filter: str):
-        ho = self.home_owner()
+        ho = HomeOwner()
         return ho.filter_past_transactions(homeowner_username, service_filter)
