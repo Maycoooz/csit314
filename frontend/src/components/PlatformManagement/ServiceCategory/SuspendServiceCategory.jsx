@@ -1,11 +1,12 @@
-// src/components/PlatformManagement/ServiceCategory/SuspendServiceCategory.jsx
-
 import React, { useState } from "react";
 import { suspendServiceCategory } from "../../../services/serviceCategoryService";
+import { useNavigate } from "react-router-dom";
+import "../../../styles/PlatformManagement/ServiceCategory/SuspendServiceCategory.css";
 
 const SuspendServiceCategory = () => {
     const [category, setCategory] = useState("");
     const [message, setMessage] = useState("");
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -23,22 +24,23 @@ const SuspendServiceCategory = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit} style={{ maxWidth: "500px", margin: "auto", padding: "20px" }}>
-            <div style={{ marginBottom: "15px" }}>
-                <input
-                    type="text"
-                    placeholder="Category Name"
-                    value={category}
-                    onChange={(e) => setCategory(e.target.value)}
-                    required
-                    style={{ width: "100%", padding: "10px", fontSize: "16px" }}
-                />
+        <div className="suspend-category-container">
+            <div className="suspend-category-box">
+                <h2>Suspend Service Category</h2>
+                <form onSubmit={handleSubmit} className="suspend-category-form">
+                    <input
+                        type="text"
+                        placeholder="Category Name"
+                        value={category}
+                        onChange={(e) => setCategory(e.target.value)}
+                        required
+                    />
+                    <button type="submit" className="red-button">Suspend Category</button>
+                    {message && <p className="message-text">{message}</p>}
+                </form>
             </div>
-            <button type="submit" style={{ padding: "10px 20px", fontSize: "16px", backgroundColor: "#dc3545", color: "white", border: "none", borderRadius: "6px" }}>
-                Suspend Category
-            </button>
-            {message && <p style={{ marginTop: "15px" }}>{message}</p>}
-        </form>
+            <button className="back-button" onClick={() => navigate(-1)}>← Back</button>
+        </div>
     );
 };
 

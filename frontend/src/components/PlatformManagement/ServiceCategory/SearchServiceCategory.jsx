@@ -1,12 +1,13 @@
-// src/components/PlatformManagement/ServiceCategory/SearchServiceCategory.jsx
-
 import React, { useState } from "react";
 import { searchServiceCategory } from "../../../services/serviceCategoryService";
+import { useNavigate } from "react-router-dom";
+import "../../../styles/PlatformManagement/ServiceCategory/SearchServiceCategory.css";
 
 const SearchServiceCategory = () => {
     const [query, setQuery] = useState("");
     const [results, setResults] = useState([]);
     const [error, setError] = useState("");
+    const navigate = useNavigate();
 
     const handleSearch = async (e) => {
         e.preventDefault();
@@ -21,68 +22,47 @@ const SearchServiceCategory = () => {
     };
 
     return (
-        <div style={{ maxWidth: "600px", margin: "auto", padding: "20px" }}>
-            <form onSubmit={handleSearch} style={{ marginBottom: "20px" }}>
-                <input
-                    type="text"
-                    placeholder="Enter category name"
-                    value={query}
-                    onChange={(e) => setQuery(e.target.value)}
-                    required
-                    style={{ width: "100%", padding: "10px", fontSize: "16px" }}
-                />
-                <button
-                    type="submit"
-                    style={{
-                        marginTop: "10px",
-                        padding: "10px 20px",
-                        fontSize: "16px",
-                        backgroundColor: "#007bff",
-                        color: "white",
-                        border: "none",
-                        borderRadius: "6px",
-                    }}
-                >
-                    Search
-                </button>
-            </form>
+        <div className="search-category-container">
+            <div className="search-category-box">
+                <h2>Search Service Category</h2>
+                <form onSubmit={handleSearch} className="search-category-form">
+                    <input
+                        type="text"
+                        placeholder="Enter category name"
+                        value={query}
+                        onChange={(e) => setQuery(e.target.value)}
+                        required
+                    />
+                    <button type="submit" className="blue-button">Search</button>
+                </form>
 
-            {error && <p>{error}</p>}
+                {error && <p className="error-text">{error}</p>}
 
-            {results.length > 0 && (
-                <table style={{ width: "100%", borderCollapse: "collapse" }}>
-                    <thead>
-                        <tr style={{ backgroundColor: "#f2f2f2" }}>
-                            <th style={thStyle}>Category</th>
-                            <th style={thStyle}>Description</th>
-                            <th style={thStyle}>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {results.map((cat, index) => (
-                            <tr key={index}>
-                                <td style={tdStyle}>{cat.category}</td>
-                                <td style={tdStyle}>{cat.description}</td>
-                                <td style={tdStyle}>{cat.status}</td>
+                {results.length > 0 && (
+                    <table className="results-table">
+                        <thead>
+                            <tr>
+                                <th>Category</th>
+                                <th>Description</th>
+                                <th>Status</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
-            )}
+                        </thead>
+                        <tbody>
+                            {results.map((cat, index) => (
+                                <tr key={index}>
+                                    <td>{cat.category}</td>
+                                    <td>{cat.description}</td>
+                                    <td>{cat.status}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                )}
+            </div>
+
+            <button className="back-button" onClick={() => navigate(-1)}>← Back</button>
         </div>
     );
-};
-
-const thStyle = {
-    border: "1px solid #ddd",
-    padding: "12px",
-    fontWeight: "bold",
-    textAlign: "left",
-};
-
-const tdStyle = {
-    border: "1px solid #ddd",
-    padding: "12px",
 };
 
 export default SearchServiceCategory;

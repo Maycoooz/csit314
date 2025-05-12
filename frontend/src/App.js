@@ -1,25 +1,29 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
+//-----------------------------------------------------------------------------------
 import AdminDashboardPage from "./pages/AdminDashboardPage";
+import AdminAccountManagementPage from "./pages/Admin/AdminAccountManagementPage";
+import AdminRoleManagementPage from "./pages/Admin/AdminRoleManagementPage";
+import AdminUserProfileManagementPage from "./pages/Admin/AdminUserProfileManagementPage";
 //-----------------------------------------------------------------------------------
-import AdminAccountManagementPage from "./pages/AdminAccountManagementPage";
-import AdminAMCreateAccountPage from "./pages/AdminAMCreateAccountPage";
-import AdminAMViewAccountsPage from "./pages/AdminAMViewAccountsPage";
-import AdminAMSearchAccountPage from "./pages/AdminAMSearchAccountPage";
-import AdminAMSuspendAccountPage from "./pages/AdminAMSuspendAccountPage";
-import AdminAMUpdateAccountPage from "./pages/AdminAMUpdateAccountPage";
+// Account Management Pages
+import AdminAMCreateAccountPage from "./pages/Admin/AccountManagement/AdminAMCreateAccountPage";
+import AdminAMViewAllAccountsPage from "./pages/Admin/AccountManagement/AdminAMViewAllAccountsPage"; 
+import AdminAMSearchAccountPage from "./pages/Admin/AccountManagement/AdminAMSearchAccountPage";
+import AdminAMSuspendAccountPage from "./pages/Admin/AccountManagement/AdminAMSuspendAccountPage";
+import AdminAMUpdateAccountPage from "./pages/Admin/AccountManagement/AdminAMUpdateAccountPage";
 //-----------------------------------------------------------------------------------
-import AdminUserProfileManagementPage from "./pages/AdminUserProfileManagementPage";
-import AdminUPMCreateUserProfilePage from "./pages/AdminUPMCreateUserProfilePage";
-import AdminUPMViewUserProfilesPage from "./pages/AdminUPMViewUserProfilesPage";
-import AdminUPMSearchUserProfilePage from "./pages/AdminUPMSearchUserProfilePage";
-import AdminUPMSuspendUserProfilePage from "./pages/AdminUPMSuspendUserProfilePage";
-import AdminUPMUpdateUserProfilePage from "./pages/AdminUPMUpdateUserProfilePage";
+// User Profile Management Pages
+import AdminUPMCreateUserProfilePage from "./pages/Admin/UserProfileManagement/AdminUPMCreateUserProfilePage";
+import AdminUPMViewUserProfilesPage from "./pages/Admin/UserProfileManagement/AdminUPMViewUserProfilesPage";
+import AdminUPMSearchUserProfilePage from "./pages/Admin/UserProfileManagement/AdminUPMSearchUserProfilePage";
+import AdminUPMSuspendUserProfilePage from "./pages/Admin/UserProfileManagement/AdminUPMSuspendUserProfilePage";
+import AdminUPMUpdateUserProfilePage from "./pages/Admin/UserProfileManagement/AdminUPMUpdateUserProfilePage";
 //-----------------------------------------------------------------------------------
-import AdminRoleManagementPage from "./pages/AdminRoleManagementPage";
-import AdminRMUpdateUserRolePage from "./pages/AdminRMUpdateUserRolePage";
-import AdminRMViewUsersByRolePage from "./pages/AdminRMViewUsersByRolePage";
+// Role Management Pages
+import AdminRMUpdateUserRolePage from "./pages/Admin/RoleManagement/AdminRMUpdateUserRolePage";
+import AdminRMViewUsersByRolePage from "./pages/Admin/RoleManagement/AdminRMViewUsersByRolePage";
 //-----------------------------------------------------------------------------------
 import CleanerDashboardPage from "./pages/CleanerDashboardPage";    
 import CleanerCreateServicePage from "./pages/CleanerCreateServicePage";        
@@ -52,8 +56,6 @@ import PMViewMonthlyReportPage from "./pages/PlatformManagement/Report/PMViewMon
 //-----------------------------------------------------------------------------------
 
 
-
-
 function App() {
     return (
         <Router>
@@ -61,21 +63,21 @@ function App() {
                 <Route path="/" element={<HomePage />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/admin-dashboard" element={<AdminDashboardPage />} />
-                    <Route path="/admin-account-management" element={<AdminAccountManagementPage />} />
-                        <Route path="/admin-am-create-account" element={<AdminAMCreateAccountPage />} />
-                        <Route path="/admin-am-view-accounts" element={<AdminAMViewAccountsPage />} />
-                        <Route path="/admin-am-search-account" element={<AdminAMSearchAccountPage />} />
-                        <Route path="/admin-am-suspend-account" element={<AdminAMSuspendAccountPage />} />
-                        <Route path="/admin-am-update-account" element={<AdminAMUpdateAccountPage />} />
-                    <Route path="/admin-user-profile-management" element={<AdminUserProfileManagementPage />} />
+                    <Route path="/Admin/AccountManagement" element={<AdminAccountManagementPage />} />
+                        <Route path="/Admin/AccountManagement/CreateAccount" element={<AdminAMCreateAccountPage />} />
+                        <Route path="/Admin/AccountManagement/ViewAllAccounts" element={<AdminAMViewAllAccountsPage />} />
+                        <Route path="/Admin/AccountManagement/SearchAccount" element={<AdminAMSearchAccountPage />} />
+                        <Route path="/Admin/AccountManagement/SuspendAccount" element={<AdminAMSuspendAccountPage />} />
+                        <Route path="/Admin/AccountManagement/UpdateAccount" element={<AdminAMUpdateAccountPage />} />
+                    <Route path="/Admin/UserProfileManagement" element={<AdminUserProfileManagementPage />} />
                         <Route path="/admin-upm-create-userprofile" element={<AdminUPMCreateUserProfilePage />} />
                         <Route path="/admin-upm-view-userprofiles" element={<AdminUPMViewUserProfilesPage />} />
                         <Route path="/admin-upm-search-userprofile" element={<AdminUPMSearchUserProfilePage />} />
                         <Route path="/admin-upm-suspend-userprofile" element={<AdminUPMSuspendUserProfilePage />} />
                         <Route path="/admin-upm-update-userprofile" element={<AdminUPMUpdateUserProfilePage />} />
-                    <Route path="/admin-role-management" element={<AdminRoleManagementPage />} />
-                        <Route path="/admin-rm-update-user-role" element={<AdminRMUpdateUserRolePage />} />
-                        <Route path="/admin-rm-view-users-by-role" element={<AdminRMViewUsersByRolePage />} />
+                    <Route path="/Admin/RoleManagement" element={<AdminRoleManagementPage />} />
+                        <Route path="/Admin/RoleManagement/UpdateUserRole" element={<AdminRMUpdateUserRolePage />} />
+                        <Route path="/Admin/RoleManagement/ViewUsersByRole" element={<AdminRMViewUsersByRolePage />} />
                 <Route path="/cleaner-dashboard" element={<CleanerDashboardPage />} />
                     <Route path="/cleaner-create-service" element={<CleanerCreateServicePage />} />
                     <Route path="/cleaner-view-services" element={<CleanerViewServicesPage />} />

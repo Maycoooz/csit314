@@ -1,11 +1,12 @@
-// src/components/PlatformManagement/ServiceCategory/ViewServiceCategory.jsx
-
 import React, { useEffect, useState } from "react";
 import { viewAllServiceCategories } from "../../../services/serviceCategoryService";
+import { useNavigate } from "react-router-dom";
+import "../../../styles/PlatformManagement/ServiceCategory/ViewAllServiceCategories.css";
 
 const ViewServiceCategory = () => {
     const [categories, setCategories] = useState([]);
     const [error, setError] = useState("");
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -21,41 +22,33 @@ const ViewServiceCategory = () => {
     }, []);
 
     return (
-        <div style={{ marginTop: "30px" }}>
-            {error && <p>{error}</p>}
-            {!error && categories.length === 0 && <p>No categories found.</p>}
-            {!error && categories.length > 0 && (
-                <table style={{ margin: "auto", borderCollapse: "collapse", width: "80%" }}>
-                    <thead>
-                        <tr style={{ backgroundColor: "#f2f2f2" }}>
-                            <th style={thStyle}>Category</th>
-                            <th style={thStyle}>Description</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {categories.map((cat, index) => (
-                            <tr key={index}>
-                                <td style={tdStyle}>{cat.category}</td>
-                                <td style={tdStyle}>{cat.description}</td>
+        <div className="view-category-container">
+            <div className="view-category-box">
+                <h2>All Service Categories</h2>
+                {error && <p className="error-text">{error}</p>}
+                {!error && categories.length === 0 && <p>No categories found.</p>}
+                {!error && categories.length > 0 && (
+                    <table className="category-table">
+                        <thead>
+                            <tr>
+                                <th>Category</th>
+                                <th>Description</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
-            )}
+                        </thead>
+                        <tbody>
+                            {categories.map((cat, index) => (
+                                <tr key={index}>
+                                    <td>{cat.category}</td>
+                                    <td>{cat.description}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                )}
+            </div>
+            <button className="back-button" onClick={() => navigate(-1)}>← Back</button>
         </div>
     );
-};
-
-const thStyle = {
-    border: "1px solid #ddd",
-    padding: "12px",
-    fontWeight: "bold",
-    textAlign: "left"
-};
-
-const tdStyle = {
-    border: "1px solid #ddd",
-    padding: "12px"
 };
 
 export default ViewServiceCategory;

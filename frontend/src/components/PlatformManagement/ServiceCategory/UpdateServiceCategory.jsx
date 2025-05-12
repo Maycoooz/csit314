@@ -1,18 +1,23 @@
-// src/components/PlatformManagement/ServiceCategory/UpdateServiceCategory.jsx
-
 import React, { useState } from "react";
 import { updateServiceCategory } from "../../../services/serviceCategoryService";
+import { useNavigate } from "react-router-dom";
+import "../../../styles/PlatformManagement/ServiceCategory/UpdateServiceCategory.css";
 
 const UpdateServiceCategory = () => {
     const [targetCategory, setTargetCategory] = useState("");
     const [updatedCategory, setUpdatedCategory] = useState("");
     const [updatedDescription, setUpdatedDescription] = useState("");
     const [message, setMessage] = useState("");
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const success = await updateServiceCategory(targetCategory, updatedCategory, updatedDescription);
+            const success = await updateServiceCategory(
+                targetCategory,
+                updatedCategory,
+                updatedDescription
+            );
             if (success) {
                 setMessage("✅ Category updated successfully.");
                 setTargetCategory("");
@@ -27,42 +32,37 @@ const UpdateServiceCategory = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit} style={{ maxWidth: "500px", margin: "auto", padding: "20px" }}>
-            <div style={{ marginBottom: "15px" }}>
-                <input
-                    type="text"
-                    placeholder="Current Category Name"
-                    value={targetCategory}
-                    onChange={(e) => setTargetCategory(e.target.value)}
-                    required
-                    style={{ width: "100%", padding: "10px", fontSize: "16px" }}
-                />
+        <div className="update-category-container">
+            <div className="update-category-box">
+                <h2>Update Service Category</h2>
+                <form onSubmit={handleSubmit} className="update-category-form">
+                    <input
+                        type="text"
+                        placeholder="Current Category Name"
+                        value={targetCategory}
+                        onChange={(e) => setTargetCategory(e.target.value)}
+                        required
+                    />
+                    <input
+                        type="text"
+                        placeholder="New Category Name"
+                        value={updatedCategory}
+                        onChange={(e) => setUpdatedCategory(e.target.value)}
+                        required
+                    />
+                    <textarea
+                        placeholder="New Description"
+                        value={updatedDescription}
+                        onChange={(e) => setUpdatedDescription(e.target.value)}
+                        rows="4"
+                        required
+                    />
+                    <button type="submit" className="yellow-button">Update Category</button>
+                    {message && <p className="message-text">{message}</p>}
+                </form>
             </div>
-            <div style={{ marginBottom: "15px" }}>
-                <input
-                    type="text"
-                    placeholder="New Category Name"
-                    value={updatedCategory}
-                    onChange={(e) => setUpdatedCategory(e.target.value)}
-                    required
-                    style={{ width: "100%", padding: "10px", fontSize: "16px" }}
-                />
-            </div>
-            <div style={{ marginBottom: "15px" }}>
-                <textarea
-                    placeholder="New Description"
-                    value={updatedDescription}
-                    onChange={(e) => setUpdatedDescription(e.target.value)}
-                    required
-                    rows="4"
-                    style={{ width: "100%", padding: "10px", fontSize: "16px" }}
-                />
-            </div>
-            <button type="submit" style={{ padding: "10px 20px", fontSize: "16px", backgroundColor: "#ffc107", color: "black", border: "none", borderRadius: "6px" }}>
-                Update Category
-            </button>
-            {message && <p style={{ marginTop: "15px" }}>{message}</p>}
-        </form>
+            <button className="back-button" onClick={() => navigate(-1)}>← Back</button>
+        </div>
     );
 };
 
