@@ -41,9 +41,9 @@ import PlatformManagementReportPage from "./pages/PlatformManagement/PMReportPag
 // Service Category Pages
 import PMCreateServiceCategoryPage from "./pages/PlatformManagement/ServiceCategory/PMCreateServiceCategoryPage";
 import PMViewAllServiceCategoriesPage from "./pages/PlatformManagement/ServiceCategory/PMViewAllServiceCategoriesPage";
-//import PMUpdateServiceCategoryPage from "./pages/PlatformManagement/ServiceCategory/PMUpdateServiceCategoryPage";
-//import PMSuspendServiceCategoryPage from "./pages/PlatformManagement/ServiceCategory/PMSuspendServiceCategoryPage";
-//import PMSearchServiceCategoryPage from "./pages/PlatformManagement/ServiceCategory/PMSearchServiceCategoryPage";
+import PMUpdateServiceCategoryPage from "./pages/PlatformManagement/ServiceCategory/PMUpdateServiceCategoryPage";
+import PMSuspendServiceCategoryPage from "./pages/PlatformManagement/ServiceCategory/PMSuspendServiceCategoryPage";
+import PMSearchServiceCategoryPage from "./pages/PlatformManagement/ServiceCategory/PMSearchServiceCategoryPage";
 
 // Report Pages
 //import PMDailyReportPage from "./pages/PlatformManagement/Report/PMDailyReportPage";
@@ -91,7 +91,9 @@ function App() {
                     <Route path="/PlatformManagement/Report" element={<PlatformManagementReportPage />} />
                     <Route path="/PlatformManagement/ServiceCategory/CreateServiceCategory" element={<PMCreateServiceCategoryPage />} />
                     <Route path="/PlatformManagement/ServiceCategory/ViewAllServiceCategories" element={<PMViewAllServiceCategoriesPage />} />
-          
+                    <Route path="/PlatformManagement/ServiceCategory/UpdateServiceCategory" element={<PMUpdateServiceCategoryPage />} />
+                    <Route path="/PlatformManagement/ServiceCategory/SuspendServiceCategory" element={<PMSuspendServiceCategoryPage />} />
+                    <Route path="/PlatformManagement/ServiceCategory/SearchServiceCategory" element={<PMSearchServiceCategoryPage />} />
             </Routes>
         </Router>
     );
@@ -103,11 +105,6 @@ export default App;
 
 // {/* Service Category Routes */}
 
-// <Route path="/PlatformManagement/ServiceCategory/CreateServiceCategory" element={<PMCreateServiceCategoryPage />} />
-
-// <Route path="/PlatformManagement/ServiceCategory/UpdateServiceCategory" element={<PMUpdateServiceCategoryPage />} />
-// <Route path="/PlatformManagement/ServiceCategory/SuspendServiceCategory" element={<PMSuspendServiceCategoryPage />} />
-// <Route path="/PlatformManagement/ServiceCategory/SearchServiceCategory" element={<PMSearchServiceCategoryPage />} />
 
 // {/* Report Routes */}
 // <Route path="/PlatformManagement/Report" element={<PlatformManagementReportPage />} />

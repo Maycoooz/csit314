@@ -29,3 +29,23 @@ export async function updateServiceCategory(target_category, updated_category, u
     return await response.json();
 }
 
+//-------------------------------------------------------------------------------------------------------------
+
+export async function suspendServiceCategory(target_category) {
+    const response = await fetch("http://localhost:8000/pm/suspendServiceCategory", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ target_category }),
+    });
+    return await response.json();
+}
+
+//-------------------------------------------------------------------------------------------------------------
+
+export async function searchServiceCategory(category) {
+    const response = await fetch(`http://localhost:8000/pm/searchServiceCategory?category=${encodeURIComponent(category)}`);
+    return await response.json();
+}
+
+
+
