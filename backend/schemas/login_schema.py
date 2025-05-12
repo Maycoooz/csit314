@@ -8,4 +8,5 @@ class LoginRequest(BaseModel):
 
 class LoginProfiles(BaseModel):
     role: str
+    description: str
 

@@ -21,7 +21,7 @@ CREATE TABLE Users (
     username VARCHAR(100) NOT NULL PRIMARY KEY,
     password VARCHAR(100) NOT NULL,
     status ENUM('active', 'suspended') NOT NULL DEFAULT 'active',
-    role VARCHAR(50),
+    role VARCHAR(50) DEFAULT NULL,
 
     CONSTRAINT role_FK FOREIGN KEY (role) REFERENCES UserProfiles(role) ON UPDATE CASCADE ON DELETE SET NULL
 );
@@ -141,10 +141,10 @@ END$$
 DELIMITER ;
 
 INSERT INTO UserProfiles (role, description) VALUES 
-('admin', 'Manages Users accounts'),
+('admin', 'Manages users accounts & user profiles'),
 ('cleaner', 'Provides cleaning services on the app'),
 ('home owner', 'Purchases services offered by cleaners'),
-('platform management', 'Generates reports for the company');
+('platform management', 'Manage service categories & Generate reports');
 
 INSERT INTO Users (username, password, role) VALUES 
 ('admin1', '123', 'admin'),
@@ -177,6 +177,9 @@ INSERT INTO Services (cleaner_username, category, service, price) VALUES
 
 INSERT INTO Transactions (homeowner_username, cleaner_username, service_id, date) VALUES 
 ('ho1', 'cleaner1', 1, '2025-01-10'),
+('ho1', 'cleaner1', 4, '2025-01-10'),
+('ho1', 'cleaner1', 2, '2025-01-11'),
+('ho1', 'cleaner1', 2, '2025-01-12'),
 ('ho1', 'cleaner1', 1, '2025-02-15'),
 ('ho1', 'cleaner1', 1, '2025-03-20'),
 ('ho1', 'cleaner1', 2, '2025-01-10'),
@@ -185,6 +188,9 @@ INSERT INTO Transactions (homeowner_username, cleaner_username, service_id, date
 
 INSERT INTO Transactions (homeowner_username, cleaner_username, service_id, date) VALUES 
 ('ho2', 'cleaner1', 1, '2025-01-10'),
+('ho2', 'cleaner1', 4, '2025-01-10'),
+('ho2', 'cleaner1', 2, '2025-01-11'),
+('ho2', 'cleaner1', 3, '2025-01-12'),
 ('ho2', 'cleaner1', 1, '2025-02-15'),
 ('ho2', 'cleaner1', 1, '2025-04-20'),
 ('ho2', 'cleaner3', 5, '2025-01-10');
@@ -194,3 +200,7 @@ INSERT INTO Transactions (homeowner_username, cleaner_username, service_id, date
 ('ho3', 'cleaner1', 1, '2025-02-15'),
 ('ho3', 'cleaner4', 7, '2025-04-20'),
 ('ho3', 'cleaner3', 5, '2025-01-10');
+
+-- Test user with encrypted password
+INSERT INTO users (username, password, status, role)
+VALUES ('tester', '$2b$12$s8oaHU/Dy/dwaSGdh1mMrunt1CnpfNQkRwbq7gXvW755Ro853GA4a', 'active', 'admin');

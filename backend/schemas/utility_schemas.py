@@ -5,7 +5,8 @@ class AvailableCategories(BaseModel):
     category: str
     description: str
     status: str
-    
+
+# sent to admin dashboard  
 class ActiveUsersOut(BaseModel):
     username: str
     role: str

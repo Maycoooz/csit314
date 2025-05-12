@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 import mysql.connector
+import bcrypt
 
 class User(BaseModel):
     username: str
@@ -18,16 +19,17 @@ class User(BaseModel):
     def login(self, role):
         conn = self.connect_database()
         cursor = conn.cursor(dictionary=True)
-        
-        prepared_statement = "SELECT * FROM users WHERE Username = %s AND password = %s AND status = 'active' AND role = %s"
-        values = (self.username, self.password, role)
-        
+
+        # Fetch user row based on username and role
+        prepared_statement = "SELECT * FROM users WHERE Username = %s AND role = %s AND status = 'active'"
+        values = (self.username, role)
         cursor.execute(prepared_statement, values)
         result = cursor.fetchone()
-        
+
         conn.close()
-        
+
         if result:
-            return True
-        else:
-            return False
+            stored_hash = result['password'].encode('utf-8')
+            if bcrypt.checkpw(self.password.encode('utf-8'), stored_hash):
+                return True 
+        return False

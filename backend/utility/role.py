@@ -7,7 +7,7 @@ class Role(ConnectDB):
         conn = self.connect_database()
         cursor = conn.cursor(dictionary=True)
 
-        prepared_statement = "SELECT role FROM UserProfiles"
+        prepared_statement = "SELECT role, description FROM UserProfiles"
         cursor.execute(prepared_statement)
 
         roles = cursor.fetchall()

@@ -2,25 +2,34 @@ from pydantic import BaseModel
 import mysql.connector
 from backend.models.user import User
 from typing import Dict
+import bcrypt
 
 class Admin(User):
 
     # CRUDS for user accounts
     # ------------------------- Account CRUDS -------------------------
-    def create_account(self, new_username, new_password):
+    def create_account(self, new_username: str, new_password: str):
         conn = self.connect_database()
         cursor = conn.cursor()
-        
+        hashed_password = bcrypt.hashpw(new_password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
+
         try:
-            prepared_statement = "INSERT INTO users (username, password) VALUES (%s, %s)"
-            values = (new_username, new_password)
-            
+            prepared_statement = "INSERT INTO users (username, password, status) VALUES (%s, %s, %s)"
+            values = (new_username, hashed_password, 'active')
+
             cursor.execute(prepared_statement, values)
             conn.commit()
-            
-            return cursor.rowcount == 1
+
+            if cursor.rowcount != 1:
+                print("[ERROR] Insert failed silently.")
+                return False
+
+            return True
         except mysql.connector.Error as err:
-            print("Error creating account:", err) # for debugging remove once done 
+            print("[MYSQL ERROR]", err)
+            return False
+        except Exception as e:
+            print("[GENERAL ERROR]", e)
             return False
         finally:
             cursor.close()
@@ -39,7 +48,7 @@ class Admin(User):
         return users
 
     # Search accounts based on username
-    def search_account(self, target_username):
+    def search_account(self, target_username: str):
         conn = self.connect_database()
         cursor = conn.cursor(dictionary=True)
         
@@ -58,7 +67,7 @@ class Admin(User):
 
         return results
     
-    def suspend_account(self, target_username):
+    def suspend_account(self, target_username: str):
         conn = self.connect_database()
         cursor = conn.cursor(dictionary=True)
         
@@ -79,12 +88,13 @@ class Admin(User):
             
     
     # Admin update account, update account only columns (username, password) in db with specified fields
-    def update_account(self, target_username, updated_username, updated_password):
+    def update_account(self, target_username: str, updated_username: str, updated_password: str):
         conn = self.connect_database()
         cursor = conn.cursor(dictionary=True)
+        hashed_password = bcrypt.hashpw(updated_password.encode('utf-8'), bcrypt.gensalt())
         
         prepared_statement = "UPDATE users SET username = %s, password = %s WHERE username = %s"
-        values = (updated_username, updated_password, target_username)
+        values = (updated_username, hashed_password, target_username)
         
         cursor.execute(prepared_statement, values)
         conn.commit()
