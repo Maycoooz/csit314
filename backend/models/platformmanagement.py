@@ -145,9 +145,19 @@ class PlatformManagement(User):
                 ORDER BY total_revenue DESC;
             """, (date,))
             category_summary = cursor.fetchall()
+            
+            # Total transactions for the day
+            cursor.execute("""
+                SELECT COUNT(*) AS transaction_count
+                FROM Transactions
+                WHERE date = %s
+            """, (date,))
+            transaction_count = cursor.fetchone()["transaction_count"]
+
 
             return {
                 "date": str(date),
+                "transaction_count": transaction_count,
                 "transactions": transaction_details,
                 "usage_stats": usage_stats,
                 "category_summary": category_summary
@@ -212,10 +222,20 @@ class PlatformManagement(User):
                 ORDER BY total_revenue DESC;
             """, (start_date, end_date))
             category_summary = cursor.fetchall()
+            
+            # Total transactions for the week
+            cursor.execute("""
+                SELECT COUNT(*) AS transaction_count
+                FROM Transactions
+                WHERE date BETWEEN %s AND %s
+            """, (start_date, end_date))
+            transaction_count = cursor.fetchone()["transaction_count"]
+
 
             return {
                 "start_date": str(start_date),
                 "end_date": str(end_date),
+                "transaction_count": transaction_count,
                 "transactions": transactions,
                 "usage_stats": usage_stats,
                 "category_summary": category_summary
@@ -281,10 +301,20 @@ class PlatformManagement(User):
                 ORDER BY total_revenue DESC;
             """, (start_date, end_date))
             category_summary = cursor.fetchall()
+            
+            # Total transactions for the month
+            cursor.execute("""
+                SELECT COUNT(*) AS transaction_count
+                FROM Transactions
+                WHERE date BETWEEN %s AND %s
+            """, (start_date, end_date))
+            transaction_count = cursor.fetchone()["transaction_count"]
+
 
             return {
                 "start_date": str(start_date),
                 "end_date": str(end_date),
+                "transaction_count": transaction_count,
                 "transactions": transactions,
                 "usage_stats": usage_stats,
                 "category_summary": category_summary
