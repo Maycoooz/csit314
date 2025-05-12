@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { getAvailableCategories, createService } from "../services/cleanerService";
+import { getAvailableCategories, createService } from "../../../services/cleanerService";
 import { useNavigate } from "react-router-dom";
-import "../styles/CreateService.css";
+import "../../../styles/Cleaner/ServiceManagement/CreateService.css";
 
 const CreateService = () => {
     const [categories, setCategories] = useState([]);

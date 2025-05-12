@@ -63,10 +63,10 @@ const LoginForm = () => {
                     closeSuccessAlert();
                     // Redirect based on selected role
                     if (selectedRole.toLowerCase() === "admin") {
-                        navigate("/admin-dashboard");
+                        navigate("/Admin/Admin-Dashboard");
                         
                     } else if (selectedRole.toLowerCase() === "cleaner") {
-                        navigate("/cleaner-dashboard");
+                        navigate("/Cleaner/Cleaner-Dashboard");
                     
                     } else if (selectedRole.toLowerCase() === "home owner") {
                         navigate("/home-owner-dashboard");

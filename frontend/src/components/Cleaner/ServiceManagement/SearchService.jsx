@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { searchService } from "../services/cleanerService";
+import { searchService } from "../../../services/cleanerService";
 import { useNavigate } from "react-router-dom";
-import "../styles/SearchService.css";
+import "../../../styles/Cleaner/ServiceManagement/SearchService.css";
 
 const SearchService = () => {
     const [query, setQuery] = useState("");

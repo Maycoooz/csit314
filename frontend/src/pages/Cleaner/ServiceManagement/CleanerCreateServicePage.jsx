@@ -1,7 +1,7 @@
 // src/pages/CleanerCreateServicePage.jsx
 import React from "react";
-import Navbar from "../components/NavBar";
-import CreateService from "../components/CreateService";
+import Navbar from "../../../components/NavBar";
+import CreateService from "../../../components/Cleaner/ServiceManagement/CreateService";
 
 const CleanerCreateServicePage = () => {
     return (

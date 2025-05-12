@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { viewAllUserProfiles } from "../../../services/userProfileService";
-import "../../../styles/Admin/UserProfileManagement/ViewUserProfiles.css";
+import "../../../styles/Admin/UserProfileManagement/ViewAllUserProfiles.css";
 
-const ViewUserProfiles = () => {
+const ViewAllUserProfiles = () => {
     const [userProfiles, setUserProfiles] = useState([]);
     const [error, setError] = useState("");
     const navigate = useNavigate();
@@ -49,4 +49,4 @@ const ViewUserProfiles = () => {
     );
 };
 
-export default ViewUserProfiles;
+export default ViewAllUserProfiles;

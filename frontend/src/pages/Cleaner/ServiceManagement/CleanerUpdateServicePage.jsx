@@ -1,7 +1,7 @@
 // src/pages/CleanerUpdateServicePage.jsx
 import React from "react";
-import Navbar from "../components/NavBar";
-import UpdateService from "../components/UpdateService";
+import Navbar from "../../../components/NavBar";
+import UpdateService from "../../../components/Cleaner/ServiceManagement/UpdateService";
 
 const CleanerUpdateServicePage = () => {
     return (

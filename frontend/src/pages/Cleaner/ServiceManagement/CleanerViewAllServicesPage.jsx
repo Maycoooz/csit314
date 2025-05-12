@@ -1,9 +1,9 @@
 // src/pages/CleanerViewServicesPage.jsx
 import React from "react";
-import Navbar from "../components/NavBar";
-import ViewServices from "../components/ViewServices";
+import Navbar from "../../../components/NavBar";
+import ViewServices from "../../../components/Cleaner/ServiceManagement/ViewAllServices";
 
-const CleanerViewServicesPage = () => {
+const CleanerViewAllServicesPage = () => {
     return (
         <div>
             <Navbar />
@@ -15,4 +15,4 @@ const CleanerViewServicesPage = () => {
     );
 };
 
-export default CleanerViewServicesPage;
+export default CleanerViewAllServicesPage;

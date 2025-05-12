@@ -1,7 +1,7 @@
 // src/pages/CleanerSuspendServicePage.jsx
 import React from "react";
-import Navbar from "../components/NavBar";
-import SuspendService from "../components/SuspendService";
+import Navbar from "../../../components/NavBar";
+import SuspendService from "../../../components/Cleaner/ServiceManagement/SuspendService";
 
 const CleanerSuspendServicePage = () => {
     return (

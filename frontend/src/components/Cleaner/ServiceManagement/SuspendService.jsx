@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { getCleanerServices, suspendService } from "../services/cleanerService";
+import { getCleanerServices, suspendService } from "../../../services/cleanerService";
 import { useNavigate } from "react-router-dom";
-import "../styles/SuspendService.css";
+import "../../../styles/Cleaner/ServiceManagement/SuspendService.css";
 
 const SuspendService = () => {
     const [services, setServices] = useState([]);

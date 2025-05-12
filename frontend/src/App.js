@@ -16,7 +16,7 @@ import AdminAMUpdateAccountPage from "./pages/Admin/AccountManagement/AdminAMUpd
 //-----------------------------------------------------------------------------------
 // User Profile Management Pages
 import AdminUPMCreateUserProfilePage from "./pages/Admin/UserProfileManagement/AdminUPMCreateUserProfilePage";
-import AdminUPMViewUserProfilesPage from "./pages/Admin/UserProfileManagement/AdminUPMViewUserProfilesPage";
+import AdminUPMViewAllUserProfilesPage from "./pages/Admin/UserProfileManagement/AdminUPMViewAllUserProfilesPage";
 import AdminUPMSearchUserProfilePage from "./pages/Admin/UserProfileManagement/AdminUPMSearchUserProfilePage";
 import AdminUPMSuspendUserProfilePage from "./pages/Admin/UserProfileManagement/AdminUPMSuspendUserProfilePage";
 import AdminUPMUpdateUserProfilePage from "./pages/Admin/UserProfileManagement/AdminUPMUpdateUserProfilePage";
@@ -25,13 +25,16 @@ import AdminUPMUpdateUserProfilePage from "./pages/Admin/UserProfileManagement/A
 import AdminRMUpdateUserRolePage from "./pages/Admin/RoleManagement/AdminRMUpdateUserRolePage";
 import AdminRMViewUsersByRolePage from "./pages/Admin/RoleManagement/AdminRMViewUsersByRolePage";
 //-----------------------------------------------------------------------------------
-import CleanerDashboardPage from "./pages/CleanerDashboardPage";    
-import CleanerCreateServicePage from "./pages/CleanerCreateServicePage";        
-import CleanerViewServicesPage from "./pages/CleanerViewServicesPage";                    
-import CleanerSearchServicePage from "./pages/CleanerSearchServicePage";  
-import CleanerUpdateServicePage from "./pages/CleanerUpdateServicePage";  
-import CleanerSuspendServicePage from "./pages/CleanerSuspendServicePage";  
-import CleanerViewStatsPage from "./pages/CleanerViewStatsPage";
+import CleanerDashboardPage from "./pages/Cleaner/CleanerDashboardPage";   
+import CleanerServiceManagementPage from "./pages/Cleaner/CleanerServiceManagementPage";
+import CleanerViewStatsPage from "./pages/Cleaner/CleanerViewStatsPage";
+//-----------------------------------------------------------------------------------
+// Cleaner Service Management Pages
+import CleanerCreateServicePage from "./pages/Cleaner/ServiceManagement/CleanerCreateServicePage";        
+import CleanerViewAllServicesPage from "./pages/Cleaner/ServiceManagement/CleanerViewAllServicesPage";                    
+import CleanerSearchServicePage from "./pages/Cleaner/ServiceManagement/CleanerSearchServicePage";  
+import CleanerUpdateServicePage from "./pages/Cleaner/ServiceManagement/CleanerUpdateServicePage";  
+import CleanerSuspendServicePage from "./pages/Cleaner/ServiceManagement/CleanerSuspendServicePage";  
 //-----------------------------------------------------------------------------------
 import HomeOwnerDashboardPage from "./pages/HomeOwnerDashboardPage";
 import HomeOwnerViewCleanersPage from "./pages/HomeOwnerViewCleanersPage";
@@ -62,7 +65,7 @@ function App() {
             <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/login" element={<LoginPage />} />
-                <Route path="/admin-dashboard" element={<AdminDashboardPage />} />
+                <Route path="/Admin/Admin-Dashboard" element={<AdminDashboardPage />} />
                     <Route path="/Admin/AccountManagement" element={<AdminAccountManagementPage />} />
                         <Route path="/Admin/AccountManagement/CreateAccount" element={<AdminAMCreateAccountPage />} />
                         <Route path="/Admin/AccountManagement/ViewAllAccounts" element={<AdminAMViewAllAccountsPage />} />
@@ -70,21 +73,22 @@ function App() {
                         <Route path="/Admin/AccountManagement/SuspendAccount" element={<AdminAMSuspendAccountPage />} />
                         <Route path="/Admin/AccountManagement/UpdateAccount" element={<AdminAMUpdateAccountPage />} />
                     <Route path="/Admin/UserProfileManagement" element={<AdminUserProfileManagementPage />} />
-                        <Route path="/admin-upm-create-userprofile" element={<AdminUPMCreateUserProfilePage />} />
-                        <Route path="/admin-upm-view-userprofiles" element={<AdminUPMViewUserProfilesPage />} />
-                        <Route path="/admin-upm-search-userprofile" element={<AdminUPMSearchUserProfilePage />} />
-                        <Route path="/admin-upm-suspend-userprofile" element={<AdminUPMSuspendUserProfilePage />} />
-                        <Route path="/admin-upm-update-userprofile" element={<AdminUPMUpdateUserProfilePage />} />
+                        <Route path="/Admin/UserProfileManagement/CreateUserProfile" element={<AdminUPMCreateUserProfilePage />} />
+                        <Route path="/Admin/UserProfileManagement/ViewAllUserProfiles" element={<AdminUPMViewAllUserProfilesPage />} />
+                        <Route path="/Admin/UserProfileManagement/SearchUserProfile" element={<AdminUPMSearchUserProfilePage />} />
+                        <Route path="/Admin/UserProfileManagement/SuspendUserProfile" element={<AdminUPMSuspendUserProfilePage />} />
+                        <Route path="/Admin/UserProfileManagement/UpdateUserProfile" element={<AdminUPMUpdateUserProfilePage />} />
                     <Route path="/Admin/RoleManagement" element={<AdminRoleManagementPage />} />
                         <Route path="/Admin/RoleManagement/UpdateUserRole" element={<AdminRMUpdateUserRolePage />} />
                         <Route path="/Admin/RoleManagement/ViewUsersByRole" element={<AdminRMViewUsersByRolePage />} />
-                <Route path="/cleaner-dashboard" element={<CleanerDashboardPage />} />
-                    <Route path="/cleaner-create-service" element={<CleanerCreateServicePage />} />
-                    <Route path="/cleaner-view-services" element={<CleanerViewServicesPage />} />
-                    <Route path="/cleaner-search-service" element={<CleanerSearchServicePage />} />
-                    <Route path="/cleaner-update-service" element={<CleanerUpdateServicePage />} />
-                    <Route path="/cleaner-suspend-service" element={<CleanerSuspendServicePage />} />
-                    <Route path="/cleaner-view-stats" element={<CleanerViewStatsPage />} />   
+                <Route path="/Cleaner/Cleaner-Dashboard" element={<CleanerDashboardPage />} />
+                    <Route path="/Cleaner/ServiceManagement" element={<CleanerServiceManagementPage />} />
+                        <Route path="/Cleaner/ServiceManagement/CreateService" element={<CleanerCreateServicePage />} />
+                        <Route path="/Cleaner/ServiceManagement/ViewAllServices" element={<CleanerViewAllServicesPage />} />
+                        <Route path="/Cleaner/ServiceManagement/SearchService" element={<CleanerSearchServicePage />} />
+                        <Route path="/Cleaner/ServiceManagement/UpdateService" element={<CleanerUpdateServicePage />} />
+                        <Route path="/Cleaner/ServiceManagement/SuspendService" element={<CleanerSuspendServicePage />} />
+                    <Route path="/Cleaner/ViewStats" element={<CleanerViewStatsPage />} />   
                 <Route path="/home-owner-dashboard" element={<HomeOwnerDashboardPage />} />
                     <Route path="/home-owner-view-cleaners" element={<HomeOwnerViewCleanersPage />} />
                     <Route path="/home-owner-view-shortlist-cleaners" element={<HomeOwnerViewShortlistPage />} />

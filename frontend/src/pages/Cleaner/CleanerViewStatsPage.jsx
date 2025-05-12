@@ -1,7 +1,7 @@
 // src/pages/CleanerViewStatsPage.jsx
 import React from "react";
-import Navbar from "../components/NavBar";
-import ViewStats from "../components/ViewStats";
+import Navbar from "../../components/NavBar";
+import ViewStats from "../../components/Cleaner/ViewStats";
 
 const CleanerViewStatsPage = () => {
     return (

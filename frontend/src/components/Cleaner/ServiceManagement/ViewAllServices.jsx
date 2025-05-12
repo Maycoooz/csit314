@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { getCleanerServices } from "../services/cleanerService";
+import { getCleanerServices } from "../../../services/cleanerService";
 import { useNavigate } from "react-router-dom";
-import "../styles/ViewServices.css";
+import "../../../styles/Cleaner/ServiceManagement/ViewAllServices.css";
 
-const ViewServices = () => {
+const ViewAllServices = () => {
     const [services, setServices] = useState([]);
     const [error, setError] = useState("");
     const navigate = useNavigate();
@@ -60,4 +60,4 @@ const ViewServices = () => {
     );
 };
 
-export default ViewServices;
+export default ViewAllServices;
