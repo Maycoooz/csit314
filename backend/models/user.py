@@ -1,16 +1,17 @@
 from pydantic import BaseModel
+from typing import Optional
 import mysql.connector
 import bcrypt
 
 class User(BaseModel):
-    username: str
-    password: str
+    username: Optional[str] = None
+    password: Optional[str] = None
     
     def connect_database(self):
         conn = mysql.connector.connect(
             host = "localhost",
             user = "root",
-            password = "csit115", #for antonio mysql : csit115 
+            password = "", #for antonio mysql : csit115 
             database = "csit314"
         )
         
