@@ -202,8 +202,8 @@ INSERT INTO Transactions (homeowner_username, cleaner_username, service_id, date
 ('ho3', 'cleaner3', 5, '2025-01-10');
 
 -- Test user with encrypted password
-INSERT INTO users (username, password, status, role)
-VALUES ('testerAdmin', '$2b$12$s8oaHU/Dy/dwaSGdh1mMrunt1CnpfNQkRwbq7gXvW755Ro853GA4a', 'active', 'admin'),
-VALUES ('testerCleaner', '$2b$12$s8oaHU/Dy/dwaSGdh1mMrunt1CnpfNQkRwbq7gXvW755Ro853GA4a', 'active', 'cleaner'),
-VALUES ('testerHO', '$2b$12$s8oaHU/Dy/dwaSGdh1mMrunt1CnpfNQkRwbq7gXvW755Ro853GA4a', 'active', 'home owner'),
-VALUES ('testerPM', '$2b$12$s8oaHU/Dy/dwaSGdh1mMrunt1CnpfNQkRwbq7gXvW755Ro853GA4a', 'active', 'platform management');
+INSERT INTO users (username, password, status, role) VALUES 
+('testerAdmin', '$2b$12$s8oaHU/Dy/dwaSGdh1mMrunt1CnpfNQkRwbq7gXvW755Ro853GA4a', 'active', 'admin'),
+('testerCleaner', '$2b$12$s8oaHU/Dy/dwaSGdh1mMrunt1CnpfNQkRwbq7gXvW755Ro853GA4a', 'active', 'cleaner'),
+('testerHO', '$2b$12$s8oaHU/Dy/dwaSGdh1mMrunt1CnpfNQkRwbq7gXvW755Ro853GA4a', 'active', 'home owner'),
+('testerPM', '$2b$12$s8oaHU/Dy/dwaSGdh1mMrunt1CnpfNQkRwbq7gXvW755Ro853GA4a', 'active', 'platform management');
