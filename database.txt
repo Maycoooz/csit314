@@ -146,6 +146,7 @@ INSERT INTO UserProfiles (role, description) VALUES
 ('home owner', 'Purchases services offered by cleaners'),
 ('platform management', 'Manage service categories & Generate reports');
 
+/*
 INSERT INTO Users (username, password, role) VALUES 
 ('admin1', '123', 'admin'),
 ('admin2', '123', 'admin'),
@@ -160,12 +161,15 @@ INSERT INTO Users (username, password, role) VALUES
 ('ho3', '123', 'home owner'),
 ('pm1', '123', 'platform management'),
 ('pm2', '123', 'platform management');
+*/
 
 INSERT INTO ServiceCategories (category, description) VALUES 
 ('Home Cleaning', 'General daily house cleaning services'),
 ('Outdoor Cleaning', 'Outdoor cleaning covers patios, gardens, roofs, etc.'),
+('Vehicular Cleaning', 'Cleaning of vehicles'),
 ('Deep Cleaning', 'Deep Cleaning covers full-house cleaning, hard to reach areas, typically cleaned quarterly to yearly');
 
+/*
 INSERT INTO Services (cleaner_username, category, service, price) VALUES 
 ('cleaner1', 'Home Cleaning', 'Mopping floor of house', 25.5),
 ('cleaner1', 'Home Cleaning', 'Sweeping floor of house', 25.5),
@@ -174,7 +178,9 @@ INSERT INTO Services (cleaner_username, category, service, price) VALUES
 ('cleaner3', 'Home Cleaning', 'Sweeping house floor', 35.5),
 ('cleaner3', 'Home Cleaning', 'Mopping floor', 15.5),
 ('cleaner4', 'Home Cleaning', 'Sweep house floor', 45.5);
+*/
 
+/*
 INSERT INTO Transactions (homeowner_username, cleaner_username, service_id, date) VALUES 
 ('ho1', 'cleaner1', 1, '2025-01-10'),
 ('ho1', 'cleaner1', 4, '2025-01-10'),
@@ -200,6 +206,7 @@ INSERT INTO Transactions (homeowner_username, cleaner_username, service_id, date
 ('ho3', 'cleaner1', 1, '2025-02-15'),
 ('ho3', 'cleaner4', 7, '2025-04-20'),
 ('ho3', 'cleaner3', 5, '2025-01-10');
+*/
 
 -- Test user with encrypted password
 INSERT INTO users (username, password, status, role)
