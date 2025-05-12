@@ -26,13 +26,13 @@ const ReportDashboardPage = () => {
                     <button onClick={() => navigate(-1)} style={{ ...buttonStyle, backgroundColor: "rgb(65, 129, 172)" }}> 
                         ← Back
                     </button>
-                    <button onClick={() => navigate("/pm/report/daily")} style={buttonStyle}>
+                    <button onClick={() => navigate("/PlatformManagement/Report/ViewDailyReport")} style={buttonStyle}>
                         Daily Report
                     </button>
-                    <button onClick={() => navigate("/pm/report/weekly")} style={buttonStyle}>
+                    <button onClick={() => navigate("/PlatformManagement/Report/ViewWeeklyReport")} style={buttonStyle}>
                         Weekly Report
                     </button>
-                    <button onClick={() => navigate("/pm/report/monthly")} style={buttonStyle}>
+                    <button onClick={() => navigate("/PlatformManagement/Report/ViewMonthlyReport")} style={buttonStyle}>
                         Monthly Report
                     </button>
                 </div>

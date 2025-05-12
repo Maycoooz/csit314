@@ -46,9 +46,10 @@ import PMSuspendServiceCategoryPage from "./pages/PlatformManagement/ServiceCate
 import PMSearchServiceCategoryPage from "./pages/PlatformManagement/ServiceCategory/PMSearchServiceCategoryPage";
 
 // Report Pages
-//import PMDailyReportPage from "./pages/PlatformManagement/Report/PMDailyReportPage";
-//import PMWeeklyReportPage from "./pages/PlatformManagement/Report/PMWeeklyReportPage";
-//import PMMonthlyReportPage from "./pages/PlatformManagement/Report/PMMonthlyReportPage";
+import PMViewDailyReportPage from "./pages/PlatformManagement/Report/PMViewDailyReportPage";
+import PMViewWeeklyReportPage from "./pages/PlatformManagement/Report/PMViewWeeklyReportPage";
+import PMViewMonthlyReportPage from "./pages/PlatformManagement/Report/PMViewMonthlyReportPage";
+//-----------------------------------------------------------------------------------
 
 
 
@@ -88,12 +89,15 @@ function App() {
                     <Route path="/homeowner/view-cleaner-profile/:cleanerUsername" element={<HomeOwnerViewCleanerProfilePage />} />
                 <Route path="/PlatformManagement/Platform-Management-Dashboard" element={<PlatformManagementDashboardPage />} />
                     <Route path="/PlatformManagement/ServiceCategory" element={<PlatformManagementServiceCategoryPage />} />
+                        <Route path="/PlatformManagement/ServiceCategory/CreateServiceCategory" element={<PMCreateServiceCategoryPage />} />
+                        <Route path="/PlatformManagement/ServiceCategory/ViewAllServiceCategories" element={<PMViewAllServiceCategoriesPage />} />
+                        <Route path="/PlatformManagement/ServiceCategory/UpdateServiceCategory" element={<PMUpdateServiceCategoryPage />} />
+                        <Route path="/PlatformManagement/ServiceCategory/SuspendServiceCategory" element={<PMSuspendServiceCategoryPage />} />
+                        <Route path="/PlatformManagement/ServiceCategory/SearchServiceCategory" element={<PMSearchServiceCategoryPage />} />
                     <Route path="/PlatformManagement/Report" element={<PlatformManagementReportPage />} />
-                    <Route path="/PlatformManagement/ServiceCategory/CreateServiceCategory" element={<PMCreateServiceCategoryPage />} />
-                    <Route path="/PlatformManagement/ServiceCategory/ViewAllServiceCategories" element={<PMViewAllServiceCategoriesPage />} />
-                    <Route path="/PlatformManagement/ServiceCategory/UpdateServiceCategory" element={<PMUpdateServiceCategoryPage />} />
-                    <Route path="/PlatformManagement/ServiceCategory/SuspendServiceCategory" element={<PMSuspendServiceCategoryPage />} />
-                    <Route path="/PlatformManagement/ServiceCategory/SearchServiceCategory" element={<PMSearchServiceCategoryPage />} />
+                        <Route path="/PlatformManagement/Report/ViewDailyReport" element={<PMViewDailyReportPage />} />
+                        <Route path="/PlatformManagement/Report/ViewWeeklyReport" element={<PMViewWeeklyReportPage />} />
+                        <Route path="/PlatformManagement/Report/ViewMonthlyReport" element={<PMViewMonthlyReportPage />} />
             </Routes>
         </Router>
     );
@@ -103,12 +107,5 @@ export default App;
 
 
 
-// {/* Service Category Routes */}
 
-
-// {/* Report Routes */}
-// <Route path="/PlatformManagement/Report" element={<PlatformManagementReportPage />} />
-// <Route path="/PlatformManagement/Report/DailyReport" element={<PMDailyReportPage />} />
-// <Route path="/PlatformManagement/Report/WeeklyReport" element={<PMWeeklyReportPage />} />
-// <Route path="/PlatformManagement/Report/MonthlyReport" element={<PMMonthlyReportPage />} /> */}
 
