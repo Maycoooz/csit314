@@ -20,28 +20,36 @@ def create_user_accounts():
     conn = connect_database()
     cursor = conn.cursor(dictionary=True)
 
-    plain_password = "Password123"
     accounts_created = 0
+    admin_count = 0
+    cleaner_count = 0
+    homeowner_count = 0
+    platform_management_count = 0
+
+    plain_password = "Password123"
     hashed_password = bcrypt.hashpw(plain_password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
 
-    for i in range(1, 101):
-        username = f"user{i}"
-        
+    for i in range(1, 121):
+
         # move hashed pw creation here later
 
-        # Determine role based on index
-        if i <= 10:
+        # create roles for users based on index
+        if i <= 5:
             role = "admin"
             username = f"admin{i}"
-        elif i <= 50:
+            admin_count += 1
+        elif i <= 40:
             role = "cleaner"
             username = f"cleaner{i}"
-        elif i <= 90:
+            cleaner_count += 1
+        elif i <= 115:
             role = "home owner"
             username = f"ho{i}"
+            homeowner_count += 1
         else:
             role = "platform management"
             username = f"pm{i}"
+            platform_management_count += 1
 
         try:
             sql = "INSERT INTO users (username, password, status, role) VALUES (%s, %s, %s, %s)"
@@ -52,11 +60,15 @@ def create_user_accounts():
             print(f"Error inserting {username}: {err}")
 
     conn.commit()
-    print(f"{accounts_created} users created successfully.")
+    print(f"{accounts_created} users created with roles successfully.")
+    print(f"{admin_count} admins.")
+    print(f"{cleaner_count} cleaners.")
+    print(f"{homeowner_count} home owners.")
+    print(f"{platform_management_count} platform mangement.")
 
     cursor.close()
     conn.close()
-    
+      
 # ----------------------------- Create Services -------------------------------------
     
 def create_services():
@@ -66,7 +78,7 @@ def create_services():
             "Sweep and vacuum",
             "Dust furniture",
             "Clean kitchen surfaces",
-            "Sanitize bathroom"
+            "Bathroom sanitation"
         ],
         "Outdoor Cleaning": [
             "Power wash driveway",
@@ -95,7 +107,7 @@ def create_services():
     cursor = conn.cursor(dictionary=True)
     services_created = 0
 
-    for i in range(11, 51):  # user11 to user50
+    for i in range(6, 41):  # cleaner11 to cleaner70
         username = f"cleaner{i}"
         used_combinations = set()
 
@@ -131,8 +143,8 @@ def generate_transaction_data():
     conn = connect_database()
     cursor = conn.cursor(dictionary=True)
 
-    homeowners = [f"ho{i}" for i in range(51, 91)]  # 40 home owners
-    cleaners = [f"cleaner{i}" for i in range(11, 51)]  # 40 cleaners
+    homeowners = [f"ho{i}" for i in range(41, 116)]  # 70 home owners
+    cleaners = [f"cleaner{i}" for i in range(6, 41)]  # 60 cleaners
 
     # Get all service_ids mapped to their cleaner
     cursor.execute("SELECT service_id, cleaner_username FROM Services")
@@ -166,8 +178,8 @@ def generate_transaction_data():
             except mysql.connector.Error as err:
                 print(f"View error: {err}")
 
-            # Step 2: 70% chance to shortlist
-            if random.random() < 0.7 and cleaner in services_by_cleaner and services_by_cleaner[cleaner]:
+            # Step 2: 65% chance to shortlist
+            if random.random() < 0.65 and cleaner in services_by_cleaner and services_by_cleaner[cleaner]:
                 service_id = random.choice(services_by_cleaner[cleaner])
                 try:
                     cursor.execute("""
@@ -176,8 +188,8 @@ def generate_transaction_data():
                     """, (ho, service_id))
                     shortlist_count += 1
 
-                    # Step 3: 50% chance to transact after shortlisting
-                    if random.random() < 0.5:
+                    # Step 3: 55% chance to transact after shortlisting
+                    if random.random() < 0.55:
                         start_date = datetime(2025, 1, 1)
                         end_date = datetime(2025, 3, 31)
                         random_days = random.randint(0, (end_date - start_date).days)
@@ -200,10 +212,10 @@ def generate_transaction_data():
 
 # Usernames (password: Password123)
 # ---------------------------------
-# admin1 - admin10 
-# cleaner11 - cleaner50
-# ho51 - ho90
-# pm91 - pm100
+# admin1 - admin5
+# cleaner6 - cleaner40
+# ho41 - ho115
+# pm116 - pm120
 
 create_user_accounts()
 create_services()
