@@ -46,9 +46,9 @@ const ViewUsersByRole = () => {
                     <option value="">Select a role</option>
                     {roles.map((r, index) => (
                         <option key={index} value={r.role}>
-                        {r.role}
-                    </option>
-))}
+                            {r.role}
+                        </option>
+                    ))}
                 </select>
                 <button onClick={handleSearch} className="green-button">Search</button>
 
@@ -57,18 +57,29 @@ const ViewUsersByRole = () => {
                 {users.length > 0 && (
                     <div className="user-results">
                         <h3>Users with role: {selectedRole}</h3>
-                        <ul>
-                            {users.map((user, idx) => (
-                                <li key={idx}>
-                                    <strong>Username:</strong> {user.username} | <strong>Role:</strong> {user.role}
-                                </li>
-                            ))}
-                        </ul>
+                        <table className="users-table">
+                            <thead>
+                                <tr>
+                                    <th>Username</th>
+                                    <th>Role</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {users.map((user, idx) => (
+                                    <tr key={idx}>
+                                        <td>{user.username}</td>
+                                        <td>{user.role}</td>
+                                        <td>{user.status}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
                     </div>
                 )}
             </div>
 
-            <button className="blue-button back-button" onClick={() => navigate(-1)}>← Back</button>
+            <button className="back-button" onClick={() => navigate(-1)}>← Back</button>
         </div>
     );
 };

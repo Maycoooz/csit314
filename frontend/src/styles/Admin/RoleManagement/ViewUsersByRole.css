@@ -8,15 +8,13 @@
 }
 
 .view-users-role-box {
-    background-color: white;
+    background: white;
     padding: 30px;
     border-radius: 10px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    max-width: 900px;
     width: 100%;
-    max-width: 600px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    text-align: center;
 }
 
 .view-users-role-box h2 {
@@ -25,31 +23,54 @@
 }
 
 .view-users-role-box select {
-    width: 100%;
     padding: 10px;
+    font-size: 16px;
     margin-bottom: 15px;
     border-radius: 5px;
     border: 1px solid #ccc;
-    font-size: 16px;
+    width: 100%;
+    max-width: 300px;
 }
 
-.blue-button {
+.green-button {
     padding: 10px 20px;
-    background-color: rgb(65, 129, 172);
+    font-size: 16px;
+    background-color: #28a745;
     color: white;
     border: none;
-    border-radius: 5px;
-    font-size: 16px;
+    border-radius: 6px;
     cursor: pointer;
+}
+
+.green-button:hover {
+    background-color: #218838;
+}
+
+.user-results {
+    margin-top: 20px;
+    text-align: left;
+}
+
+.user-results h3 {
     margin-bottom: 10px;
+    color: #333;
 }
 
-.blue-button:hover {
-    background-color: rgb(50, 110, 150);
+.users-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
 }
 
-.back-button {
-    margin-top: 15px;
+.users-table th,
+.users-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+.users-table th {
+    background-color: #f2f2f2;
 }
 
 .error-text {
@@ -58,32 +79,17 @@
     margin-top: 10px;
 }
 
-.user-results {
-    margin-top: 20px;
-    width: 100%;
-    text-align: left;
-}
-
-.user-results ul {
-    padding-left: 20px;
-}
-
-.user-results li {
-    margin-bottom: 8px;
-}
-
-.green-button {
+.back-button {
+    margin-top: 15px;
     padding: 10px 20px;
-    background-color: #28a745;
+    background-color: rgb(65, 129, 172);
     color: white;
     border: none;
     border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
-    margin-bottom: 20px;
-    transition: background-color 0.3s;
 }
 
-.green-button:hover {
-    background-color: #218838;
+.back-button:hover {
+    background-color: rgb(50, 110, 150);
 }

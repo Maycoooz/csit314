@@ -47,7 +47,6 @@ export async function searchUserProfile(role) {
     return result;
 }
 
-
 //-------------------------------------------------------------------------------------------------------------
 
 export async function suspendUserProfile(role) {

@@ -9,9 +9,11 @@ const SearchService = () => {
     const [error, setError] = useState("");
     const navigate = useNavigate();
 
+    const cleaner_username = localStorage.getItem("username");
+
     const handleSearch = async () => {
         try {
-            const data = await searchService(query);
+            const data = await searchService(cleaner_username, query);
             setResults(data);
             setError("");
         } catch (err) {

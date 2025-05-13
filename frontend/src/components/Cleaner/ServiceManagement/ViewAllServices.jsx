@@ -13,14 +13,18 @@ const ViewAllServices = () => {
     useEffect(() => {
         const fetchServices = async () => {
             try {
+                // console.log("Username:", cleanerUsername);
                 const data = await getCleanerServices(cleanerUsername);
+                // console.log("Received services:", data);
                 setServices(data);
             } catch (err) {
                 setError("❌ Failed to load services.");
             }
         };
 
+        if (cleanerUsername) {
         fetchServices();
+        }
     }, [cleanerUsername]);
 
     return (

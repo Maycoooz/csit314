@@ -35,13 +35,9 @@ export async function getRoles() {
 //-------------------------------------------------------------------------------------------------------------
 
 // Get users by role
-export async function getUsersByRole(data) {
-    const response = await fetch("http://localhost:8000/admin/viewAllUserWithSpecifiedRole", {
+export async function getUsersByRole({ role }) {
+    const response = await fetch(`http://localhost:8000/admin/viewAllUserWithSpecifiedRole?role=${encodeURIComponent(role)}`, {
         method: "GET",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data), // expects { role }
     });
 
     const result = await response.json();
@@ -50,5 +46,5 @@ export async function getUsersByRole(data) {
         throw new Error(result.message || "Failed to fetch users by role");
     }
 
-    return result; // List of users
+    return result;
 }

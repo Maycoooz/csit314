@@ -34,6 +34,10 @@ export async function createService(data) {
 //-------------------------------------------------------------------------------------------------------------
 
 export async function getCleanerServices(cleaner_username) {
+    if (!cleaner_username) {
+        throw new Error("Username is missing.");
+    }
+
     const response = await fetch(
         `http://localhost:8000/cleaner/viewAllServices?cleaner_username=${encodeURIComponent(cleaner_username)}`,
         {
@@ -55,9 +59,10 @@ export async function getCleanerServices(cleaner_username) {
 
 //-------------------------------------------------------------------------------------------------------------
 
-export async function searchService(target_service) {
+export async function searchService(cleaner_username, filter_service) {
+
     const response = await fetch(
-        `http://localhost:8000/cleaner/searchService?target_service=${encodeURIComponent(target_service)}`,
+        `http://localhost:8000/cleaner/searchService?cleaner_username=${encodeURIComponent(cleaner_username)}&filter_service=${encodeURIComponent(filter_service)}`,
         {
             method: "GET",
             headers: {

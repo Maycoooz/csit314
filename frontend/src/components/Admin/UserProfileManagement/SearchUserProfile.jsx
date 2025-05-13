@@ -42,6 +42,7 @@ const SearchUserProfile = () => {
                             <tr>
                                 <th>Role</th>
                                 <th>Description</th>
+                                <th>Status</th> {/* Add this */}
                             </tr>
                         </thead>
                         <tbody>
@@ -49,6 +50,7 @@ const SearchUserProfile = () => {
                                 <tr key={index}>
                                     <td>{profile.role}</td>
                                     <td>{profile.description}</td>
+                                    <td>{profile.status}</td> {/* Add this */}
                                 </tr>
                             ))}
                         </tbody>
