@@ -74,3 +74,10 @@
     font-size: 16px;
     cursor: pointer;
 }
+
+.search-account-box p {
+    font-weight: bold;
+    color: #d9534f; /* red for error */
+    margin-top: 10px;
+}
+

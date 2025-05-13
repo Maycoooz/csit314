@@ -9,15 +9,15 @@ export async function createUserAccount(data) {
         body: JSON.stringify(data),
     });
 
-    const result = await response.json();
+    const result = await response.json(); // will be true or false
 
-    if (!response.ok) {
-        throw new Error(result.message || "Account creation failed");
+    if (result !== true) {
+        // Manually throw an error if result is false
+        throw new Error("Account creation failed. Username may already exist.");
     }
 
-    return result;
+    return { message: "Account created successfully." }; // mimic expected result shape
 }
-
 //-------------------------------------------------------------------------------------------------------------
 
 export async function getAllAccounts() {

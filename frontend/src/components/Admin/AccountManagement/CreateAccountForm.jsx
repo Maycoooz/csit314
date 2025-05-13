@@ -27,28 +27,44 @@ const CreateAccountForm = () => {
     };
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
+    e.preventDefault();
 
-        if (newPassword !== confirmPassword) {
-            setMessage("Passwords do not match.");
-            return;
-        }
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{1,12}$/;
 
-        try {
-            const result = await createUserAccount({
-                new_username: newUsername,
-                new_password: newPassword,
-            });
+    if (!passwordRegex.test(newPassword)) {
+        setMessage("❌ Password must contain uppercase, lowercase, number, and max 12 characters.");
+        setTimeout(() => setMessage(""), 2000);
+        return;
+    }
 
-            setMessage(result.message || "Account created successfully.");
+    if (newPassword !== confirmPassword) {
+        setMessage("❌ Passwords do not match.");
+        setTimeout(() => setMessage(""), 2000);
+        return;
+    }
+
+    try {
+        const result = await createUserAccount({
+            new_username: newUsername,
+            new_password: newPassword,
+        });
+
+        if (result) {
+            setMessage(result.message || "✅ Account created successfully.");
+            setNewUsername("");
+            setNewPassword("");
+            setConfirmPassword("");
 
             setTimeout(() => {
-                navigate("/admin-dashboard");
-            }, 1000);
-
-        } catch (err) {
-            setMessage(err.message || "Error creating account.");
+                setMessage("");
+                navigate("/Admin/Admin-Dashboard");
+            }, 2000);
         }
+
+    } catch (err) {
+        setMessage(err.message || "❌ Error creating account.");
+        setTimeout(() => setMessage(""), 2000);
+    }
     };
 
     return (

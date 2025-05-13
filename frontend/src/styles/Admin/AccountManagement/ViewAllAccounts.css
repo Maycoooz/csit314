@@ -4,7 +4,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 20px;
+    padding-top: 450px; /* Add enough top padding for your navbar */
+    box-sizing: border-box;
 }
 
 .view-accounts-box {

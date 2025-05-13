@@ -7,6 +7,7 @@ const UpdateAccount = () => {
     const [target, setTarget] = useState("");
     const [newUsername, setNewUsername] = useState("");
     const [newPassword, setNewPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
     const [message, setMessage] = useState("");
     const [users, setUsers] = useState([]);
     const navigate = useNavigate();
@@ -24,17 +25,57 @@ const UpdateAccount = () => {
     }, []);
 
     const handleUpdate = async () => {
-        try {
-            const success = await updateAccount({
-                target_username: target,
-                updated_username: newUsername,
-                updated_password: newPassword
-            });
-            setMessage(success ? "✅ Account updated successfully." : "❌ Update failed.");
-        } catch (err) {
-            setMessage(err.message);
+    if (!target || !newUsername.trim() || !newPassword.trim() || !confirmPassword.trim()) {
+        setMessage("❌ All fields are required.");
+        setTimeout(() => setMessage(""), 2000);
+        return;
+    }
+
+    if (newPassword !== confirmPassword) {
+        setMessage("❌ Passwords do not match.");
+        setTimeout(() => setMessage(""), 2000);
+        return;
+    }
+
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{1,12}$/;
+
+    if (!passwordRegex.test(newPassword)) {
+        setMessage("❌ Password must include uppercase, lowercase, number, and max 12 characters.");
+        setTimeout(() => setMessage(""), 2000);
+        return;
+    }
+
+    try {
+        const success = await updateAccount({
+            target_username: target,
+            updated_username: newUsername,
+            updated_password: newPassword
+        });
+
+        if (success) {
+            setMessage("✅ Account updated successfully.");
+            // Optional: reset form fields
+            setTarget("");
+            setNewUsername("");
+            setNewPassword("");
+            setConfirmPassword("");
+
+            // Redirect after 2 seconds
+            setTimeout(() => {
+                setMessage("");
+                navigate("/Admin/Admin-Dashboard");
+            }, 2000);
+        } else {
+            setMessage("❌ Update failed.");
+            setTimeout(() => setMessage(""), 2000);
         }
+    } catch (err) {
+        setMessage(err.message || "❌ Unexpected error occurred.");
+        setTimeout(() => setMessage(""), 2000);
+    }
     };
+
+
 
     return (
         <div className="update-account-container">
@@ -62,7 +103,15 @@ const UpdateAccount = () => {
                     value={newPassword}
                     onChange={(e) => setNewPassword(e.target.value)}
                 />
-                <button onClick={handleUpdate}>Update</button>
+                <input
+                    type="password"
+                    placeholder="Confirm Password"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                />
+                <button onClick={handleUpdate} >
+                    Update
+                </button>
                 {message && <p>{message}</p>}
             </div>
 
@@ -72,3 +121,13 @@ const UpdateAccount = () => {
 };
 
 export default UpdateAccount;
+
+//disabled={!target || !newUsername.trim() || !newPassword.trim() || !confirmPassword.trim()}
+
+// ^                 // Start of string
+// (?=.*[a-z])       // At least one lowercase letter
+// (?=.*[A-Z])       // At least one uppercase letter
+// (?=.*\d)          // At least one digit
+// [A-Za-z\d]{1,12}  // Only letters and digits, 1 to 12 characters
+// $                 // End of string
+

@@ -8,14 +8,35 @@ const SearchAccount = () => {
     const [results, setResults] = useState([]);
     const navigate = useNavigate();
 
+    const [message, setMessage] = useState(""); // add this to state
+
     const handleSearch = async () => {
+        const trimmedUsername = username.trim();
+
+        if (!trimmedUsername) {
+            setMessage("❌ Please enter a username to search.");
+            setResults([]);
+            setTimeout(() => setMessage(""), 2000);
+            return;
+        }
+
         try {
-            const res = await searchAccount(username);
+            const res = await searchAccount(trimmedUsername);
             setResults(res);
+
+            if (res.length === 0) {
+                setMessage("❌ No user found with that username.");
+                setTimeout(() => setMessage(""), 2000);
+            } else {
+                setMessage(""); // clear previous messages if user is found
+            }
         } catch (err) {
-            alert(err.message);
+            setMessage(err.message || "❌ Search failed.");
+            setResults([]);
+            setTimeout(() => setMessage(""), 2000);
         }
     };
+
 
     return (
         <div className="search-account-container">
@@ -28,6 +49,7 @@ const SearchAccount = () => {
                     onChange={(e) => setUsername(e.target.value)}
                 />
                 <button onClick={handleSearch}>Search</button>
+                {message && <p>{message}</p>}
 
                 {results.length > 0 && (
                     <table className="table-bordered">
