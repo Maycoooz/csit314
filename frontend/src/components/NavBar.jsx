@@ -29,7 +29,7 @@ const Navbar = () => {
                                 const userRole = localStorage.getItem("role");
                                 if (userRole.toLowerCase() === "admin") navigate("/Admin/Admin-Dashboard");
                                 else if (userRole.toLowerCase() === "cleaner") navigate("/Cleaner/Cleaner-Dashboard");
-                                else if (userRole.toLowerCase() === "home owner") navigate("/home-owner-dashboard");
+                                else if (userRole.toLowerCase() === "home owner") navigate("/Home-Owner-Dashboard");
                                 else if (userRole.toLowerCase() === "platform management") navigate("/PlatformManagement/Platform-Management-Dashboard");
                             }}
                             style={{ cursor: "pointer" }}

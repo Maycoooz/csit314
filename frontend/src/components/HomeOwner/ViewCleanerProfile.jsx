@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { getCleanerProfile, shortlistCleaner } from "../services/homeOwnerService";
+import { getCleanerProfile, shortlistCleaner } from "../../services/homeOwnerService";
 import { useNavigate } from "react-router-dom";
-import "../styles/ViewCleanerProfile.css";
+import "../../styles/HomeOwner/ViewCleanerProfile.css";
 
 const ViewCleanerProfile = ({ cleanerUsername }) => {
     const [services, setServices] = useState([]);

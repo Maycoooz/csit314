@@ -2,7 +2,7 @@ import React from "react";
 import SearchAccount from "../../../components/Admin/AccountManagement/SearchAccount";
 import Navbar from "../../../components/NavBar";
 
-const AdminAMSearchAccountPage = () => {
+const AdminSearchAccountPage = () => {
     return (
         <div>
             <Navbar />
@@ -11,4 +11,4 @@ const AdminAMSearchAccountPage = () => {
     );
 };
 
-export default AdminAMSearchAccountPage;
+export default AdminSearchAccountPage;

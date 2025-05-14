@@ -23,10 +23,10 @@ const HomeOwnerDashboardPage = () => {
             <h1>🏠 Home Owner Dashboard</h1>
 
             <div className="dashboard-buttons">
-                <button style={buttonStyle} onClick={() => navigate("/home-owner-view-cleaners")}>
+                <button style={buttonStyle} onClick={() => navigate("/HomeOwner/ViewCleaners")}>
                     🔍 View Cleaners
                 </button>
-                <button style={buttonStyle} onClick={() => navigate("/home-owner-view-shortlist-cleaners")}>
+                <button style={buttonStyle} onClick={() => navigate("/HomeOwner/ViewShortlist")}>
                     📌 View Shortlist
                 </button>
             </div>

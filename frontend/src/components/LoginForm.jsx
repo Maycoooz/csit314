@@ -69,7 +69,7 @@ const LoginForm = () => {
                         navigate("/Cleaner/Cleaner-Dashboard");
                     
                     } else if (selectedRole.toLowerCase() === "home owner") {
-                        navigate("/home-owner-dashboard");
+                        navigate("/Home-Owner-Dashboard");
                     
                     } else if (selectedRole.toLowerCase() === "platform management") {
                         navigate("/PlatformManagement/Platform-Management-Dashboard");

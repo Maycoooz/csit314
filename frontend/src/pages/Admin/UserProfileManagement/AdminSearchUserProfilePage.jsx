@@ -2,7 +2,7 @@ import React from "react";
 import Navbar from "../../../components/NavBar";
 import SearchUserProfile from "../../../components/Admin/UserProfileManagement/SearchUserProfile";
 
-const AdminUPMSearchUserProfilePage = () => {
+const AdminSearchUserProfilePage = () => {
     return (
         <>
             <Navbar />
@@ -11,4 +11,4 @@ const AdminUPMSearchUserProfilePage = () => {
     );
 };
 
-export default AdminUPMSearchUserProfilePage;
+export default AdminSearchUserProfilePage;

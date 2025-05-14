@@ -2,7 +2,7 @@ import React from "react";
 import ViewAccounts from "../../../components/Admin/AccountManagement/ViewAllAccounts";
 import Navbar from "../../../components/NavBar";
 
-const AdminAMViewAllAccountsPage = () => {
+const AdminViewAllAccountsPage = () => {
     return (
         <div>
             <Navbar />
@@ -11,4 +11,4 @@ const AdminAMViewAllAccountsPage = () => {
     );
 };
 
-export default AdminAMViewAllAccountsPage;
+export default AdminViewAllAccountsPage;

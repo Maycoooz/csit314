@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import {
     viewShortlist,
     filterShortlist,
-} from "../services/homeOwnerService";
+} from "../../services/homeOwnerService";
 import { useNavigate } from "react-router-dom";
-import "../styles/ShortlistView.css";
+import "../../styles/HomeOwner/ShortlistView.css";
 
 const ShortlistView = () => {
     const [shortlist, setShortlist] = useState([]);

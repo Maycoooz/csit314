@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { viewCleaners } from "../services/homeOwnerService";
+import { viewCleaners } from "../../services/homeOwnerService";
 import { useNavigate } from "react-router-dom";
-import "../styles/ViewCleaners.css";
+import "../../styles/HomeOwner/ViewCleaners.css";
 
 const ViewCleaners = () => {
     const [serviceFilter, setServiceFilter] = useState("");

@@ -2,7 +2,7 @@ import React from "react";
 import Navbar from "../../../components/NavBar";
 import ViewUserProfiles from "../../../components/Admin/UserProfileManagement/ViewAllUserProfiles";
 
-const AdminUPMViewAllUserProfilesPage = () => {
+const AdminViewAllUserProfilesPage = () => {
     return (
         <>
             <Navbar />
@@ -11,4 +11,4 @@ const AdminUPMViewAllUserProfilesPage = () => {
     );
 };
 
-export default AdminUPMViewAllUserProfilesPage;
+export default AdminViewAllUserProfilesPage;

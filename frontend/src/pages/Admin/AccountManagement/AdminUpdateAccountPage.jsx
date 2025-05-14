@@ -2,7 +2,7 @@ import React from "react";
 import UpdateAccount from "../../../components/Admin/AccountManagement/UpdateAccount";
 import Navbar from "../../../components/NavBar";
 
-const AdminAMUpdateAccountPage = () => {
+const AdminUpdateAccountPage = () => {
     return (
         <div>
             <Navbar />
@@ -11,4 +11,4 @@ const AdminAMUpdateAccountPage = () => {
     );
 };
 
-export default AdminAMUpdateAccountPage;
+export default AdminUpdateAccountPage;

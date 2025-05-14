@@ -1,7 +1,7 @@
 // src/pages/HomeOwnerViewCleanersPage.jsx
 import React from "react";
-import ViewCleaners from "../components/ViewCleaners";
-import Navbar from "../components/NavBar";
+import ViewCleaners from "../../components/HomeOwner/ViewCleaners";
+import Navbar from "../../components/NavBar";
 
 const HomeOwnerViewCleanersPage = () => {
 

@@ -1,7 +1,7 @@
 // src/pages/HomeOwnerViewShortlistPage.jsx
 import React from "react";
-import ShortlistView from "../components/ShortlistView";
-import Navbar from "../components/NavBar";
+import ShortlistView from "../../components/HomeOwner/ShortlistView";
+import Navbar from "../../components/NavBar";
 
 const HomeOwnerViewShortlistPage = () => {
 

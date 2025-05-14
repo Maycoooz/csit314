@@ -2,7 +2,7 @@ import React from "react";
 import CreateAccountForm from "../../../components/Admin/AccountManagement/CreateAccountForm";
 import Navbar from "../../../components/NavBar";
 
-const AdminAMCreateAccountPage = () => {
+const AdminCreateAccountPage = () => {
     return (
         <div>
             <Navbar />
@@ -11,4 +11,4 @@ const AdminAMCreateAccountPage = () => {
     );
 };
 
-export default AdminAMCreateAccountPage;
+export default AdminCreateAccountPage;

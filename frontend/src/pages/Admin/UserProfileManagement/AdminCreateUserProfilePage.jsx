@@ -2,7 +2,7 @@ import React from "react";
 import Navbar from "../../../components/NavBar";
 import CreateUserProfile from "../../../components/Admin/UserProfileManagement/CreateUserProfile";
 
-const AdminUPMCreateUserProfilePage = () => {
+const AdminCreateUserProfilePage = () => {
     return (
         <>
             <Navbar />
@@ -11,4 +11,4 @@ const AdminUPMCreateUserProfilePage = () => {
     );
 };
 
-export default AdminUPMCreateUserProfilePage;
+export default AdminCreateUserProfilePage;

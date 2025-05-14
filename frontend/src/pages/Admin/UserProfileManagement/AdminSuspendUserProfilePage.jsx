@@ -2,7 +2,7 @@ import React from "react";
 import Navbar from "../../../components/NavBar";
 import SuspendUserProfile from "../../../components/Admin/UserProfileManagement/SuspendUserProfile";
 
-const AdminUPMSuspendUserProfilePage = () => {
+const AdminSuspendUserProfilePage = () => {
     return (
         <>
             <Navbar />
@@ -11,4 +11,4 @@ const AdminUPMSuspendUserProfilePage = () => {
     );
 };
 
-export default AdminUPMSuspendUserProfilePage;
+export default AdminSuspendUserProfilePage;
