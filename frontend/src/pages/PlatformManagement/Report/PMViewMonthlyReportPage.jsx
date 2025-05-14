@@ -1,16 +1,16 @@
-// src/pages/PlatformManagement/Report/PMMonthlyReportPage.jsx
-
-import React from "react";
+import React, { useState } from "react";
 import Navbar from "../../../components/NavBar";
 import ViewMonthlyReport from "../../../components/PlatformManagement/Report/ViewMonthlyReport";
 
 const PMViewMonthlyReportPage = () => {
+    const [navbarVisible, setNavbarVisible] = useState(true);
+
     return (
         <div>
-            <Navbar />
+            {navbarVisible && <Navbar />}
             <div style={{ paddingTop: "70px", textAlign: "center" }}>
                 <h2>View Monthly Report</h2>
-                <ViewMonthlyReport />
+                <ViewMonthlyReport setNavbarVisible={setNavbarVisible} />
             </div>
         </div>
     );

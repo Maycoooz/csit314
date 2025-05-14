@@ -7,6 +7,7 @@
     padding: 20px;
 }
 
+
 .daily-report-box {
     background: white;
     padding: 30px;
@@ -15,6 +16,7 @@
     max-width: 900px;
     width: 100%;
     text-align: center;
+    min-height: 180px; /* ✅ Add this */
 }
 
 .daily-report-box h2 {
@@ -88,4 +90,50 @@
 
 .back-button:hover {
     background-color: rgb(50, 110, 150);
+}
+
+/* Modal overlay background */
+.report-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+
+/* Modal content box */
+.report-modal {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    max-height: 90vh;
+    width: 80%;
+    max-width: 800px;
+    overflow-y: auto;
+    position: relative;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    z-index: 9999;
+}
+
+/* Close button in top right */
+.close-button {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: transparent;
+    border: none;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #888;
+    transition: color 0.2s;
+}
+
+.close-button:hover {
+    color: #333;
 }

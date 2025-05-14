@@ -16,16 +16,26 @@ const Navbar = () => {
     return (
         <nav className="navbar">
             <div className="navbar-logo">
-                <Link to="/">🧹 C2C Cleaners</Link>
+                <Link to="/">🧹 SCRUMSQUAD Cleaners</Link>
             </div>
             <div className="navbar-links">
                 <Link to="/">Home</Link>
 
                 {username ? (
                     <>
-                        <div className="user-info">
-                            <i className="fas fa-user"></i>
-                            <span>{username}</span>
+                        <div
+                            className="user-info"
+                            onClick={() => {
+                                const userRole = localStorage.getItem("role");
+                                if (userRole.toLowerCase() === "admin") navigate("/Admin/Admin-Dashboard");
+                                else if (userRole.toLowerCase() === "cleaner") navigate("/Cleaner/Cleaner-Dashboard");
+                                else if (userRole.toLowerCase() === "home owner") navigate("/home-owner-dashboard");
+                                else if (userRole.toLowerCase() === "platform management") navigate("/PlatformManagement/Platform-Management-Dashboard");
+                            }}
+                            style={{ cursor: "pointer" }}
+                        >
+                        <i className="fas fa-user"></i>
+                        <span>{username}</span>
                         </div>
                         <button className="logout-button" onClick={handleLogout}>
                             Logout

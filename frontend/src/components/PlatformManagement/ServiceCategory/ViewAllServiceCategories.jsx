@@ -33,6 +33,7 @@ const ViewServiceCategory = () => {
                             <tr>
                                 <th>Category</th>
                                 <th>Description</th>
+                                <th>Status</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -40,6 +41,7 @@ const ViewServiceCategory = () => {
                                 <tr key={index}>
                                     <td>{cat.category}</td>
                                     <td>{cat.description}</td>
+                                    <td>{cat.status}</td>
                                 </tr>
                             ))}
                         </tbody>
