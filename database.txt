@@ -207,3 +207,15 @@ INSERT INTO users (username, password, status, role) VALUES
 ('testerCleaner', '$2b$12$s8oaHU/Dy/dwaSGdh1mMrunt1CnpfNQkRwbq7gXvW755Ro853GA4a', 'active', 'cleaner'),
 ('testerHO', '$2b$12$s8oaHU/Dy/dwaSGdh1mMrunt1CnpfNQkRwbq7gXvW755Ro853GA4a', 'active', 'home owner'),
 ('testerPM', '$2b$12$s8oaHU/Dy/dwaSGdh1mMrunt1CnpfNQkRwbq7gXvW755Ro853GA4a', 'active', 'platform management');
+
+INSERT INTO Transactions (homeowner_username, cleaner_username, service_id, date) VALUES 
+('testerHO', 'testerCleaner', 1, '2025-01-10'),
+('testerHO', 'testerCleaner', 2, '2025-02-15');
+
+INSERT INTO Services (cleaner_username, category, service, price) VALUES 
+('testerCleaner', 'Home Cleaning', 'Mopping floor of house', 25.5),
+('testerCleaner', 'Home Cleaning', 'Sweeping floor of house', 25.5),
+('testerCleaner', 'Outdoor Cleaning', 'Powerwashing driveway', 50.0),
+('testerCleaner', 'Deep Cleaning', 'Fungal Removal', 150.6);
+
+

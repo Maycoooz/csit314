@@ -32,10 +32,10 @@ const CleanerStatisticsPage = () => {
                     View Shortlist
                 </button>
                 <button style={buttonStyle} onClick={() => navigate("/Cleaner/Statistics/SearchPastTransactions")}>
-                    Search Services
+                    Search Past Transactions
                 </button>
-                <button style={buttonStyle} onClick={() => navigate("/Cleaner/Statistics/")}>
-                    Update Service
+                <button style={buttonStyle} onClick={() => navigate("/Cleaner/Statistics/ViewPastTransactions")}>
+                    View Past Transactions
                 </button>
             </div>
         </div>

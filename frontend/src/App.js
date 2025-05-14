@@ -40,7 +40,7 @@ import CleanerSuspendServicePage from "./pages/Cleaner/ServiceManagement/Cleaner
 import CleanerNumberOfViewsPage from "./pages/Cleaner/Statistics/CleanerNumberOfViewsPage";
 import CleanerViewShortlistPage from "./pages/Cleaner/Statistics/CleanerViewShortlistPage";
 import CleanerSearchPastTransactionsPage from "./pages/Cleaner/Statistics/CleanerSearchPastTransactionsPage";
-
+import CleanerViewPastTransactionsPage from "./pages/Cleaner/Statistics/CleanerViewPastTransactionsPage";
 //-----------------------------------------------------------------------------------
 import HomeOwnerDashboardPage from "./pages/HomeOwnerDashboardPage";
 import HomeOwnerViewCleanersPage from "./pages/HomeOwnerViewCleanersPage";
@@ -98,7 +98,7 @@ function App() {
                         <Route path="/Cleaner/Statistics/NumberOfViews" element={<CleanerNumberOfViewsPage />} />  
                         <Route path="/Cleaner/Statistics/ViewShortlist" element={<CleanerViewShortlistPage />} />
                         <Route path="/Cleaner/Statistics/SearchPastTransactions" element={<CleanerSearchPastTransactionsPage />} />
-
+                        <Route path="/Cleaner/Statistics/ViewPastTransactions" element={<CleanerViewPastTransactionsPage />} />
                 <Route path="/home-owner-dashboard" element={<HomeOwnerDashboardPage />} />
                     <Route path="/home-owner-view-cleaners" element={<HomeOwnerViewCleanersPage />} />
                     <Route path="/home-owner-view-shortlist-cleaners" element={<HomeOwnerViewShortlistPage />} />

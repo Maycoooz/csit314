@@ -171,3 +171,24 @@ export async function searchPastTransactions(cleanerUsername, filteredService) {
 
     return await response.json();
 }
+
+//-------------------------------------------------------------------------------------------------------------
+
+export async function getPastTransactions(cleanerUsername) {
+    const response = await fetch(
+        `http://localhost:8000/cleaner/viewPastTransactions?cleaner_username=${encodeURIComponent(cleanerUsername)}`,
+        {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        }
+    );
+
+    if (!response.ok) {
+        throw new Error("Failed to fetch past transactions");
+    }
+
+    return await response.json();
+}
+
