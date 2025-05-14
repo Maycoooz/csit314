@@ -49,8 +49,8 @@ def login(data: LoginRequest) -> bool:
 @app.get("/login", response_model=List[LoginProfiles])
 def get_profiles():
     controller = LoginProfileController()
-    roles = controller.get_all_roles()
-    return roles
+    login_profiles = controller.get_all_profiles()
+    return login_profiles
 
 @app.get("/admin/allUsers", response_model=List[ActiveUsersOut])
 def get_all_active_users():
@@ -61,8 +61,8 @@ def get_all_active_users():
 @app.get("/admin/allProfiles", response_model=List[LoginProfiles])
 def get_all_profiles():
     controller = LoginProfileController()
-    roles = controller.get_all_roles()
-    return roles
+    profiles = controller.get_all_profiles()
+    return profiles
 
 # Admin user accounts ----------------------------------------------------------------------------------------------------------------------------
     

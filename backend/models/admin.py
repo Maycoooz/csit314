@@ -170,7 +170,7 @@ class Admin(User):
 
         return userprofiles
     
-    # suspend a role and all users with that role
+    # suspend a role and all users with that role (role is the PK of UserProfiles)
     def suspend_userprofile(self, target_role):
         conn = self.connect_database()
         cursor = conn.cursor(dictionary=True)
@@ -181,16 +181,20 @@ class Admin(User):
         cursor.execute(prepared_statement, values)
         conn.commit()
         
-        prepared_statement = "UPDATE Users SET status = %s WHERE role = %s"
-        values = ('suspended', target_role)
+        # if successfully suspended
+        success = cursor.rowcount > 0
         
-        cursor.execute(prepared_statement, values)
-        conn.commit()
-        
+        if success:
+            prepared_statement = "UPDATE Users SET status = %s WHERE role = %s"
+            values = ('suspended', target_role)
+            
+            cursor.execute(prepared_statement, values)
+            conn.commit()
+            
         cursor.close()
         conn.close()
         
-        if cursor.rowcount > 0:
+        if success:
             return True
         else:
             print(f"Error suspending '{target_role}'")

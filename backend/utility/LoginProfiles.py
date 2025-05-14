@@ -1,8 +1,8 @@
 from backend.utility.connect_to_db import ConnectDB
 
-class Role(ConnectDB):
+class LoginProfiles(ConnectDB):
 
-    def get_all_roles(self):
+    def get_all_profiles(self):
 
         conn = self.connect_database()
         cursor = conn.cursor(dictionary=True)

@@ -1,5 +1,5 @@
 from backend.models.user import User
-from backend.utility.role import Role
+from backend.utility.LoginProfiles import LoginProfiles
 
 class LoginController:
     def __init__(self):
@@ -11,8 +11,8 @@ class LoginController:
 
 class LoginProfileController:
 
-    def get_all_roles(self):
-        roles = Role()
-        return roles.get_all_roles()
+    def get_all_profiles(self):
+        login_profiles = LoginProfiles()
+        return login_profiles.get_all_profiles()
     
     
