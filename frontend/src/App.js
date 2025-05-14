@@ -27,7 +27,7 @@ import AdminRMViewUsersByRolePage from "./pages/Admin/RoleManagement/AdminRMView
 //-----------------------------------------------------------------------------------
 import CleanerDashboardPage from "./pages/Cleaner/CleanerDashboardPage";   
 import CleanerServiceManagementPage from "./pages/Cleaner/CleanerServiceManagementPage";
-import CleanerViewStatsPage from "./pages/Cleaner/CleanerViewStatsPage";
+import CleanerStatisticsPage from "./pages/Cleaner/CleanerStatisticsPage";
 //-----------------------------------------------------------------------------------
 // Cleaner Service Management Pages
 import CleanerCreateServicePage from "./pages/Cleaner/ServiceManagement/CleanerCreateServicePage";        
@@ -35,6 +35,12 @@ import CleanerViewAllServicesPage from "./pages/Cleaner/ServiceManagement/Cleane
 import CleanerSearchServicePage from "./pages/Cleaner/ServiceManagement/CleanerSearchServicePage";  
 import CleanerUpdateServicePage from "./pages/Cleaner/ServiceManagement/CleanerUpdateServicePage";  
 import CleanerSuspendServicePage from "./pages/Cleaner/ServiceManagement/CleanerSuspendServicePage";  
+
+// Cleaner Statistics Pages
+import CleanerNumberOfViewsPage from "./pages/Cleaner/Statistics/CleanerNumberOfViewsPage";
+import CleanerViewShortlistPage from "./pages/Cleaner/Statistics/CleanerViewShortlistPage";
+import CleanerSearchPastTransactionsPage from "./pages/Cleaner/Statistics/CleanerSearchPastTransactionsPage";
+
 //-----------------------------------------------------------------------------------
 import HomeOwnerDashboardPage from "./pages/HomeOwnerDashboardPage";
 import HomeOwnerViewCleanersPage from "./pages/HomeOwnerViewCleanersPage";
@@ -88,7 +94,11 @@ function App() {
                         <Route path="/Cleaner/ServiceManagement/SearchService" element={<CleanerSearchServicePage />} />
                         <Route path="/Cleaner/ServiceManagement/UpdateService" element={<CleanerUpdateServicePage />} />
                         <Route path="/Cleaner/ServiceManagement/SuspendService" element={<CleanerSuspendServicePage />} />
-                    <Route path="/Cleaner/ViewStats" element={<CleanerViewStatsPage />} />   
+                    <Route path="/Cleaner/Statistics" element={<CleanerStatisticsPage />} />
+                        <Route path="/Cleaner/Statistics/NumberOfViews" element={<CleanerNumberOfViewsPage />} />  
+                        <Route path="/Cleaner/Statistics/ViewShortlist" element={<CleanerViewShortlistPage />} />
+                        <Route path="/Cleaner/Statistics/SearchPastTransactions" element={<CleanerSearchPastTransactionsPage />} />
+
                 <Route path="/home-owner-dashboard" element={<HomeOwnerDashboardPage />} />
                     <Route path="/home-owner-view-cleaners" element={<HomeOwnerViewCleanersPage />} />
                     <Route path="/home-owner-view-shortlist-cleaners" element={<HomeOwnerViewShortlistPage />} />

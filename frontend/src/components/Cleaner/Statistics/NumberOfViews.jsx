@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { getViewStats } from "../../services/cleanerService";
+import { getViewStats } from "../../../services/cleanerService";
 import { useNavigate } from "react-router-dom";
-import "../../styles/Cleaner/ViewStats.css";
+import "../../../styles/Cleaner/Statistics/NumberOfViews.css";
 
 const ViewStats = () => {
     const [numViews, setNumViews] = useState(null);

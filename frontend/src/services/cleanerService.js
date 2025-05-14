@@ -139,3 +139,35 @@ export async function getViewStats(cleaner_username) {
 
     return await response.json(); // should return a number
 }
+
+//-------------------------------------------------------------------------------------------------------------
+
+export async function getNumShortlisted(cleanerUsername) {
+    const response = await fetch(
+        `http://localhost:8000/cleaner/viewNumShortlisted?cleaner_username=${encodeURIComponent(cleanerUsername)}`
+    );
+    if (!response.ok) {
+        throw new Error("Failed to fetch shortlist count");
+    }
+    return response.json(); 
+}
+
+//-------------------------------------------------------------------------------------------------------------
+
+export async function searchPastTransactions(cleanerUsername, filteredService) {
+    const response = await fetch(
+        `http://localhost:8000/cleaner/searchPastTransactions?cleaner_username=${encodeURIComponent(cleanerUsername)}&filtered_service=${encodeURIComponent(filteredService)}`,
+        {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        }
+    );
+
+    if (!response.ok) {
+        throw new Error("Failed to search past transactions");
+    }
+
+    return await response.json();
+}

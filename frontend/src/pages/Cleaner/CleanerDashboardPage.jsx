@@ -25,8 +25,8 @@ const CleanerDashboardPage = () => {
                     <button style={buttonStyle} onClick={() => navigate("/Cleaner/ServiceManagement")}>
                         Manage Services
                     </button>
-                    <button style={buttonStyle} onClick={() => navigate("/Cleaner/ViewStats")}>
-                        View Stats (Views)
+                    <button style={buttonStyle} onClick={() => navigate("/Cleaner/Statistics")}>
+                        Statistics 
                     </button>
                 </div>
             </div>
