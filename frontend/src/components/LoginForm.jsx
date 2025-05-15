@@ -120,7 +120,7 @@ return (
             <select id="role" value={selectedRole} onChange={(e) => setSelectedRole(e.target.value)} required>
                 {roles.map((r, index) => (
                     <option key={index} value={r.role}>
-                        {r.role.charAt(0).toUpperCase() + r.role.slice(1)} – {r.description}
+                        {r.role.charAt(0).toUpperCase() + r.role.slice(1)} 
                     </option>
                 ))}
             </select>

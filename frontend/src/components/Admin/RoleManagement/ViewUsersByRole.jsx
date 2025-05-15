@@ -8,6 +8,7 @@ const ViewUsersByRole = () => {
     const [roles, setRoles] = useState([]);
     const [users, setUsers] = useState([]);
     const [error, setError] = useState("");
+    const [showModal, setShowModal] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -19,19 +20,36 @@ const ViewUsersByRole = () => {
                 console.error("Failed to load roles", err);
             }
         };
-
         fetchRoles();
     }, []);
 
     const handleSearch = async () => {
+        if (!selectedRole) {
+            setError("❌ Please select a role.");
+            setUsers([]);
+            setShowModal(false);
+            setTimeout(() => setError(""), 3000);
+            return;
+        }
+
         try {
             const usersData = await getUsersByRole({ role: selectedRole });
             setUsers(usersData);
             setError("");
+            setShowModal(true);
+            document.body.classList.add("modal-open");
+            setSelectedRole("");
         } catch (err) {
             setUsers([]);
+            setShowModal(false);
             setError("❌ Error fetching users with the specified role.");
+            setTimeout(() => setError(""), 3000);
         }
+    };
+
+    const closeModal = () => {
+        setShowModal(false);
+        document.body.classList.remove("modal-open");
     };
 
     return (
@@ -43,7 +61,7 @@ const ViewUsersByRole = () => {
                     onChange={(e) => setSelectedRole(e.target.value)}
                     required
                 >
-                    <option value="">Select a role</option>
+                    <option value="">-- Select Role --</option>
                     {roles.map((r, index) => (
                         <option key={index} value={r.role}>
                             {r.role}
@@ -53,9 +71,13 @@ const ViewUsersByRole = () => {
                 <button onClick={handleSearch} className="green-button">Search</button>
 
                 {error && <p className="error-text">{error}</p>}
+            </div>
 
-                {users.length > 0 && (
-                    <div className="user-results">
+            <button className="back-button" onClick={() => navigate(-1)}>← Back</button>
+
+            {showModal && (
+                <div className="modal-overlay">
+                    <div className="modal-box">
                         <h3>Users with role: {selectedRole}</h3>
                         <table className="users-table">
                             <thead>
@@ -75,11 +97,11 @@ const ViewUsersByRole = () => {
                                 ))}
                             </tbody>
                         </table>
+                        <br />
+                        <button onClick={closeModal} className="back-button">OK</button>
                     </div>
-                )}
-            </div>
-
-            <button className="back-button" onClick={() => navigate(-1)}>← Back</button>
+                </div>
+            )}
         </div>
     );
 };

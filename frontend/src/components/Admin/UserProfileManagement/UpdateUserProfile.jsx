@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { updateUserProfile } from "../../../services/userProfileService";
+import { updateUserProfile, viewAllUserProfiles } from "../../../services/userProfileService";
 import "../../../styles/Admin/UserProfileManagement/UpdateUserProfile.css";
 
 const UpdateUserProfile = () => {
@@ -8,10 +8,32 @@ const UpdateUserProfile = () => {
     const [updatedRole, setUpdatedRole] = useState("");
     const [updatedDescription, setUpdatedDescription] = useState("");
     const [message, setMessage] = useState("");
+    const [roles, setRoles] = useState([]);
+    const [showSuccessBox, setShowSuccessBox] = useState(false);
     const navigate = useNavigate();
+
+    // Fetch existing roles for dropdown
+    useEffect(() => {
+        const fetchRoles = async () => {
+            try {
+                const data = await viewAllUserProfiles();
+                setRoles(data);
+            } catch (err) {
+                console.error("❌ Failed to fetch roles", err);
+            }
+        };
+        fetchRoles();
+    }, []);
 
     const handleUpdate = async (e) => {
         e.preventDefault();
+
+        if (!targetRole || !updatedRole || !updatedDescription) {
+            setMessage("❌ All fields are required.");
+            setTimeout(() => setMessage(""), 3000);
+            return;
+        }
+
         try {
             const success = await updateUserProfile({
                 target_role: targetRole,
@@ -19,13 +41,24 @@ const UpdateUserProfile = () => {
                 updated_description: updatedDescription
             });
 
-            setMessage(success ? "✅ Profile updated successfully!" : "❌ Failed to update profile.");
-            setTargetRole("");
-            setUpdatedRole("");
-            setUpdatedDescription("");
+            if (success) {
+                setTargetRole("");
+                setUpdatedRole("");
+                setUpdatedDescription("");
+                setShowSuccessBox(true);
+            } else {
+                setMessage("❌ Failed to update profile.");
+                setTimeout(() => setMessage(""), 3000);
+            }
         } catch (err) {
-            setMessage("Error: " + err.message);
+            setMessage("❌ " + err.message);
+            setTimeout(() => setMessage(""), 3000);
         }
+    };
+
+    const handleSuccessBoxClose = () => {
+        setShowSuccessBox(false);
+        navigate("/Admin/Admin-Dashboard");
     };
 
     return (
@@ -34,12 +67,19 @@ const UpdateUserProfile = () => {
                 <h2>Update User Profile</h2>
                 <form onSubmit={handleUpdate} className="update-profile-form">
                     <label>Current Role:</label>
-                    <input
-                        type="text"
+                    <select
                         value={targetRole}
                         onChange={(e) => setTargetRole(e.target.value)}
                         required
-                    />
+                    >
+                        <option value="">-- Select a Role --</option>
+                        {roles.map((profile, index) => (
+                            <option key={index} value={profile.role}>
+                                {profile.role}
+                            </option>
+                        ))}
+                    </select>
+
                     <label>New Role:</label>
                     <input
                         type="text"
@@ -47,6 +87,7 @@ const UpdateUserProfile = () => {
                         onChange={(e) => setUpdatedRole(e.target.value)}
                         required
                     />
+
                     <label>New Description:</label>
                     <textarea
                         value={updatedDescription}
@@ -54,11 +95,22 @@ const UpdateUserProfile = () => {
                         rows="4"
                         required
                     />
+
                     <button type="submit" className="yellow-button">Update</button>
                 </form>
-                {message && <p>{message}</p>}
+                {message && <p className="error-text">{message}</p>}
             </div>
-            <button className="blue-button back-button" onClick={() => navigate(-1)}>← Back</button>
+
+            <button className="back-button" onClick={() => navigate(-1)}>← Back</button>
+
+            {showSuccessBox && (
+                <div className="modal-overlay">
+                    <div className="modal-box">
+                        <h3>✅ Profile Updated Successfully</h3>
+                        <button onClick={handleSuccessBoxClose} className="back-button">OK</button>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

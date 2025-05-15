@@ -7,18 +7,46 @@ const SearchUserProfile = () => {
     const [role, setRole] = useState("");
     const [results, setResults] = useState([]);
     const [message, setMessage] = useState("");
+    const [showModal, setShowModal] = useState(false);
     const navigate = useNavigate();
 
     const handleSearch = async (e) => {
         e.preventDefault();
-        try {
-            const data = await searchUserProfile(role);
-            setResults(data);
-            setMessage(data.length ? "" : "No profiles found.");
-        } catch (err) {
-            setMessage("Error: " + err.message);
+        const trimmedRole = role.trim();
+
+        if (!trimmedRole) {
+            setMessage("❌ Please enter a role to search.");
             setResults([]);
+            setTimeout(() => setMessage(""), 3000);
+            return;
         }
+
+        try {
+            const data = await searchUserProfile(trimmedRole);
+            if (data.length === 0) {
+                setMessage("❌ No profiles found.");
+                setShowModal(false);
+                setResults([]);
+                setTimeout(() => setMessage(""), 3000);
+            } else {
+                setResults(data);
+                setMessage("");
+                setShowModal(true);
+                document.body.classList.add("modal-open");
+            }
+        } catch (err) {
+            setMessage("❌ " + (err.message || "Search failed."));
+            setResults([]);
+            setShowModal(false);
+            setTimeout(() => setMessage(""), 3000);
+        }
+
+        setRole(""); // Clear input after search
+    };
+
+    const closeModal = () => {
+        setShowModal(false);
+        document.body.classList.remove("modal-open");
     };
 
     return (
@@ -35,29 +63,38 @@ const SearchUserProfile = () => {
                     />
                     <button type="submit">Search</button>
                 </form>
-                {message && <p>{message}</p>}
-                {results.length > 0 && (
-                    <table className="profile-table">
-                        <thead>
-                            <tr>
-                                <th>Role</th>
-                                <th>Description</th>
-                                <th>Status</th> {/* Add this */}
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {results.map((profile, index) => (
-                                <tr key={index}>
-                                    <td>{profile.role}</td>
-                                    <td>{profile.description}</td>
-                                    <td>{profile.status}</td> {/* Add this */}
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                )}
+                {message && <p className="error-text">{message}</p>}
             </div>
+
             <button className="back-button" onClick={() => navigate(-1)}>← Back</button>
+
+            {showModal && (
+                <div className="modal-overlay">
+                    <div className="modal-box">
+                        <h3>Search Results</h3>
+                        <table className="profile-table">
+                            <thead>
+                                <tr>
+                                    <th>Role</th>
+                                    <th>Description</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {results.map((profile, index) => (
+                                    <tr key={index}>
+                                        <td>{profile.role}</td>
+                                        <td>{profile.description}</td>
+                                        <td>{profile.status}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                        <br />
+                        <button onClick={closeModal} className="back-button">OK</button>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
