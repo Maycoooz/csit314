@@ -54,3 +54,23 @@ export async function shortlistCleaner(homeownerUsername, serviceId) {
     return await response.json(); // true or false
 }
 
+//-------------------------------------------------------------------------------------------------------------
+
+// ✅ View all past transactions
+export async function viewPastTransactions(homeownerUsername) {
+    const response = await fetch(
+        `http://localhost:8000/ho/viewPastTransactions?homeowner_username=${encodeURIComponent(homeownerUsername)}`
+    );
+    if (!response.ok) throw new Error("Failed to fetch past transactions");
+    return await response.json();
+}
+
+// ✅ Filter past transactions by service name
+export async function filterPastTransactions(homeownerUsername, serviceFilter) {
+    const response = await fetch(
+        `http://localhost:8000/ho/filterPastTransactions?homeowner_username=${encodeURIComponent(homeownerUsername)}&service_filter=${encodeURIComponent(serviceFilter)}`
+    );
+    if (!response.ok) throw new Error("Failed to filter past transactions");
+    return await response.json();
+}
+

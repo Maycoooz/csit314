@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { getCleanerProfile, shortlistCleaner } from "../../services/homeOwnerService";
+import {
+    getCleanerProfile,
+    shortlistCleaner,
+    viewShortlist
+} from "../../services/homeOwnerService";
 import { useNavigate } from "react-router-dom";
 import "../../styles/HomeOwner/ViewCleanerProfile.css";
 
 const ViewCleanerProfile = ({ cleanerUsername }) => {
     const [services, setServices] = useState([]);
+    const [shortlistedIds, setShortlistedIds] = useState([]);
     const [error, setError] = useState("");
     const [message, setMessage] = useState("");
     const navigate = useNavigate();
@@ -12,26 +17,39 @@ const ViewCleanerProfile = ({ cleanerUsername }) => {
     const homeownerUsername = localStorage.getItem("username");
 
     useEffect(() => {
-        const fetchServices = async () => {
+        const fetchData = async () => {
             try {
-                const data = await getCleanerProfile(homeownerUsername, cleanerUsername);
-                setServices(data);
+                const [profileData, shortlistData] = await Promise.all([
+                    getCleanerProfile(homeownerUsername, cleanerUsername),
+                    viewShortlist(homeownerUsername)
+                ]);
+
+                setServices(profileData);
+                setShortlistedIds(shortlistData.map((s) => s.service_id));
                 setError("");
             } catch (err) {
-                setError("❌ Failed to load cleaner profile.");
+                setError("❌ Failed to load cleaner profile or shortlist.");
             }
         };
 
-        fetchServices();
+        fetchData();
     }, [cleanerUsername, homeownerUsername]);
 
     const handleShortlist = async (serviceId) => {
         try {
             const success = await shortlistCleaner(homeownerUsername, serviceId);
-            setMessage(success ? "✅ Shortlisted successfully." : "⚠️ Already shortlisted.");
+            if (success) {
+                setShortlistedIds((prev) => [...prev, serviceId]);
+                setMessage("✅ Shortlisted successfully.");
+            } else {
+                setMessage("⚠️ Already shortlisted.");
+            }
         } catch (err) {
             setMessage("❌ Failed to shortlist.");
         }
+        setTimeout(() => {
+            setMessage("");
+        }, 3000);
     };
 
     return (
@@ -42,16 +60,41 @@ const ViewCleanerProfile = ({ cleanerUsername }) => {
                 {error && <p className="error-text">{error}</p>}
                 {message && <p className="info-text">{message}</p>}
 
-                <ul className="service-list">
-                    {services.map((service) => (
-                        <li key={service.service_id}>
-                            <strong>{service.service_name}</strong> – ${service.price.toFixed(2)}
-                            <button onClick={() => handleShortlist(service.service_id)}>
-                                ➕ Shortlist
-                            </button>
-                        </li>
-                    ))}
-                </ul>
+                <table className="service-table">
+                    <thead>
+                        <tr>
+                            <th>Service ID</th>
+                            <th>Service</th>
+                            <th>Category</th>
+                            <th>Price</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {services
+                            .filter((service) => service.status === "active")
+                            .map((service) => (
+                                <tr key={service.service_id}>
+                                    <td>{service.service_id}</td>
+                                    <td>{service.service}</td>
+                                    <td>{service.category}</td>
+                                    <td>${service.price.toFixed(2)}</td>
+                                    <td>{service.status}</td>
+                                    <td>
+                                        <button
+                                            onClick={() => handleShortlist(service.service_id)}
+                                            disabled={shortlistedIds.includes(service.service_id)}
+                                        >
+                                            {shortlistedIds.includes(service.service_id)
+                                                ? "✔ Shortlisted"
+                                                : "➕ Shortlist"}
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))}
+                    </tbody>
+                </table>
             </div>
 
             <button className="back-button" onClick={() => navigate(-1)}>← Back</button>

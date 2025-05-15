@@ -53,6 +53,7 @@ import HomeOwnerDashboardPage from "./pages/HomeOwnerDashboardPage";
 import HomeOwnerViewCleanersPage from "./pages/HomeOwner/HomeOwnerViewCleanersPage";
 import HomeOwnerViewShortlistPage from "./pages/HomeOwner/HomeOwnerViewShortlistPage";
 import HomeOwnerViewCleanerProfilePage from "./pages/HomeOwner/HomeOwnerViewCleanerProfilePage";
+import HomeOwnerViewPastTransactionsPage from "./pages/HomeOwner/HomeOwnerViewPastTransactionsPage";
 
 //-----------------------------------------------------------------------------------
 // PM
@@ -112,6 +113,7 @@ function App() {
                     <Route path="/HomeOwner/ViewCleaners" element={<HomeOwnerViewCleanersPage />} />
                     <Route path="/HomeOwner/ViewShortlist" element={<HomeOwnerViewShortlistPage />} />
                     <Route path="/HomeOwner/ViewCleanerProfile/:cleanerUsername" element={<HomeOwnerViewCleanerProfilePage />} />
+                    <Route path="/HomeOwner/ViewPastTransactions" element={<HomeOwnerViewPastTransactionsPage />} />
                 <Route path="/PlatformManagement/Platform-Management-Dashboard" element={<PlatformManagementDashboardPage />} />
                     <Route path="/PlatformManagement/ServiceCategory" element={<PlatformManagementServiceCategoryPage />} />
                         <Route path="/PlatformManagement/ServiceCategory/CreateServiceCategory" element={<PMCreateServiceCategoryPage />} />

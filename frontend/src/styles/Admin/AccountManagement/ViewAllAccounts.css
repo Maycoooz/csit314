@@ -4,7 +4,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding-top: 450px; /* Add enough top padding for your navbar */
+    padding-top: 300px;
+    padding-bottom: 20px;
     box-sizing: border-box;
 }
 
@@ -34,4 +35,55 @@
     border: 1px solid #ccc;
     padding: 10px;
     text-align: left;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+
+.modal-box {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    max-width: 800px;
+    width: 90%;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.3s ease-in-out;
+    text-align: center;
+}
+
+.back-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: rgb(65, 129, 172);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.back-button:hover {
+    transform: scale(1.05);
+    transition: transform 0.2s;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
 }

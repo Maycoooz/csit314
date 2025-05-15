@@ -6,9 +6,9 @@ import "../../../styles/Admin/AccountManagement/SearchAccount.css";
 const SearchAccount = () => {
     const [username, setUsername] = useState("");
     const [results, setResults] = useState([]);
+    const [message, setMessage] = useState("");
+    const [showModal, setShowModal] = useState(false);
     const navigate = useNavigate();
-
-    const [message, setMessage] = useState(""); // add this to state
 
     const handleSearch = async () => {
         const trimmedUsername = username.trim();
@@ -16,6 +16,7 @@ const SearchAccount = () => {
         if (!trimmedUsername) {
             setMessage("❌ Please enter a username to search.");
             setResults([]);
+            setShowModal(false);
             setTimeout(() => setMessage(""), 2000);
             return;
         }
@@ -26,17 +27,27 @@ const SearchAccount = () => {
 
             if (res.length === 0) {
                 setMessage("❌ No user found with that username.");
+                setShowModal(false);
                 setTimeout(() => setMessage(""), 2000);
             } else {
-                setMessage(""); // clear previous messages if user is found
+                setMessage("");
+                setShowModal(true);
+                document.body.classList.add("modal-open");
             }
         } catch (err) {
             setMessage(err.message || "❌ Search failed.");
             setResults([]);
+            setShowModal(false);
             setTimeout(() => setMessage(""), 2000);
         }
+
+        setUsername("");
     };
 
+    const closeModal = () => {
+        setShowModal(false);
+        document.body.classList.remove("modal-open");
+    };
 
     return (
         <div className="search-account-container">
@@ -49,27 +60,35 @@ const SearchAccount = () => {
                     onChange={(e) => setUsername(e.target.value)}
                 />
                 <button onClick={handleSearch}>Search</button>
-                {message && <p>{message}</p>}
-
-                {results.length > 0 && (
-                    <table className="table-bordered">
-                        <thead>
-                            <tr><th>Username</th><th>Status</th><th>Role</th></tr>
-                        </thead>
-                        <tbody>
-                            {results.map((user, index) => (
-                                <tr key={index}>
-                                    <td>{user.username}</td>
-                                    <td>{user.status}</td>
-                                    <td>{user.role}</td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                )}
+                {message && <p className="error-text">{message}</p>}
             </div>
 
             <button className="back-button" onClick={() => navigate(-1)}>← Back</button>
+
+            {/* Result Modal */}
+            {showModal && (
+                <div className="modal-overlay">
+                    <div className="modal-box">
+                        <h3>Search Results</h3>
+                        <table className="table-bordered">
+                            <thead>
+                                <tr><th>Username</th><th>Status</th><th>Role</th></tr>
+                            </thead>
+                            <tbody>
+                                {results.map((user, index) => (
+                                    <tr key={index}>
+                                        <td>{user.username}</td>
+                                        <td>{user.status}</td>
+                                        <td>{user.role}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                        <br />
+                        <button onClick={closeModal} className="back-button">Close</button>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

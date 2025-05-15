@@ -27,7 +27,10 @@ const HomeOwnerDashboardPage = () => {
                     🔍 View Cleaners
                 </button>
                 <button style={buttonStyle} onClick={() => navigate("/HomeOwner/ViewShortlist")}>
-                    📌 View Shortlist
+                    📌 View & Filter Shortlist
+                </button>
+                <button style={buttonStyle} onClick={() => navigate("/HomeOwner/ViewPastTransactions")}>
+                    📌 View & Filter Past Transactions
                 </button>
             </div>
         </div>

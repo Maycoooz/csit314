@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; 
+import { useNavigate } from "react-router-dom";
 import { createUserAccount } from "../../../services/accountService";
 import "../../../styles/Admin/AccountManagement/CreateAccountForm.css";
 
@@ -8,6 +8,7 @@ const CreateAccountForm = () => {
     const [newPassword, setNewPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [message, setMessage] = useState("");
+    const [showSuccessBox, setShowSuccessBox] = useState(false);
     const navigate = useNavigate();
 
     const buttonStyle = {
@@ -27,44 +28,47 @@ const CreateAccountForm = () => {
     };
 
     const handleSubmit = async (e) => {
-    e.preventDefault();
+        e.preventDefault();
 
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{1,12}$/;
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{1,12}$/;
 
-    if (!passwordRegex.test(newPassword)) {
-        setMessage("❌ Password must contain uppercase, lowercase, number, and max 12 characters.");
-        setTimeout(() => setMessage(""), 2000);
-        return;
-    }
-
-    if (newPassword !== confirmPassword) {
-        setMessage("❌ Passwords do not match.");
-        setTimeout(() => setMessage(""), 2000);
-        return;
-    }
-
-    try {
-        const result = await createUserAccount({
-            new_username: newUsername,
-            new_password: newPassword,
-        });
-
-        if (result) {
-            setMessage(result.message || "✅ Account created successfully.");
-            setNewUsername("");
-            setNewPassword("");
-            setConfirmPassword("");
-
-            setTimeout(() => {
-                setMessage("");
-                navigate("/Admin/Admin-Dashboard");
-            }, 2000);
+        if (!passwordRegex.test(newPassword)) {
+            setMessage("❌ Password must contain uppercase, lowercase, number, and max 12 characters.");
+            setTimeout(() => setMessage(""), 3000);
+            return;
         }
 
-    } catch (err) {
-        setMessage(err.message || "❌ Error creating account.");
-        setTimeout(() => setMessage(""), 2000);
-    }
+        if (newPassword !== confirmPassword) {
+            setMessage("❌ Passwords do not match.");
+            setTimeout(() => setMessage(""), 3000);
+            return;
+        }
+
+        try {
+            const result = await createUserAccount({
+                new_username: newUsername,
+                new_password: newPassword,
+            });
+
+            if (result) {
+                // Immediately clear fields
+                setNewUsername("");
+                setNewPassword("");
+                setConfirmPassword("");
+
+                // Show success box
+                setShowSuccessBox(true);
+            }
+
+        } catch (err) {
+            setMessage(err.message || "❌ Error creating account.");
+            setTimeout(() => setMessage(""), 3000);
+        }
+    };
+
+    const handleSuccessBoxClose = () => {
+        setShowSuccessBox(false);
+        //navigate("/Admin/Admin-Dashboard");
     };
 
     return (
@@ -93,18 +97,26 @@ const CreateAccountForm = () => {
                     required
                 />
                 <button type="submit">Create Account</button>
-                <p>{message}</p>
+                {message && <p className="error-text">{message}</p>}
             </form>
-            
+
             <button onClick={() => navigate(-1)} style={backButtonStyle}>
                 ← Back
             </button>
 
-
+            {/* Success Modal Box */}
+            {showSuccessBox && (
+                <div className="modal-overlay">
+                    <div className="modal-box">
+                        <h3>✅ Account Created Successfully</h3>
+                        <button onClick={handleSuccessBoxClose} className="back-button">
+                            OK
+                        </button>
+                    </div>
+                </div>
+            )}
         </div>
-        
     );
-    
 };
 
 export default CreateAccountForm;

@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import {
-    viewShortlist,
-    filterShortlist,
+    viewPastTransactions,
+    filterPastTransactions
 } from "../../services/homeOwnerService";
 import { useNavigate } from "react-router-dom";
-import "../../styles/HomeOwner/ShortlistView.css";
+import "../../styles/HomeOwner/ViewPastTransactions.css";
 
-const ShortlistView = () => {
-    const [shortlist, setShortlist] = useState([]);
+const ViewPastTransactions = () => {
+    const [transactions, setTransactions] = useState([]);
     const [filtered, setFiltered] = useState([]);
     const [filter, setFilter] = useState("");
     const [error, setError] = useState("");
@@ -17,81 +17,76 @@ const ShortlistView = () => {
     const homeownerUsername = localStorage.getItem("username");
 
     useEffect(() => {
-        const fetchShortlist = async () => {
+        const fetchData = async () => {
             try {
-                const data = await viewShortlist(homeownerUsername);
-                setShortlist(data);
-                setError("");
+                const data = await viewPastTransactions(homeownerUsername);
+                setTransactions(data);
             } catch (err) {
-                setShortlist([]);
-                setError("❌ Failed to load shortlist.");
+                setTransactions([]);
+                setError("❌ Failed to load transactions.");
             }
         };
 
-        fetchShortlist();
+        fetchData();
     }, [homeownerUsername]);
 
-    // Apply filter to show filtered shortlist in modal
     const handleFilter = async () => {
         if (!filter) return;
 
         try {
-            const data = await filterShortlist(homeownerUsername, filter);
+            const data = await filterPastTransactions(homeownerUsername, filter);
             setFiltered(data);
             setShowModal(true);
             document.body.classList.add("modal-open");
         } catch (err) {
             setFiltered([]);
-            setError("❌ Failed to filter shortlist.");
+            setError("❌ Failed to filter transactions.");
         }
-        setFilter("");
+
+        setFilter(""); // clear input after filter
     };
 
-    // Close the modal and show navbar again
     const closeModal = () => {
         setShowModal(false);
         document.body.classList.remove("modal-open");
     };
 
     return (
-        <div className="shortlist-container">
-            <div className="shortlist-box">
-                <h2>Filter Shortlist</h2>
-
+        <div className="transactions-container">
+            <div className="transactions-box">
+                <h2>Filter Past Transactions</h2>
                 <div className="filter-form">
                     <input
                         type="text"
-                        placeholder="Filter by service (e.g., carpet)"
+                        placeholder="Filter by service name"
                         value={filter}
                         onChange={(e) => setFilter(e.target.value)}
                     />
                     <button onClick={handleFilter}>Apply Filter</button>
                 </div>
-
                 {error && <p className="error-text">{error}</p>}
             </div>
 
-            {/* All Shortlisted Services Table */}
-            <div className="shortlist-table-box">
-                <h3>All Shortlisted Services</h3>
-                <table className="shortlist-table">
+            <div className="transactions-table-box">
+                <h3>All Transactions</h3>
+                <table className="transactions-table">
                     <thead>
                         <tr>
+                            <th>Date</th>
                             <th>Cleaner</th>
-                            <th>Service ID</th>
                             <th>Service</th>
                             <th>Category</th>
                             <th>Price</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {shortlist.map((entry, index) => (
+                        {transactions.map((tx, index) => (
                             <tr key={index}>
-                                <td>{entry.cleaner_username}</td>
-                                <td>{entry.service_id}</td>
-                                <td>{entry.service}</td>
-                                <td>{entry.category}</td>
-                                <td>${entry.price.toFixed(2)}</td>
+                                <td>{tx.date}</td>
+                                <td>{tx.cleaner_username}</td>
+                                <td>{tx.service}</td>
+                                <td>{tx.category}</td>
+                                <td>${tx.price.toFixed(2)}</td>
                             </tr>
                         ))}
                     </tbody>
@@ -100,29 +95,30 @@ const ShortlistView = () => {
 
             <button className="back-button" onClick={() => navigate(-1)}>← Back</button>
 
-            {/* Filtered Results Modal */}
             {showModal && (
                 <div className="modal-overlay">
                     <div className="modal-box">
-                        <h3>Filtered Shortlist Results</h3>
+                        <h3>Filtered Transactions</h3>
                         <table>
                             <thead>
                                 <tr>
+                                    <th>ID</th>
+                                    <th>Date</th>
                                     <th>Cleaner</th>
-                                    <th>Service ID</th>
                                     <th>Service</th>
                                     <th>Category</th>
                                     <th>Price</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {filtered.map((entry, index) => (
+                                {filtered.map((tx, index) => (
                                     <tr key={index}>
-                                        <td>{entry.cleaner_username}</td>
-                                        <td>{entry.service_id}</td>
-                                        <td>{entry.service}</td>
-                                        <td>{entry.category}</td>
-                                        <td>${entry.price.toFixed(2)}</td>
+                                        <td>{tx.transaction_id}</td>
+                                        <td>{tx.date}</td>
+                                        <td>{tx.cleaner_username}</td>
+                                        <td>{tx.service}</td>
+                                        <td>{tx.category}</td>
+                                        <td>${tx.price.toFixed(2)}</td>
                                     </tr>
                                 ))}
                             </tbody>
@@ -136,4 +132,4 @@ const ShortlistView = () => {
     );
 };
 
-export default ShortlistView;
+export default ViewPastTransactions;

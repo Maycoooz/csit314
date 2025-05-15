@@ -7,6 +7,7 @@ const SuspendAccount = () => {
     const [username, setUsername] = useState("");
     const [message, setMessage] = useState("");
     const [users, setUsers] = useState([]);
+    const [showSuccessBox, setShowSuccessBox] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -24,18 +25,27 @@ const SuspendAccount = () => {
     const handleSuspend = async () => {
         if (!username) {
             setMessage("❌ Please select a user.");
-            setTimeout(() => setMessage(""), 2000);
+            setTimeout(() => setMessage(""), 3000);
             return;
         }
+
         try {
             const success = await suspendAccount(username);
-            setMessage(success ? "✅ Account suspended successfully." : "❌ Suspension failed.");
-            setTimeout(() => setMessage(""), 2000);
-            navigate("/Admin/Admin-Dashboard");
+            if (success) {
+                setUsername(""); // Clear selection
+                setShowSuccessBox(true); // Show modal
+            } else {
+                setMessage("❌ Suspension failed.");
+                setTimeout(() => setMessage(""), 3000);
+            }
         } catch (err) {
             setMessage(err.message || "❌ Unexpected error.");
-            setTimeout(() => setMessage(""), 2000);
+            setTimeout(() => setMessage(""), 3000);
         }
+    };
+
+    const closeModal = () => {
+        setShowSuccessBox(false);
     };
 
     return (
@@ -44,18 +54,28 @@ const SuspendAccount = () => {
                 <h2>Suspend Account</h2>
                 <select value={username} onChange={(e) => setUsername(e.target.value)}>
                     <option value="">-- Select a Username --</option>
-                        {users.map((user, index) => (
-                    <option key={index} value={user.username}>
-                        {user.username}
-                    </option>
-                ))}
+                    {users.map((user, index) => (
+                        <option key={index} value={user.username}>
+                            {user.username}
+                        </option>
+                    ))}
                 </select>
 
                 <button onClick={handleSuspend}>Suspend</button>
-                {message && <p>{message}</p>}
+                {message && <p className="error-text">{message}</p>}
             </div>
 
             <button className="back-button" onClick={() => navigate(-1)}>← Back</button>
+
+            {/* Success Modal Box */}
+            {showSuccessBox && (
+                <div className="modal-overlay">
+                    <div className="modal-box">
+                        <h3>✅ Account Suspended Successfully</h3>
+                        <button onClick={closeModal} className="back-button">OK</button>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

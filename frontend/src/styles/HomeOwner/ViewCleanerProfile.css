@@ -76,3 +76,31 @@
 .back-button:hover {
     background-color: rgb(50, 110, 150);
 }
+
+.service-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+.service-table th,
+.service-table td {
+    border: 1px solid #ddd;
+    padding: 0.75rem;
+    text-align: center;
+}
+
+.service-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+.service-table tr:hover {
+    background-color: #f9f9f9;
+}
+
+.service-table button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
