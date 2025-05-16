@@ -76,7 +76,7 @@ const UpdateService = () => {
 
     const handleSuccessClose = () => {
         setShowSuccessBox(false);
-        navigate(-1);
+        //navigate(-1);
     };
 
     return (
@@ -123,7 +123,7 @@ const UpdateService = () => {
 
                     <label>New Price:</label>
                     <input
-                        type="text"
+                        type="number"
                         placeholder="Enter new price"
                         value={updatedPrice}
                         onChange={(e) => setUpdatedPrice(e.target.value)}

@@ -38,7 +38,6 @@ const SuspendService = () => {
         try {
             const success = await suspendService({ service_id: selectedServiceId });
             if (success) {
-                setSelectedServiceId("");
                 setShowSuccessBox(true);
             } else {
                 setMessage("❌ Failed to suspend service.");
@@ -51,8 +50,9 @@ const SuspendService = () => {
     };
 
     const handleSuccessClose = () => {
+        setSelectedServiceId("");
         setShowSuccessBox(false);
-        navigate(-1);
+        //navigate(-1);
     };
 
     return (
@@ -83,7 +83,7 @@ const SuspendService = () => {
             {showSuccessBox && (
                 <div className="modal-overlay">
                     <div className="modal-box">
-                        <h3>✅ Service Suspended Successfully</h3>
+                        <h2>✅ Service "{selectedServiceId}" Suspended Successfully</h2>
                         <button onClick={handleSuccessClose} className="back-button">OK</button>
                     </div>
                 </div>

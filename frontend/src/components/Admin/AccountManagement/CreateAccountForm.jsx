@@ -51,11 +51,6 @@ const CreateAccountForm = () => {
             });
 
             if (result) {
-                // Immediately clear fields
-                setNewUsername("");
-                setNewPassword("");
-                setConfirmPassword("");
-
                 // Show success box
                 setShowSuccessBox(true);
             }
@@ -67,6 +62,10 @@ const CreateAccountForm = () => {
     };
 
     const handleSuccessBoxClose = () => {
+        // Immediately clear fields
+        setNewUsername("");
+        setNewPassword("");
+        setConfirmPassword("");
         setShowSuccessBox(false);
         //navigate("/Admin/Admin-Dashboard");
     };
@@ -108,7 +107,8 @@ const CreateAccountForm = () => {
             {showSuccessBox && (
                 <div className="modal-overlay">
                     <div className="modal-box">
-                        <h3>✅ Account Created Successfully</h3>
+                        <h2>✅ Account "{newUsername}" Created Successfully!</h2>
+                        <p>The account has been created successfully.</p>
                         <button onClick={handleSuccessBoxClose} className="back-button">
                             OK
                         </button>

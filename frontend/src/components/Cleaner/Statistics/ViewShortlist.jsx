@@ -32,7 +32,7 @@ const ViewShortlist = () => {
                 <h2>Shortlisted Services</h2>
                 {error && <p className="error-text">{error}</p>}
                 {shortlistCount !== null ? (
-                    <p>Total shortlisted services: <strong>{shortlistCount}</strong></p>
+                    <p>⭐ Total shortlisted services: <strong>{shortlistCount}</strong></p>
                 ) : (
                     <p>Loading...</p>
                 )}

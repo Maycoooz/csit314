@@ -38,7 +38,6 @@ const SuspendServiceCategory = () => {
         try {
             const success = await suspendServiceCategory(category);
             if (success) {
-                setCategory("");
                 setShowSuccessBox(true);
             } else {
                 setMessage("❌ Failed to suspend category.");
@@ -51,6 +50,7 @@ const SuspendServiceCategory = () => {
     };
 
     const handleSuccessClose = () => {
+        setCategory("");
         setShowSuccessBox(false);
         //navigate(-1);
     };
@@ -83,7 +83,7 @@ const SuspendServiceCategory = () => {
             {showSuccessBox && (
                 <div className="modal-overlay">
                     <div className="modal-box">
-                        <h3>✅ Category Suspended Successfully</h3>
+                        <h3>✅ Category "{category}" Suspended Successfully</h3>
                         <button onClick={handleSuccessClose} className="back-button">OK</button>
                     </div>
                 </div>

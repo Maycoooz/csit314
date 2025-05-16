@@ -71,7 +71,7 @@ const UpdateAccount = () => {
 
     const handleSuccessBoxClose = () => {
         setShowSuccessBox(false);
-        navigate("/Admin/Admin-Dashboard");
+        //navigate("/Admin/Admin-Dashboard");
     };
 
     return (

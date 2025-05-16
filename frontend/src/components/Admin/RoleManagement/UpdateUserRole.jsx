@@ -21,9 +21,6 @@ const UpdateUserRole = () => {
                 setRoles(rolesData);
                 setUsers(usersData);
 
-                if (rolesData.length > 0) {
-                    setUpdatedRole(rolesData[0].role);
-                }
             } catch (error) {
                 console.error("Failed to fetch data:", error);
             }
@@ -48,7 +45,7 @@ const UpdateUserRole = () => {
 
             if (success) {
                 setTargetUsername("");
-                setUpdatedRole(roles.length > 0 ? roles[0].role : "");
+                setUpdatedRole("");
                 setShowSuccessBox(true);
             } else {
                 setMessage("❌ Failed to update user role.");

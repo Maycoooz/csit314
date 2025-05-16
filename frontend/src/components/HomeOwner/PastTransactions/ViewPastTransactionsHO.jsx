@@ -14,9 +14,17 @@ const ViewPastTransactions = () => {
         const fetchData = async () => {
             try {
                 const data = await viewPastTransactions(homeownerUsername);
-                setTransactions(data);
-                setShowModal(true);
-                document.body.classList.add("modal-open");
+                console.log(data);
+                if (Array.isArray(data) && data.length > 0) {
+                    setTransactions(data);
+                    setShowModal(true);
+                    document.body.classList.add("modal-open");
+                } else {
+                    setTransactions([]);
+                    setShowModal(false);
+                    setError("⚠️ No past transactions found.");
+                    setTimeout(() => setError(""), 3000);
+                }
             } catch (err) {
                 setError("❌ Failed to load transactions.");
                 setTimeout(() => setError(""), 3000);

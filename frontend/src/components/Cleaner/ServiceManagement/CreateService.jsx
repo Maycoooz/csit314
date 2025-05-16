@@ -123,7 +123,8 @@ const CreateService = () => {
             {showSuccessBox && (
                 <div className="modal-overlay">
                     <div className="modal-box">
-                        <h3>✅ Service Created Successfully</h3>
+                        <h2>✅ Service Created Successfully</h2>
+                        <p>The service has been created successfully.</p>
                         <button onClick={handleSuccessClose} className="back-button">OK</button>
                     </div>
                 </div>

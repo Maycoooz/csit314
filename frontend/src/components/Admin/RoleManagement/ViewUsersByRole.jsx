@@ -34,11 +34,17 @@ const ViewUsersByRole = () => {
 
         try {
             const usersData = await getUsersByRole({ role: selectedRole });
-            setUsers(usersData);
-            setError("");
-            setShowModal(true);
-            document.body.classList.add("modal-open");
-            setSelectedRole("");
+            if (usersData.length === 0) {
+                setUsers([]);
+                setShowModal(false);
+                setError("⚠️ No users found for the selected role.");
+                setTimeout(() => setError(""), 3000);
+            } else {
+                setUsers(usersData);
+                setError("");
+                setShowModal(true);
+                document.body.classList.add("modal-open");
+            }
         } catch (err) {
             setUsers([]);
             setShowModal(false);
@@ -48,6 +54,7 @@ const ViewUsersByRole = () => {
     };
 
     const closeModal = () => {
+        setSelectedRole("");
         setShowModal(false);
         document.body.classList.remove("modal-open");
     };

@@ -26,6 +26,8 @@ const ViewWeeklyReport = ({ setNavbarVisible }) => {
     };
 
     const handleClose = () => {
+        setStartDate("");
+        setEndDate("");
         setShowReport(false);
         setNavbarVisible?.(true); // restore navbar
     };

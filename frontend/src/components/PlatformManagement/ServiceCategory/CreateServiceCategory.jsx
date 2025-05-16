@@ -69,7 +69,8 @@ const CreateServiceCategory = () => {
             {showSuccessBox && (
                 <div className="modal-overlay">
                     <div className="modal-box">
-                        <h3>✅ Category Created Successfully</h3>
+                        <h2>✅ Service Category Created Successfully!</h2>
+                        <p>The service category has been created successfully.</p>
                         <button onClick={handleSuccessClose} className="back-button">OK</button>
                     </div>
                 </div>

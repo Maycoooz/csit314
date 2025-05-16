@@ -20,7 +20,7 @@ const AdminUserProfileManagementPage = () => {
         <div>
             <Navbar />
             <div style={{ paddingTop: "70px", textAlign: "center" }}>
-                <h2>User Profile Management</h2>
+                <h2>📝 User Profile Management</h2>
                 <button onClick={() => navigate(-1)} style={{ ...buttonStyle, backgroundColor: "rgb(65, 129, 172)" }}> ← Back</button>
                 <button onClick={() => navigate("/Admin/UserProfileManagement/CreateUserProfile")} style={buttonStyle}>➕ Create User Profile</button>
                 <button onClick={() => navigate("/Admin/UserProfileManagement/ViewAllUserProfiles")} style={buttonStyle}>📋 View All User Profiles</button>

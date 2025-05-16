@@ -47,7 +47,7 @@ const ViewDailyReport = ({ setNavbarVisible }) => {
        {showReport && report && (
     <div className="report-modal-overlay">
         <div className="report-modal">
-            <button className="close-button" onClick={() => {setShowReport(false); setNavbarVisible(true);}}>✖</button>
+            <button className="close-button" onClick={() => {setShowReport(false); setNavbarVisible(true); setDate("");}}>✖</button>
 
             <h3>🧾 Transaction Details ({report.transaction_count})</h3>
             <table className="report-table">

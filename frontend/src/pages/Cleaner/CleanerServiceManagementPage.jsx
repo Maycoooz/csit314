@@ -20,7 +20,7 @@ const CleanerServiceManagementPage = () => {
     return (
         <div style={{ paddingTop: "70px", textAlign: "center" }}>
             <Navbar />
-            <h2>Service Management</h2>
+            <h2>🛠️ Service Management</h2>
             <div style={{ marginTop: "30px" }}>
                 <button onClick={() => navigate(-1)} style={{ ...buttonStyle, backgroundColor: "rgb(65, 129, 172)" }}> 
                     ← Back

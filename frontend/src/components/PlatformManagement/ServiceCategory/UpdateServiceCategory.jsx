@@ -61,7 +61,7 @@ const UpdateServiceCategory = () => {
 
     const handleSuccessClose = () => {
         setShowSuccessBox(false);
-        navigate(-1);
+        //navigate(-1);
     };
 
     return (

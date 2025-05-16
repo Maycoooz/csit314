@@ -32,7 +32,6 @@ const SuspendAccount = () => {
         try {
             const success = await suspendAccount(username);
             if (success) {
-                setUsername(""); // Clear selection
                 setShowSuccessBox(true); // Show modal
             } else {
                 setMessage("❌ Suspension failed.");
@@ -45,6 +44,7 @@ const SuspendAccount = () => {
     };
 
     const closeModal = () => {
+        setUsername(""); // Clear selection
         setShowSuccessBox(false);
     };
 
@@ -71,7 +71,7 @@ const SuspendAccount = () => {
             {showSuccessBox && (
                 <div className="modal-overlay">
                     <div className="modal-box">
-                        <h3>✅ Account Suspended Successfully</h3>
+                        <h2>✅ Account "{username}" Suspended Successfully</h2>
                         <button onClick={closeModal} className="back-button">OK</button>
                     </div>
                 </div>

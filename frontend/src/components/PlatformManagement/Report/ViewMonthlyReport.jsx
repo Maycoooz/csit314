@@ -26,6 +26,8 @@ const ViewMonthlyReport = ({ setNavbarVisible }) => {
     };
 
     const handleClose = () => {
+        setYear("");
+        setMonth("");
         setShowReport(false);
         setNavbarVisible?.(true); // show navbar
     };
@@ -62,7 +64,7 @@ const ViewMonthlyReport = ({ setNavbarVisible }) => {
                     <div className="report-modal">
                         <button className="close-button" onClick={handleClose}>✖</button>
 
-                        <h3>🧾 Transactions</h3>
+                        <h3>🧾 Transactions ({report.transaction_count})</h3>
                         <table className="report-table">
                             <thead>
                                 <tr>

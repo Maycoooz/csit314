@@ -21,10 +21,17 @@ const FilterPastTransactions = () => {
 
         try {
             const data = await filterPastTransactions(homeownerUsername, filter);
-            setFiltered(data);
-            setShowModal(true);
-            document.body.classList.add("modal-open");
-            setError("");
+            if (Array.isArray(data) && data.length > 0) {
+                setFiltered(data);
+                setShowModal(true);
+                document.body.classList.add("modal-open");
+                setError("");
+            } else {
+                setFiltered([]);
+                setShowModal(false);
+                setError("⚠️ No transactions found with the given filter.");
+                setTimeout(() => setError(""), 3000);
+            }
         } catch (err) {
             setFiltered([]);
             setError("❌ Failed to filter transactions.");
@@ -62,23 +69,21 @@ const FilterPastTransactions = () => {
                         <table>
                             <thead>
                                 <tr>
-                                    <th>ID</th>
-                                    <th>Date</th>
-                                    <th>Cleaner</th>
-                                    <th>Service</th>
+                                    <th>Cleaner Username</th>
                                     <th>Category</th>
+                                    <th>Service</th>
                                     <th>Price</th>
+                                    <th>Date</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {filtered.map((tx, index) => (
                                     <tr key={index}>
-                                        <td>{tx.transaction_id}</td>
-                                        <td>{tx.date}</td>
                                         <td>{tx.cleaner_username}</td>
-                                        <td>{tx.service}</td>
                                         <td>{tx.category}</td>
+                                        <td>{tx.service}</td>
                                         <td>${tx.price.toFixed(2)}</td>
+                                        <td>{tx.date}</td>
                                     </tr>
                                 ))}
                             </tbody>

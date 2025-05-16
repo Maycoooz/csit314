@@ -20,7 +20,7 @@ const CleanerStatisticsPage = () => {
     return (
         <div style={{ paddingTop: "70px", textAlign: "center" }}>
             <Navbar />
-            <h2>Statistics</h2>
+            <h2>📈 Statistics</h2>
             <div style={{ marginTop: "30px" }}>
                 <button onClick={() => navigate(-1)} style={{ ...buttonStyle, backgroundColor: "rgb(65, 129, 172)" }}> 
                     ← Back
