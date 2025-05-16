@@ -21,6 +21,10 @@
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
     overflow-x: auto;
     animation: fadeIn 0.3s ease-in-out;
+    overflow-y: auto;
+    position: relative;
+    z-index: 9999;
+    max-height: 90vh;
 }
 
 .modal-box h2 {
