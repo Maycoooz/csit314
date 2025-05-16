@@ -7,7 +7,7 @@ class LoginProfiles(ConnectDB):
         conn = self.connect_database()
         cursor = conn.cursor(dictionary=True)
 
-        prepared_statement = "SELECT role, description FROM UserProfiles"
+        prepared_statement = "SELECT role, description FROM UserProfiles WHERE status = 'active'"
         cursor.execute(prepared_statement)
 
         roles = cursor.fetchall()
