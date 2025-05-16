@@ -4,7 +4,7 @@ import LoginPage from "./pages/LoginPage";
 
 //-----------------------------------------------------------------------------------
 // Admin
-import AdminDashboardPage from "./pages/AdminDashboardPage";
+import AdminDashboardPage from "./pages/Admin/AdminDashboardPage";
 import AdminAccountManagementPage from "./pages/Admin/AdminAccountManagementPage";
 import AdminRoleManagementPage from "./pages/Admin/AdminRoleManagementPage";
 import AdminUserProfileManagementPage from "./pages/Admin/AdminUserProfileManagementPage";
@@ -48,12 +48,18 @@ import CleanerViewPastTransactionsPage from "./pages/Cleaner/Statistics/CleanerV
 
 //-----------------------------------------------------------------------------------
 // Home Owner
-import HomeOwnerDashboardPage from "./pages/HomeOwnerDashboardPage";
+import HomeOwnerDashboardPage from "./pages/HomeOwner/HomeOwnerDashboardPage";
+import HomeOwnerShortlistPage from "./pages/HomeOwner/HomeOwnerShortlistPage";
+import HomeOwnerPastTransactionsPage from "./pages/HomeOwner/HomeOwnerPastTransactionsPage";
+
+import HomeOwnerViewShortlistPage from "./pages/HomeOwner/Shortlist/HomeOwnerViewShortlist";
+import HomeOwnerFilterShortlistPage from "./pages/HomeOwner/Shortlist/HomeOwnerFilterShortlist";
 
 import HomeOwnerViewCleanersPage from "./pages/HomeOwner/HomeOwnerViewCleanersPage";
-import HomeOwnerViewShortlistPage from "./pages/HomeOwner/HomeOwnerViewShortlistPage";
 import HomeOwnerViewCleanerProfilePage from "./pages/HomeOwner/HomeOwnerViewCleanerProfilePage";
-import HomeOwnerViewPastTransactionsPage from "./pages/HomeOwner/HomeOwnerViewPastTransactionsPage";
+
+import HomeOwnerViewPastTransactionsPage from "./pages/HomeOwner/PastTransactions/HomeOwnerViewPastTransactionsPage";
+import HomeOwnerFilterPastTransactionsPage from "./pages/HomeOwner/PastTransactions/HomeOwnerFilterPastTransactionsPage";
 
 //-----------------------------------------------------------------------------------
 // PM
@@ -81,6 +87,7 @@ function App() {
             <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/login" element={<LoginPage />} />
+                
                 <Route path="/Admin/Admin-Dashboard" element={<AdminDashboardPage />} />
                     <Route path="/Admin/AccountManagement" element={<AdminAccountManagementPage />} />
                         <Route path="/Admin/AccountManagement/CreateAccount" element={<AdminCreateAccountPage />} />
@@ -97,6 +104,7 @@ function App() {
                     <Route path="/Admin/RoleManagement" element={<AdminRoleManagementPage />} />
                         <Route path="/Admin/RoleManagement/UpdateUserRole" element={<AdminUpdateUserRolePage />} />
                         <Route path="/Admin/RoleManagement/ViewUsersByRole" element={<AdminViewUsersByRolePage />} />
+                
                 <Route path="/Cleaner/Cleaner-Dashboard" element={<CleanerDashboardPage />} />
                     <Route path="/Cleaner/ServiceManagement" element={<CleanerServiceManagementPage />} />
                         <Route path="/Cleaner/ServiceManagement/CreateService" element={<CleanerCreateServicePage />} />
@@ -109,11 +117,17 @@ function App() {
                         <Route path="/Cleaner/Statistics/ViewShortlist" element={<CleanerViewShortlistPage />} />
                         <Route path="/Cleaner/Statistics/SearchPastTransactions" element={<CleanerSearchPastTransactionsPage />} />
                         <Route path="/Cleaner/Statistics/ViewPastTransactions" element={<CleanerViewPastTransactionsPage />} />
+                
                 <Route path="/Home-Owner-Dashboard" element={<HomeOwnerDashboardPage />} />
+                    <Route path="/HomeOwner/Shortlist" element={<HomeOwnerShortlistPage />} />
+                        <Route path="/HomeOwner/Shortlist/ViewShortlist" element={<HomeOwnerViewShortlistPage />} />
+                        <Route path="/HomeOwner/Shortlist/FilterShortlist" element={<HomeOwnerFilterShortlistPage />} />
                     <Route path="/HomeOwner/ViewCleaners" element={<HomeOwnerViewCleanersPage />} />
-                    <Route path="/HomeOwner/ViewShortlist" element={<HomeOwnerViewShortlistPage />} />
-                    <Route path="/HomeOwner/ViewCleanerProfile/:cleanerUsername" element={<HomeOwnerViewCleanerProfilePage />} />
-                    <Route path="/HomeOwner/ViewPastTransactions" element={<HomeOwnerViewPastTransactionsPage />} />
+                        <Route path="/HomeOwner/ViewCleanerProfile/:cleanerUsername" element={<HomeOwnerViewCleanerProfilePage />} />
+                    <Route path="/HomeOwner/PastTransactions" element={<HomeOwnerPastTransactionsPage />} />
+                        <Route path="/HomeOwner/PastTransactions/ViewPastTransactions" element={<HomeOwnerViewPastTransactionsPage />} />
+                        <Route path="/HomeOwner/PastTransactions/FilterPastTransactions" element={<HomeOwnerFilterPastTransactionsPage />} />
+                
                 <Route path="/PlatformManagement/Platform-Management-Dashboard" element={<PlatformManagementDashboardPage />} />
                     <Route path="/PlatformManagement/ServiceCategory" element={<PlatformManagementServiceCategoryPage />} />
                         <Route path="/PlatformManagement/ServiceCategory/CreateServiceCategory" element={<PMCreateServiceCategoryPage />} />

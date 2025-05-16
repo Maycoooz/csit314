@@ -9,7 +9,6 @@ const PMSuspendServiceCategoryPage = () => {
         <div>
             <Navbar />
             <div style={{ paddingTop: "70px", textAlign: "center" }}>
-                <h2>Suspend Service Category</h2>
                 <SuspendServiceCategory />
             </div>
         </div>

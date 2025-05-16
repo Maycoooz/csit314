@@ -13,6 +13,8 @@ const Navbar = () => {
         navigate("/");
     };
 
+    if (document.body.classList.contains("modal-open")) return null;
+
     return (
         <nav className="navbar">
             <div className="navbar-logo">
@@ -35,7 +37,7 @@ const Navbar = () => {
                             style={{ cursor: "pointer" }}
                         >
                         <i className="fas fa-user"></i>
-                        <span>{username}</span>
+                        <span>🐣{username}</span>
                         </div>
                         <button className="logout-button" onClick={handleLogout}>
                             Logout

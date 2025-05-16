@@ -9,7 +9,6 @@ const PMViewWeeklyReportPage = () => {
         <div>
             {navbarVisible && <Navbar />}
             <div style={{ paddingTop: "70px", textAlign: "center" }}>
-                <h2>View Weekly Report</h2>
                 <ViewWeeklyReport setNavbarVisible={setNavbarVisible} />
             </div>
         </div>

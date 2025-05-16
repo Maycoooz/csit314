@@ -4,10 +4,10 @@ import {
     shortlistCleaner,
     viewShortlist
 } from "../../services/homeOwnerService";
-import { useNavigate } from "react-router-dom";
 import "../../styles/HomeOwner/ViewCleanerProfile.css";
+import { useNavigate } from "react-router-dom";
 
-const ViewCleanerProfile = ({ cleanerUsername }) => {
+const ViewCleanerProfile = ({ cleanerUsername, onClose }) => {
     const [services, setServices] = useState([]);
     const [shortlistedIds, setShortlistedIds] = useState([]);
     const [error, setError] = useState("");
@@ -53,8 +53,8 @@ const ViewCleanerProfile = ({ cleanerUsername }) => {
     };
 
     return (
-        <div className="cleaner-profile-container">
-            <div className="cleaner-profile-box">
+        <div className="modal-overlay">
+            <div className="modal-box">
                 <h2>{cleanerUsername}'s Services</h2>
 
                 {error && <p className="error-text">{error}</p>}
@@ -88,16 +88,16 @@ const ViewCleanerProfile = ({ cleanerUsername }) => {
                                         >
                                             {shortlistedIds.includes(service.service_id)
                                                 ? "✔ Shortlisted"
-                                                : "➕ Shortlist"}
+                                                : "⭐ Shortlist"}
                                         </button>
                                     </td>
                                 </tr>
                             ))}
                     </tbody>
                 </table>
-            </div>
 
-            <button className="back-button" onClick={() => navigate(-1)}>← Back</button>
+                <button className="back-button" onClick={onClose}>Close</button>
+            </div>
         </div>
     );
 };

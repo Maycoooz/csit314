@@ -27,19 +27,19 @@ const PMServiceCategoryPage = () => {
                         ← Back
                     </button>
                     <button onClick={() => navigate("/PlatformManagement/ServiceCategory/CreateServiceCategory")} style={buttonStyle}>
-                        Create Category
+                        ➕ Create Category
                     </button>
                     <button onClick={() => navigate("/PlatformManagement/ServiceCategory/ViewAllServiceCategories")} style={buttonStyle}>
-                        View All Categories
+                        📋 View All Categories
                     </button>
                     <button onClick={() => navigate("/PlatformManagement/ServiceCategory/UpdateServiceCategory")} style={buttonStyle}>
-                        Update Category
+                        🔄 Update Category
                     </button>
                     <button onClick={() => navigate("/PlatformManagement/ServiceCategory/SuspendServiceCategory")} style={buttonStyle}>
-                        Suspend Category
+                        🚫 Suspend Category
                     </button>
                     <button onClick={() => navigate("/PlatformManagement/ServiceCategory/SearchServiceCategory")} style={buttonStyle}>
-                        Search Category
+                        🔍 Search Category
                     </button>
                 </div>
             </div>

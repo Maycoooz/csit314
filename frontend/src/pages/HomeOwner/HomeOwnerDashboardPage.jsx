@@ -1,7 +1,7 @@
 // src/pages/HomeOwnerDashboardPage.jsx
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import Navbar from "../components/NavBar";
+import Navbar from "../../components/NavBar";
 
 const HomeOwnerDashboardPage = () => {
     const navigate = useNavigate();
@@ -26,11 +26,11 @@ const HomeOwnerDashboardPage = () => {
                 <button style={buttonStyle} onClick={() => navigate("/HomeOwner/ViewCleaners")}>
                     🔍 View Cleaners
                 </button>
-                <button style={buttonStyle} onClick={() => navigate("/HomeOwner/ViewShortlist")}>
-                    📌 View & Filter Shortlist
+                <button style={buttonStyle} onClick={() => navigate("/HomeOwner/Shortlist")}>
+                    📌 Shortlist
                 </button>
-                <button style={buttonStyle} onClick={() => navigate("/HomeOwner/ViewPastTransactions")}>
-                    📌 View & Filter Past Transactions
+                <button style={buttonStyle} onClick={() => navigate("/HomeOwner/PastTransactions")}>
+                    🧾 Past Transactions
                 </button>
             </div>
         </div>

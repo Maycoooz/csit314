@@ -9,7 +9,6 @@ const PMUpdateServiceCategoryPage = () => {
         <div>
             <Navbar />
             <div style={{ paddingTop: "70px", textAlign: "center" }}>
-                <h2>Update Service Category</h2>
                 <UpdateServiceCategory />
             </div>
         </div>

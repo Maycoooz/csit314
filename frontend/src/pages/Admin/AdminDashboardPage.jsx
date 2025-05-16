@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import Navbar from "../components/NavBar";
+import Navbar from "../../components/NavBar";
 
 const AdminDashboardPage = () => {
     const navigate = useNavigate();
@@ -24,13 +24,13 @@ const AdminDashboardPage = () => {
                 <p>Select a section to manage:</p>
                 <div>
                     <button onClick={() => navigate("/Admin/AccountManagement")} style={buttonStyle}>
-                        Account Management
+                        👤 Account Management
                     </button>
                     <button onClick={() => navigate("/Admin/UserProfileManagement")} style={buttonStyle}>
-                        User Profile Management
+                        📝 User Profile Management
                     </button>
                     <button onClick={() => navigate("/Admin/RoleManagement")} style={buttonStyle}>
-                        Role Management
+                        🛡️ Role Management
                     </button>
                 </div>
             </div>

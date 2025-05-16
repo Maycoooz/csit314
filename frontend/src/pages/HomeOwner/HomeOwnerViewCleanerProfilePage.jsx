@@ -9,10 +9,6 @@ const HomeOwnerViewCleanerProfilePage = () => {
 
     return (
         <div className="feature-page">
-            <Navbar/>
-            <button className="back-button" onClick={() => navigate("/homeowner/view-cleaners")}>
-                ← Back
-            </button>
             <h2>🧹 {cleanerUsername}'s Service Profile</h2>
             <ViewCleanerProfile cleanerUsername={cleanerUsername} />
         </div>

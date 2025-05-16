@@ -23,10 +23,10 @@ const CleanerDashboardPage = () => {
                 <h1>Welcome to Cleaner Dashboard</h1>
                 <div style={{ marginTop: "30px" }}>
                     <button style={buttonStyle} onClick={() => navigate("/Cleaner/ServiceManagement")}>
-                        Manage Services
+                        🛠️ Manage Services
                     </button>
                     <button style={buttonStyle} onClick={() => navigate("/Cleaner/Statistics")}>
-                        Statistics 
+                        📈 Statistics 
                     </button>
                 </div>
             </div>

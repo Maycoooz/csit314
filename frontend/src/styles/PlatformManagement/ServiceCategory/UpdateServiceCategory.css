@@ -12,7 +12,7 @@
     padding: 30px;
     border-radius: 10px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-    max-width: 600px;
+    max-width: 500px;
     width: 100%;
     text-align: center;
 }
@@ -28,27 +28,38 @@
     flex-direction: column;
 }
 
+.update-category-form label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #444;
+    text-align: left;
+}
+
 .update-category-form input,
-.update-category-form textarea {
+.update-category-form textarea,
+.update-category-form select {
+    width: 100%;
     padding: 10px;
     margin-bottom: 15px;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 16px;
+    box-sizing: border-box;
 }
 
-.yellow-button {
+.update-button {
     padding: 10px 20px;
-    background-color: #ffc107;
-    color: black;
+    background-color: #007bff;
+    color: white;
     border: none;
     border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
+    transition: background-color 0.3s;
 }
 
-.yellow-button:hover {
-    background-color: #e0a800;
+.update-button:hover {
+    background-color: #0056b3;
 }
 
 .message-text {
@@ -71,3 +82,62 @@
 .back-button:hover {
     background-color: rgb(50, 110, 150);
 }
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+
+.modal-box {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    max-width: 500px;
+    width: 80%;
+    text-align: center;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.back-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: rgb(65, 129, 172);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.back-button:hover {
+    transform: scale(1.05);
+    transition: transform 0.2s;
+}
+
+.error-text {
+    color: red;
+    text-align: center;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+

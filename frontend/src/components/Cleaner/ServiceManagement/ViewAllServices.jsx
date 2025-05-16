@@ -6,6 +6,7 @@ import "../../../styles/Cleaner/ServiceManagement/ViewAllServices.css";
 const ViewAllServices = () => {
     const [services, setServices] = useState([]);
     const [error, setError] = useState("");
+    const [showModal, setShowModal] = useState(false);
     const navigate = useNavigate();
 
     const cleanerUsername = localStorage.getItem("username");
@@ -13,53 +14,63 @@ const ViewAllServices = () => {
     useEffect(() => {
         const fetchServices = async () => {
             try {
-                // console.log("Username:", cleanerUsername);
                 const data = await getCleanerServices(cleanerUsername);
-                // console.log("Received services:", data);
                 setServices(data);
+                setShowModal(true);
+                document.body.classList.add("modal-open");
             } catch (err) {
                 setError("❌ Failed to load services.");
             }
         };
 
         if (cleanerUsername) {
-        fetchServices();
+            fetchServices();
         }
     }, [cleanerUsername]);
 
+    const closeModal = () => {
+        setShowModal(false);
+        document.body.classList.remove("modal-open");
+        navigate(-1);
+    };
+
     return (
         <div className="view-services-container">
-            <div className="view-services-box">
-                <h2>Your Services</h2>
-                {error && <p className="error-text">{error}</p>}
+            {error && <p className="error-text">{error}</p>}
 
-                {services.length > 0 ? (
-                    <table className="services-table">
-                        <thead>
-                            <tr>
-                                <th>Service</th>
-                                <th>Category</th>
-                                <th>Price</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {services.map((service, idx) => (
-                                <tr key={idx}>
-                                    <td>{service.service}</td>
-                                    <td>{service.category}</td>
-                                    <td>${service.price}</td>
-                                    <td>{service.status}</td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                ) : (
-                    !error && <p>No services found.</p>
-                )}
-            </div>
-
-            <button className="back-button" onClick={() => navigate(-1)}>← Back</button>
+            {showModal && (
+                <div className="modal-overlay">
+                    <div className="modal-box">
+                        <h2>Your Services</h2>
+                        {services.length > 0 ? (
+                            <table className="services-table">
+                                <thead>
+                                    <tr>
+                                        <th>Service</th>
+                                        <th>Category</th>
+                                        <th>Price</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {services.map((service, idx) => (
+                                        <tr key={idx}>
+                                            <td>{service.service}</td>
+                                            <td>{service.category}</td>
+                                            <td>${parseFloat(service.price).toFixed(2)}</td>
+                                            <td>{service.status}</td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        ) : (
+                            <p>No services found.</p>
+                        )}
+                        <br />
+                        <button onClick={closeModal} className="back-button">OK</button>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

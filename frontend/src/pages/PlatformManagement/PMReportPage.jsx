@@ -27,13 +27,13 @@ const ReportDashboardPage = () => {
                         ← Back
                     </button>
                     <button onClick={() => navigate("/PlatformManagement/Report/ViewDailyReport")} style={buttonStyle}>
-                        Daily Report
+                        🗓️ Daily Report
                     </button>
                     <button onClick={() => navigate("/PlatformManagement/Report/ViewWeeklyReport")} style={buttonStyle}>
-                        Weekly Report
+                        🗓️ Weekly Report
                     </button>
                     <button onClick={() => navigate("/PlatformManagement/Report/ViewMonthlyReport")} style={buttonStyle}>
-                        Monthly Report
+                        🪣 Monthly Report
                     </button>
                 </div>
             </div>

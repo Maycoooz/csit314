@@ -7,23 +7,46 @@ const SearchPastTransactions = () => {
     const [filter, setFilter] = useState("");
     const [results, setResults] = useState([]);
     const [error, setError] = useState("");
-    const [hasSearched, setHasSearched] = useState(false);
+    const [showModal, setShowModal] = useState(false);
     const navigate = useNavigate();
 
     const cleanerUsername = localStorage.getItem("username");
 
     const handleSearch = async () => {
+        const trimmed = filter.trim();
+        if (!trimmed) {
+            setError("❌ Please enter a service name.");
+            setTimeout(() => setError(""), 3000);
+            return;
+        }
+
         try {
-            const data = await searchPastTransactions(cleanerUsername, filter);
+            const data = await searchPastTransactions(cleanerUsername, trimmed);
+
+            if (data.length === 0) {
+                setError("❌ No results found.");
+                setResults([]);
+                setShowModal(false);
+                setTimeout(() => setError(""), 3000);
+                return;
+            }
+
             setResults(data);
             setError("");
-            setHasSearched(true);
+            setShowModal(true);
+            document.body.classList.add("modal-open");
         } catch (err) {
             console.error("Search failed:", err);
             setError("❌ Unable to fetch search results.");
             setResults([]);
-            setHasSearched(true);
+            setTimeout(() => setError(""), 3000);
         }
+    };
+
+    const closeModal = () => {
+        setShowModal(false);
+        document.body.classList.remove("modal-open");
+        //navigate(-1);
     };
 
     return (
@@ -42,36 +65,41 @@ const SearchPastTransactions = () => {
                 </div>
 
                 {error && <p className="error-text">{error}</p>}
-
-                {results.length > 0 ? (
-                    <table className="transactions-table">
-                        <thead>
-                            <tr>
-                                <th>Transaction ID</th>
-                                <th>Service</th>
-                                <th>Customer</th>
-                                <th>Date</th>
-                                <th>Amount</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {results.map((txn, index) => (
-                                <tr key={index}>
-                                    <td>{txn.transaction_id}</td>
-                                    <td>{txn.service}</td>
-                                    <td>{txn.customer_username}</td>
-                                    <td>{txn.date}</td>
-                                    <td>${txn.amount}</td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                ) : (
-                    hasSearched && <p className="no-results">No results to display.</p>
-                )}
             </div>
 
             <button className="back-button" onClick={() => navigate(-1)}>← Back</button>
+
+            {showModal && (
+                <div className="modal-overlay">
+                    <div className="modal-box">
+                        <h3>Filtered Results</h3>
+                        <table className="transactions-table">
+                            <thead>
+                                <tr>
+                                    <th>Home Owner Username</th>
+                                    <th>Category</th>
+                                    <th>Service</th>
+                                    <th>Price</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {results.map((txn, index) => (
+                                    <tr key={index}>
+                                        <td>{txn.homeowner_username}</td>
+                                        <td>{txn.category}</td>
+                                        <td>{txn.service}</td>
+                                        <td>${parseFloat(txn.price).toFixed(2)}</td>
+                                        <td>{txn.date}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                        <br />
+                        <button className="back-button" onClick={closeModal}>OK</button>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

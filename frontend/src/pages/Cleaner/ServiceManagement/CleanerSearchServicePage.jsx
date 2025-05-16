@@ -8,7 +8,6 @@ const CleanerSearchServicePage = () => {
         <div>
             <Navbar />
             <div style={{ paddingTop: "70px", textAlign: "center" }}>
-                <h2>Search Your Services</h2>
                 <SearchService />
             </div>
         </div>

@@ -7,6 +7,7 @@ const SuspendService = () => {
     const [services, setServices] = useState([]);
     const [selectedServiceId, setSelectedServiceId] = useState("");
     const [message, setMessage] = useState("");
+    const [showSuccessBox, setShowSuccessBox] = useState(false);
     const navigate = useNavigate();
 
     const cleanerUsername = localStorage.getItem("username");
@@ -17,7 +18,8 @@ const SuspendService = () => {
                 const data = await getCleanerServices(cleanerUsername);
                 setServices(data);
             } catch (err) {
-                setMessage("Failed to load services.");
+                setMessage("❌ Failed to load services.");
+                setTimeout(() => setMessage(""), 3000);
             }
         };
 
@@ -26,12 +28,31 @@ const SuspendService = () => {
 
     const handleSuspend = async (e) => {
         e.preventDefault();
+
+        if (!selectedServiceId) {
+            setMessage("❌ Please select a service.");
+            setTimeout(() => setMessage(""), 3000);
+            return;
+        }
+
         try {
             const success = await suspendService({ service_id: selectedServiceId });
-            setMessage(success ? "✅ Service suspended successfully." : "❌ Failed to suspend service.");
+            if (success) {
+                setSelectedServiceId("");
+                setShowSuccessBox(true);
+            } else {
+                setMessage("❌ Failed to suspend service.");
+                setTimeout(() => setMessage(""), 3000);
+            }
         } catch (err) {
-            setMessage("An error occurred during suspension.");
+            setMessage("❌ An error occurred during suspension.");
+            setTimeout(() => setMessage(""), 3000);
         }
+    };
+
+    const handleSuccessClose = () => {
+        setShowSuccessBox(false);
+        navigate(-1);
     };
 
     return (
@@ -47,17 +68,26 @@ const SuspendService = () => {
                         <option value="">Select Service to Suspend</option>
                         {services.map((svc) => (
                             <option key={svc.service_id} value={svc.service_id}>
-                                {svc.service} — ${svc.price}
+                                {svc.service} — ${parseFloat(svc.price).toFixed(2)}
                             </option>
                         ))}
                     </select>
 
                     <button type="submit" className="red-button">Suspend Service</button>
-                    {message && <p>{message}</p>}
+                    {message && <p className="error-text">{message}</p>}
                 </form>
             </div>
 
             <button className="back-button" onClick={() => navigate(-1)}>← Back</button>
+
+            {showSuccessBox && (
+                <div className="modal-overlay">
+                    <div className="modal-box">
+                        <h3>✅ Service Suspended Successfully</h3>
+                        <button onClick={handleSuccessClose} className="back-button">OK</button>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

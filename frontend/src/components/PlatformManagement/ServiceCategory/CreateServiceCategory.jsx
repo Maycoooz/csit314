@@ -7,22 +7,37 @@ const CreateServiceCategory = () => {
     const [newCategory, setNewCategory] = useState("");
     const [newDescription, setNewDescription] = useState("");
     const [message, setMessage] = useState("");
+    const [showSuccessBox, setShowSuccessBox] = useState(false);
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        if (!newCategory.trim() || !newDescription.trim()) {
+            setMessage("❌ All fields are required.");
+            setTimeout(() => setMessage(""), 3000);
+            return;
+        }
+
         try {
             const success = await createServiceCategory(newCategory, newDescription);
             if (success) {
-                setMessage("✅ Category created successfully.");
                 setNewCategory("");
                 setNewDescription("");
+                setShowSuccessBox(true);
             } else {
                 setMessage("❌ Failed to create category.");
+                setTimeout(() => setMessage(""), 3000);
             }
         } catch (err) {
             setMessage("❌ Error occurred while creating category.");
+            setTimeout(() => setMessage(""), 3000);
         }
+    };
+
+    const handleSuccessClose = () => {
+        setShowSuccessBox(false);
+        //navigate(-1);
     };
 
     return (
@@ -45,10 +60,20 @@ const CreateServiceCategory = () => {
                         required
                     />
                     <button type="submit" className="green-button">Create Category</button>
-                    {message && <p className="message-text">{message}</p>}
+                    {message && <p className="error-text">{message}</p>}
                 </form>
             </div>
+
             <button className="back-button" onClick={() => navigate(-1)}>← Back</button>
+
+            {showSuccessBox && (
+                <div className="modal-overlay">
+                    <div className="modal-box">
+                        <h3>✅ Category Created Successfully</h3>
+                        <button onClick={handleSuccessClose} className="back-button">OK</button>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

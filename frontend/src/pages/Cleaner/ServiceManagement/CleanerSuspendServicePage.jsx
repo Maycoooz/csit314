@@ -8,7 +8,6 @@ const CleanerSuspendServicePage = () => {
         <div>
             <Navbar />
             <div style={{ paddingTop: "70px", textAlign: "center" }}>
-                <h2>Suspend a Service</h2>
                 <SuspendService />
             </div>
         </div>

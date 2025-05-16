@@ -26,16 +26,16 @@ const CleanerStatisticsPage = () => {
                     ← Back
                 </button>
                 <button style={buttonStyle} onClick={() => navigate("/Cleaner/Statistics/NumberOfViews")}>
-                    Number of Views
+                    👁️ Number of Views
                 </button>
                 <button style={buttonStyle} onClick={() => navigate("/Cleaner/Statistics/ViewShortlist")}>
-                    View Shortlist
+                    ⭐ View Shortlist
                 </button>
                 <button style={buttonStyle} onClick={() => navigate("/Cleaner/Statistics/SearchPastTransactions")}>
-                    Search Past Transactions
+                    🔍 Search Past Transactions
                 </button>
                 <button style={buttonStyle} onClick={() => navigate("/Cleaner/Statistics/ViewPastTransactions")}>
-                    View Past Transactions
+                    📜 View Past Transactions
                 </button>
             </div>
         </div>

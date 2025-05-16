@@ -11,6 +11,7 @@ const UpdateService = () => {
     const [updatedService, setUpdatedService] = useState("");
     const [updatedPrice, setUpdatedPrice] = useState("");
     const [message, setMessage] = useState("");
+    const [showSuccessBox, setShowSuccessBox] = useState(false);
 
     const navigate = useNavigate();
     const cleanerUsername = localStorage.getItem("username");
@@ -23,7 +24,8 @@ const UpdateService = () => {
                 setServices(servicesData);
                 setCategories(categoryData);
             } catch (err) {
-                setMessage("Failed to load services or categories.");
+                setMessage("❌ Failed to load services or categories.");
+                setTimeout(() => setMessage(""), 3000);
             }
         };
 
@@ -32,17 +34,49 @@ const UpdateService = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        if (!selectedServiceId || !updatedCategory || !updatedService || !updatedPrice) {
+            setMessage("❌ All fields are required.");
+            setTimeout(() => setMessage(""), 3000);
+            return;
+        }
+
+        const priceValue = parseFloat(updatedPrice);
+        const isValidPrice = /^\d+(\.\d{1,2})?$/.test(updatedPrice);
+
+        if (!isValidPrice || priceValue <= 0) {
+            setMessage("❌ Price must be > 0 and up to 2 decimal places.");
+            setTimeout(() => setMessage(""), 3000);
+            return;
+        }
+
         try {
             const success = await updateService({
                 service_id: selectedServiceId,
                 updated_category: updatedCategory,
                 updated_service: updatedService,
-                updated_price: parseFloat(updatedPrice),
+                updated_price: priceValue,
             });
-            setMessage(success ? "✅ Service updated successfully." : "❌ Failed to update service.");
+
+            if (success) {
+                setSelectedServiceId("");
+                setUpdatedCategory("");
+                setUpdatedService("");
+                setUpdatedPrice("");
+                setShowSuccessBox(true);
+            } else {
+                setMessage("❌ Failed to update service.");
+                setTimeout(() => setMessage(""), 3000);
+            }
         } catch (err) {
-            setMessage("An error occurred during update.");
+            setMessage("❌ An error occurred during update.");
+            setTimeout(() => setMessage(""), 3000);
         }
+    };
+
+    const handleSuccessClose = () => {
+        setShowSuccessBox(false);
+        navigate(-1);
     };
 
     return (
@@ -59,7 +93,7 @@ const UpdateService = () => {
                         <option value="">Select Service</option>
                         {services.map((svc) => (
                             <option key={svc.service_id} value={svc.service_id}>
-                                {svc.service} — ${svc.price}
+                                {svc.service} — ${parseFloat(svc.price).toFixed(2)}
                             </option>
                         ))}
                     </select>
@@ -89,19 +123,30 @@ const UpdateService = () => {
 
                     <label>New Price:</label>
                     <input
-                        type="number"
+                        type="text"
                         placeholder="Enter new price"
                         value={updatedPrice}
                         onChange={(e) => setUpdatedPrice(e.target.value)}
                         required
+                        pattern="^\d+(\.\d{1,2})?$"
+                        title="Price must be a number with up to 2 decimal places"
                     />
 
                     <button type="submit" className="yellow-button">Update Service</button>
-                    {message && <p>{message}</p>}
+                    {message && <p className="error-text">{message}</p>}
                 </form>
             </div>
 
             <button className="back-button" onClick={() => navigate(-1)}>← Back</button>
+
+            {showSuccessBox && (
+                <div className="modal-overlay">
+                    <div className="modal-box">
+                        <h3>✅ Service Updated Successfully</h3>
+                        <button onClick={handleSuccessClose} className="back-button">OK</button>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

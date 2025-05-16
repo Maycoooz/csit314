@@ -1,49 +1,37 @@
-import React, { useState, useEffect } from "react";
-import {
-    viewPastTransactions,
-    filterPastTransactions
-} from "../../services/homeOwnerService";
+// src/pages/HomeOwner/FilterPastTransactionsPage.jsx
+import React, { useState } from "react";
+import { filterPastTransactions } from "../../../services/homeOwnerService";
 import { useNavigate } from "react-router-dom";
-import "../../styles/HomeOwner/ViewPastTransactions.css";
+import "../../../styles/HomeOwner/PastTransactions/FilterPastTransactions.css";
 
-const ViewPastTransactions = () => {
-    const [transactions, setTransactions] = useState([]);
-    const [filtered, setFiltered] = useState([]);
+const FilterPastTransactions = () => {
     const [filter, setFilter] = useState("");
+    const [filtered, setFiltered] = useState([]);
     const [error, setError] = useState("");
     const [showModal, setShowModal] = useState(false);
     const navigate = useNavigate();
-
     const homeownerUsername = localStorage.getItem("username");
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const data = await viewPastTransactions(homeownerUsername);
-                setTransactions(data);
-            } catch (err) {
-                setTransactions([]);
-                setError("❌ Failed to load transactions.");
-            }
-        };
-
-        fetchData();
-    }, [homeownerUsername]);
-
     const handleFilter = async () => {
-        if (!filter) return;
+        if (!filter) {
+            setError("❌ Please enter a filter value.");
+            setTimeout(() => setError(""), 3000);
+            return;
+        }
 
         try {
             const data = await filterPastTransactions(homeownerUsername, filter);
             setFiltered(data);
             setShowModal(true);
             document.body.classList.add("modal-open");
+            setError("");
         } catch (err) {
             setFiltered([]);
             setError("❌ Failed to filter transactions.");
+            setTimeout(() => setError(""), 3000);
         }
 
-        setFilter(""); // clear input after filter
+        setFilter("");
     };
 
     const closeModal = () => {
@@ -66,34 +54,6 @@ const ViewPastTransactions = () => {
                 </div>
                 {error && <p className="error-text">{error}</p>}
             </div>
-
-            <div className="transactions-table-box">
-                <h3>All Transactions</h3>
-                <table className="transactions-table">
-                    <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>Cleaner</th>
-                            <th>Service</th>
-                            <th>Category</th>
-                            <th>Price</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {transactions.map((tx, index) => (
-                            <tr key={index}>
-                                <td>{tx.date}</td>
-                                <td>{tx.cleaner_username}</td>
-                                <td>{tx.service}</td>
-                                <td>{tx.category}</td>
-                                <td>${tx.price.toFixed(2)}</td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
-
-            <button className="back-button" onClick={() => navigate(-1)}>← Back</button>
 
             {showModal && (
                 <div className="modal-overlay">
@@ -128,8 +88,10 @@ const ViewPastTransactions = () => {
                     </div>
                 </div>
             )}
+
+            <button className="back-button" onClick={() => navigate(-1)}>← Back</button>
         </div>
     );
 };
 
-export default ViewPastTransactions;
+export default FilterPastTransactions;

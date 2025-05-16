@@ -6,6 +6,7 @@ import "../../../styles/PlatformManagement/ServiceCategory/ViewAllServiceCategor
 const ViewServiceCategory = () => {
     const [categories, setCategories] = useState([]);
     const [error, setError] = useState("");
+    const [showModal, setShowModal] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -13,6 +14,8 @@ const ViewServiceCategory = () => {
             try {
                 const data = await viewAllServiceCategories();
                 setCategories(data);
+                setShowModal(true);
+                document.body.classList.add("modal-open");
             } catch (err) {
                 setError("❌ Failed to load service categories.");
             }
@@ -21,34 +24,47 @@ const ViewServiceCategory = () => {
         fetchData();
     }, []);
 
+    const closeModal = () => {
+        setShowModal(false);
+        document.body.classList.remove("modal-open");
+        navigate(-1);
+    };
+
     return (
         <div className="view-category-container">
-            <div className="view-category-box">
-                <h2>All Service Categories</h2>
-                {error && <p className="error-text">{error}</p>}
-                {!error && categories.length === 0 && <p>No categories found.</p>}
-                {!error && categories.length > 0 && (
-                    <table className="category-table">
-                        <thead>
-                            <tr>
-                                <th>Category</th>
-                                <th>Description</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {categories.map((cat, index) => (
-                                <tr key={index}>
-                                    <td>{cat.category}</td>
-                                    <td>{cat.description}</td>
-                                    <td>{cat.status}</td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                )}
-            </div>
-            <button className="back-button" onClick={() => navigate(-1)}>← Back</button>
+            {error && <p className="error-text">{error}</p>}
+
+            {showModal && (
+                <div className="modal-overlay">
+                    <div className="modal-box">
+                        <h2>All Service Categories</h2>
+                        {categories.length > 0 ? (
+                            <table className="category-table">
+                                <thead>
+                                    <tr>
+                                        <th>Category</th>
+                                        <th>Description</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {categories.map((cat, index) => (
+                                        <tr key={index}>
+                                            <td>{cat.category}</td>
+                                            <td>{cat.description}</td>
+                                            <td>{cat.status}</td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        ) : (
+                            <p>No categories found.</p>
+                        )}
+                        <br />
+                        <button className="back-button" onClick={closeModal}>OK</button>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

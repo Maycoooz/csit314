@@ -24,10 +24,10 @@ const PlatformManagementDashboardPage = () => {
                 <p>Select a section to manage:</p>
                 <div>
                     <button onClick={() => navigate("/PlatformManagement/ServiceCategory")} style={buttonStyle}>
-                        Service Category Management
+                        🗂️ Service Category Management
                     </button>
                     <button onClick={() => navigate("/PlatformManagement/Report")} style={buttonStyle}>
-                        Reports
+                        📊 Reports
                     </button>
                 </div>
             </div>

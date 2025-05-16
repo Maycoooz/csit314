@@ -9,6 +9,7 @@ const CreateService = () => {
     const [newService, setNewService] = useState("");
     const [newPrice, setNewPrice] = useState("");
     const [message, setMessage] = useState("");
+    const [showSuccessBox, setShowSuccessBox] = useState(false);
     const navigate = useNavigate();
 
     const cleanerUsername = localStorage.getItem("username");
@@ -19,7 +20,8 @@ const CreateService = () => {
                 const data = await getAvailableCategories();
                 setCategories(data);
             } catch (err) {
-                setMessage("Failed to load categories.");
+                setMessage("❌ Failed to load categories.");
+                setTimeout(() => setMessage(""), 3000);
             }
         };
 
@@ -28,6 +30,22 @@ const CreateService = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        if (!selectedCategory || !newService || !newPrice) {
+            setMessage("❌ All fields are required.");
+            setTimeout(() => setMessage(""), 3000);
+            return;
+        }
+
+        const priceValue = parseFloat(newPrice);
+        const isValidPrice = /^\d+(\.\d{1,2})?$/.test(newPrice);
+
+        if (!isValidPrice || priceValue <= 0) {
+            setMessage("❌ Price must be a number > 0 with up to 2 decimal places.");
+            setTimeout(() => setMessage(""), 3000);
+            return;
+        }
+
         try {
             const success = await createService({
                 cleaner_username: cleanerUsername,
@@ -35,10 +53,25 @@ const CreateService = () => {
                 new_service: newService,
                 new_price: parseFloat(newPrice),
             });
-            setMessage(success ? "✅ Service created successfully!" : "❌ Failed to create service.");
+
+            if (success) {
+                setSelectedCategory("");
+                setNewService("");
+                setNewPrice("");
+                setShowSuccessBox(true);
+            } else {
+                setMessage("❌ Failed to create service.");
+                setTimeout(() => setMessage(""), 3000);
+            }
         } catch (err) {
-            setMessage("An error occurred while creating service.");
+            setMessage("❌ An error occurred while creating service.");
+            setTimeout(() => setMessage(""), 3000);
         }
+    };
+
+    const handleSuccessClose = () => {
+        setShowSuccessBox(false);
+        //navigate(-1);
     };
 
     return (
@@ -75,14 +108,26 @@ const CreateService = () => {
                         placeholder="Enter price"
                         value={newPrice}
                         onChange={(e) => setNewPrice(e.target.value)}
+                        pattern="^\d+(\.\d{1,2})?$"
+                        title="Enter a valid price with up to 2 decimal places"
                         required
                     />
 
                     <button type="submit" className="green-button">Create Service</button>
-                    {message && <p>{message}</p>}
+                    {message && <p className="error-text">{message}</p>}
                 </form>
             </div>
+
             <button className="back-button" onClick={() => navigate(-1)}>← Back</button>
+
+            {showSuccessBox && (
+                <div className="modal-overlay">
+                    <div className="modal-box">
+                        <h3>✅ Service Created Successfully</h3>
+                        <button onClick={handleSuccessClose} className="back-button">OK</button>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

@@ -26,19 +26,19 @@ const CleanerServiceManagementPage = () => {
                     ← Back
                 </button>
                 <button style={buttonStyle} onClick={() => navigate("/Cleaner/ServiceManagement/CreateService")}>
-                    Create Service
+                    ➕ Create Service
                 </button>
                 <button style={buttonStyle} onClick={() => navigate("/Cleaner/ServiceManagement/ViewAllServices")}>
-                    View All Services
+                    📋 View All Services
                 </button>
                 <button style={buttonStyle} onClick={() => navigate("/Cleaner/ServiceManagement/SearchService")}>
-                    Search Services
+                    🔍 Search Services
                 </button>
                 <button style={buttonStyle} onClick={() => navigate("/Cleaner/ServiceManagement/UpdateService")}>
-                    Update Service
+                    🔄 Update Service
                 </button>
                 <button style={buttonStyle} onClick={() => navigate("/Cleaner/ServiceManagement/SuspendService")}>
-                    Suspend Service
+                    🚫 Suspend Service
                 </button>
             </div>
         </div>

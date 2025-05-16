@@ -8,7 +8,6 @@ const ViewUsersByRolePage = () => {
         <div>
             <Navbar />
             <div style={{ paddingTop: "70px", textAlign: "center" }}>
-                <h2>View Users by Role</h2>
                 <ViewUsersByRole />
             </div>
         </div>
