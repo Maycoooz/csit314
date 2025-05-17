@@ -21,6 +21,18 @@ const LoginForm = () => {
     
     const closeSuccessAlert = () => {
         setShowSuccessAlert(false);
+        if (selectedRole.toLowerCase() === "admin") {
+            navigate("/Admin/Admin-Dashboard");
+                        
+        } else if (selectedRole.toLowerCase() === "cleaner") {
+            navigate("/Cleaner/Cleaner-Dashboard");
+                    
+        } else if (selectedRole.toLowerCase() === "home owner") {
+            navigate("/Home-Owner-Dashboard");
+                    
+        } else if (selectedRole.toLowerCase() === "platform management") {
+            navigate("/PlatformManagement/Platform-Management-Dashboard");
+        } 
     };
 
     useEffect(() => {

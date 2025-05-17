@@ -57,7 +57,7 @@
 }
 
 .service-table button {
-    background-color: rgb(65, 129, 172);
+    background-color: rgb(53, 176, 204);
     color: white;
     border: none;
     padding: 6px 12px;
@@ -68,7 +68,7 @@
 }
 
 .service-table button:hover {
-    background-color: rgb(50, 110, 150);
+    background-color: rgb(31, 131, 161);
 }
 
 .service-table button:disabled {
